@@ -53,7 +53,7 @@ const deletePlan = asyncHandler(async (req, res) => {
 		throw new Error('Plan not found');
 	}
 
-	await Plan.remove(plan);
+	await plan.remove();
 
 	res.status(200).json({ id: req.params.id });
 });
