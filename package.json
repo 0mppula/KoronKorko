@@ -10,11 +10,15 @@
   "author": "Omar Kraidié",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^6.2.9"
+    "i": "^0.3.7",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9",
+    "npm": "^8.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
