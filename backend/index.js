@@ -4,7 +4,7 @@ const colors = require('colors');
 const port = process.env.PORT || 5000;
 const { errorHandler } = require('./middleware/errorMiddleware');
 
-const connectDB = require('../config/db');
+const connectDB = require('../backend/config/db');
 connectDB()
 
 const app = express();
