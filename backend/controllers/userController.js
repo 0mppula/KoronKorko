@@ -10,7 +10,7 @@ const User = require('../models/userModel');
 const registerUser = asyncHandler(async (req, res) => {
 	const { username, email, password } = req.body;
 
-  // Check fields
+	// Check fields
 	if (!username || !email || !password) {
 		throw new Error('Please add all fields');
 	}
@@ -34,12 +34,13 @@ const registerUser = asyncHandler(async (req, res) => {
 		password: hashedPassword,
 	});
 
-  // check if user is created successfully
+	// check if user is created successfully
 	if (user) {
 		res.status(201).json({
 			_id: user._id,
 			username: user.username,
 			email: user.email,
+			token: generateToken(user._id),
 		});
 	} else {
 		res.status(400);
@@ -51,15 +52,42 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
-	res.json({ message: 'Login user' });
+	const { email, password } = req.body;
+
+	const user = await User.findOne({ email });
+
+	if (user && (await bcrypt.compare(password, user.password))) {
+		res.status(201).json({
+			_id: user._id,
+			username: user.username,
+			email: user.email,
+			token: generateToken(user._id),
+		});
+	} else {
+		res.status(400);
+		throw new Error('Invalid credentials');
+	}
 });
 
 // @desc    Get user data
 // @route   GET /api/users/me
-// @access  Public
+// @access  Private
 const getUserData = asyncHandler(async (req, res) => {
-	res.json({ message: 'Get user data' });
+	const { _id, username, email } = await User.findById(req.user.id);
+
+	res.status(200).json({
+		_id,
+		username,
+		email,
+	});
 });
+
+// Generate JWT
+const generateToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
+		expiresIn: '30d',
+	});
+};
 
 module.exports = {
 	registerUser,
