@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node backend/index.js",
     "server": "nodemon backend/index.js",
-    "client": "npm start --prefix frontend"
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "Omar Kraidié",
   "license": "MIT",
@@ -21,6 +22,7 @@
     "npm": "^8.7.0"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.15"
   }
 }
