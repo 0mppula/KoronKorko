@@ -1,7 +1,8 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": true,
+  "proxy": "http://localhost:5000/",
+  "private": true,  
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^4.2.4",
