@@ -40,17 +40,14 @@ const updatePlan = asyncHandler(async (req, res) => {
 		throw new Error('Plan not found');
 	}
 
-	// Get user from database
-	const user = await User.findById(req.user.id);
-
 	// Check if user exists
-	if (!user) {
+	if (!req.user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
 	// Make sure logged in user matches the plans user
-	if (plan.user.toString() !== user.id) {
+	if (plan.user.toString() !== req.user.id) {
 		res.status(401);
 		throw new Error('User not authorized');
 	}
@@ -71,17 +68,14 @@ const deletePlan = asyncHandler(async (req, res) => {
 		throw new Error('Plan not found');
 	}
 
-	// Get user from database
-	const user = await User.findById(req.user.id);
-
 	// Check if user exists
-	if (!user) {
+	if (!req.user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
 	// Make sure logged in user matches the plans user
-	if (plan.user.toString() !== user.id) {
+	if (plan.user.toString() !== req.user.id) {
 		res.status(401);
 		throw new Error('User not authorized');
 	}

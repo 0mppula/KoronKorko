@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
 
 // Get user from localstorage
-const user = JSON.parse(localStorage.getItem('user'));
+let user;
+try {
+	user = JSON.parse(localStorage.getItem('user'));
+} catch (error) {
+	user = null;
+}
 
 const initialState = {
 	user: user ? user : null,
@@ -13,9 +18,9 @@ const initialState = {
 };
 
 // Register user
-export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
+export const register = createAsyncThunk('auth/register', async (userData, thunkAPI) => {
 	try {
-		return await authService.register(user);
+		return await authService.register(userData);
 	} catch (error) {
 		const message =
 			(error.response && error.response.data && error.response.data.message) ||
@@ -23,6 +28,24 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
 			error.toString();
 		return thunkAPI.rejectWithValue(message);
 	}
+});
+
+// Login usser
+export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
+	try {
+		return await authService.login(userData);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});
+
+// Logout user
+export const logout = createAsyncThunk('auth/logout', async () => {
+	await authService.logout();
 });
 
 export const authSlice = createSlice({
@@ -38,6 +61,7 @@ export const authSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
+			// Register
 			.addCase(register.pending, (state) => {
 				state.isLoading = true;
 			})
@@ -50,6 +74,25 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.isError = true;
 				state.message = action.payload;
+				state.user = null;
+			})
+			// Login
+			.addCase(login.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(login.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.user = action.payload;
+			})
+			.addCase(login.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
+				state.user = null;
+			})
+			// Logout
+			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
 			});
 	},
