@@ -105,7 +105,7 @@ li a:hover {
 
 .heading {
 	text-align: center;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	font-weight: 700;
 	margin-bottom: 50px;
 	padding: 0 20px;
@@ -129,6 +129,12 @@ li a:hover {
 }
 
 .form-group {
+	margin-bottom: 10px;
+}
+
+.form-group label {
+	user-select: none;
+	display: inline-block;
 	margin-bottom: 10px;
 }
 

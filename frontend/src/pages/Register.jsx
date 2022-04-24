@@ -33,7 +33,7 @@ const Register = () => {
 		dispatch(reset());
 	}, [user, isError, isSuccess, message, dispatch, navigate]);
 
-	const onChange = (e) => {
+	const handleChange = (e) => {
 		setFormData((prev) => ({
 			...prev,
 			[e.target.name]: e.target.value,
@@ -79,7 +79,7 @@ const Register = () => {
 							name="username"
 							id="username"
 							value={username}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
@@ -90,7 +90,7 @@ const Register = () => {
 							name="email"
 							id="email"
 							value={email}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
@@ -101,7 +101,7 @@ const Register = () => {
 							name="password"
 							id="password"
 							value={password}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
@@ -112,7 +112,7 @@ const Register = () => {
 							name="password2"
 							id="password2"
 							value={password2}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="from-group">

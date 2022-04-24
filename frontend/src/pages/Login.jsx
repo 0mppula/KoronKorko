@@ -31,7 +31,7 @@ const Login = () => {
 		dispatch(reset());
 	}, [user, isError, isSuccess, message, dispatch, navigate]);
 
-	const onChange = (e) => {
+	const handleChange = (e) => {
 		setFormData((prev) => ({
 			...prev,
 			[e.target.name]: e.target.value,
@@ -72,7 +72,7 @@ const Login = () => {
 							name="email"
 							id="email"
 							value={email}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
@@ -83,7 +83,7 @@ const Login = () => {
 							name="password"
 							id="password"
 							value={password}
-							onChange={(e) => onChange(e)}
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
