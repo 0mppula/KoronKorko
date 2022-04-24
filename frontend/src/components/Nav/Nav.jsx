@@ -3,26 +3,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { reset, logout } from '../features/auth/authSlice';
+import { reset, logout } from '../../features/auth/authSlice';
+import './Nav.css';
 
 const Nav = () => {
 	const dispatch = useDispatch();
-	const naviagate = useNavigate();
+	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.auth);
 
 	const handleLogout = () => {
-		console.log('logout');
 		dispatch(logout());
 		dispatch(reset());
-		naviagate('/');
+		navigate('/login');
 	};
 
 	return (
-		<nav className="header">
+		<nav className="navbar">
 			<div className="logo">
-				<Link to="/">Home</Link>
+				<Link to="/">
+					<h1>
+						<span>K</span>oron<span>K</span>orko
+					</h1>
+				</Link>
 			</div>
-			<ul>
+			<ul className="nav-links">
 				{/* No user */}
 				{!user ? (
 					<>
@@ -41,10 +45,10 @@ const Nav = () => {
 				) : (
 					<>
 						<li>{user.username}</li>
-						<li>
-							<button className="btn" onClick={handleLogout}>
+						<li onClick={handleLogout}>
+							<a>
 								<FaSignOutAlt /> Logout
-							</button>
+							</a>
 						</li>
 					</>
 				)}

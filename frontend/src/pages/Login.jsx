@@ -5,7 +5,7 @@ import { reset, login } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Spinner from '../components/Spinner';
+import Spinner from '../components/Loading/Loading';
 
 const Login = () => {
 	const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ const Login = () => {
 		}
 
 		if (isSuccess || user) {
-			navigate('/');
+			navigate('/');	
 		}
 
 		dispatch(reset());
