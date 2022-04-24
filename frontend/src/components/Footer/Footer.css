@@ -1,0 +1,6 @@
+.footer {
+	padding: 2.75rem 0 1.5rem;
+	background: var(--clr-background-L1);
+	color: var(--clr-text-primary);
+	border-top: solid 2px var(--clr-primary);
+}

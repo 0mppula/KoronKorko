@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 
+import CompoundInterestReport from '../components/CompoundInterestReport/CompoundInterestReport';
+import { formatCurrency } from '../utils/format'
+
 const CompoundInterestCalculator = () => {
 	const [formData, setFormData] = useState({
 		startingBalance: '',
 		interestRate: '',
 		duration: '',
+	});
+	const [report, setReport] = useState({
+		startingBalance: 0,
+		futureValue: 0,
+		totalProfit: 0,
+		annualizedReturn: 0,
 	});
 
 	const { startingBalance, interestRate, duration } = formData;
@@ -13,18 +22,32 @@ const CompoundInterestCalculator = () => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
-	const handleSubmit = (e) => {
+	const handleCalculation = (e) => {
 		e.preventDefault();
+		const rate = interestRate / 100 + 1;
+		const value = (startingBalance * rate ** duration).toFixed(2);
+		const totalProfit = formatCurrency(value - startingBalance, 'en-US', 'USD');
+
+		console.log(totalProfit);
+
+		setReport({
+			startingBalance,
+			futureValue: value,
+			totalProfit,
+			annualizedReturn: interestRate,
+		});
 	};
 
 	return (
 		<>
 			<section className="heading">
-				<h1>Compound Interest Calculator</h1>
+				<h1>
+					<span>C</span>ompound&nbsp;<span>I</span>nterest&nbsp;<span>C</span>alculator
+				</h1>
 			</section>
 
 			<div className="form">
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleCalculation}>
 					<div className="form-group">
 						<label htmlFor="startingBalance">Starting Balance</label>
 						<input
@@ -60,8 +83,13 @@ const CompoundInterestCalculator = () => {
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
+
+					<div className="form-group">
+						<button className="btn btn-block">Calculate</button>
+					</div>
 				</form>
 			</div>
+			<CompoundInterestReport report={report} />
 		</>
 	);
 };

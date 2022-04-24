@@ -64,9 +64,9 @@ const Register = () => {
 		<>
 			<section className="heading">
 				<h1>
-					<FaUser /> Register
+					<FaUser /> <span>R</span>egister
 				</h1>
-				<p>Please create an account</p>
+				<p>Create a KoronKorko account</p>
 			</section>
 
 			<section className="form">

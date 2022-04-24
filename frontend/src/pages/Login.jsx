@@ -57,9 +57,9 @@ const Login = () => {
 		<>
 			<section className="heading">
 				<h1>
-					<FaSignInAlt /> Login
+					<FaSignInAlt /> <span>L</span>ogin
 				</h1>
-				<p>Login to the site</p>
+				<p>Login to KoronKorko</p>
 			</section>
 
 			<section className="form">
@@ -68,6 +68,7 @@ const Login = () => {
 						<input
 							className="form-control"
 							placeholder="Enter your email"
+							autoComplete="false"
 							type="text"
 							name="email"
 							id="email"

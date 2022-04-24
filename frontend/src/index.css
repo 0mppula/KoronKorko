@@ -26,6 +26,15 @@
 	--nav-heigth: 3.35rem;
 	--box-shadow: 0px 0px 10px 0px rgb(27 27 27 / 35%);
 	--nav-height: 4rem;
+	/* Toast styles */
+	--toastify-color-light: var(--clr-background-L1) !important;
+	--toastify-color-dark: var(--clr-background-L1) !important;
+	--toastify-text-color-light: var(--clr-text-primary) !important;
+	--toastify-text-color-dark: var(--clr-text-primary) !important;
+	--toastify-icon-color-success: var(--clr-success) !important;
+	--toastify-icon-color-error: var(--clr-danger) !important;
+	--toastify-color-progress-success: var(--clr-success) !important;
+	--toastify-color-progress-error: var(--clr-danger) !important;
 }
 
 .darkmode {
@@ -97,9 +106,10 @@ li a:hover {
 	display: flex;
 	flex-direction: column;
 	min-height: calc(100vh - var(--nav-heigth));
-	width: min(1200px, 95vw);
+	width: min(992px, 95vw);
 	margin: 0 auto;
 	margin-top: var(--nav-heigth);
+	padding-bottom: 2rem;
 	align-items: center;
 }
 
@@ -109,6 +119,7 @@ li a:hover {
 	font-weight: 700;
 	margin-bottom: 50px;
 	padding: 0 20px;
+	user-select: none;
 }
 
 .heading h1 {
@@ -116,20 +127,36 @@ li a:hover {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 0.75rem;
+}
+
+.heading span {
+	color: var(--clr-primary);
 }
 
 .heading p {
 	color: var(--clr-primary-opacity-high);
 }
 
+.heading svg {
+	margin-right: 0.75rem;
+}
+
 .form {
 	width: min(90%, 650px);
 	margin: 0 auto;
+	padding: 2rem;
+	border-radius: 4px;
+	background-color: var(--clr-background-L1);
+	border: solid 2px var(--clr-primary);
+	margin-bottom: 2rem;
 }
 
 .form-group {
 	margin-bottom: 10px;
+}
+
+.form-group:last-child {
+	margin-bottom: 0px;
 }
 
 .form-group label {
@@ -148,7 +175,7 @@ li a:hover {
 	margin-bottom: 10px;
 	font-family: var(--font-main);
 	color: var(--clr-text-primary);
-	background-color: var(--clr-background-L1);
+	background-color: var(--clr-background-L2);
 }
 
 /* Override autofill styles */
@@ -164,17 +191,16 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus,
 select:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 1000px var(--clr-background-L1) inset !important
+	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L2) inset !important;
 }
 
 input:focus,
 textarea:focus {
-	background-color: var(--clr-background-L2);
+	background-color: var(--clr-background-L3);
 	outline: solid 2px var(--clr-primary);
 }
 
 .btn {
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	text-align: center;

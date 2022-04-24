@@ -1,0 +1,31 @@
+.report-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+.report-top {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.report-group {
+    text-align: center;
+    flex: 1 1 25%;
+    margin-bottom: 1rem;
+}
+
+.report-group h2 {
+    font-size: 2rem;
+}
+
+.report-group p {
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 992px) {
+    .report-group {
+        text-align: center;
+        flex: 1 1 50%;
+    }
+}

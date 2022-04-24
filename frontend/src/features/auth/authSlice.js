@@ -94,9 +94,11 @@ export const authSlice = createSlice({
 			// Logout
 			.addCase(logout.pending, (state) => {
 				state.user = null;
+				state.isLoading = true;
 			})
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
+				state.isLoading = false;
 			});
 	},
 });
