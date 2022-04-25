@@ -62,7 +62,7 @@ const Register = () => {
 
 	return (
 		<>
-			<section className="heading">
+			<section className="heading authentication">
 				<h1>
 					<FaUser /> <span>R</span>egister
 				</h1>

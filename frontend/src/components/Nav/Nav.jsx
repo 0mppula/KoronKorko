@@ -4,7 +4,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { reset, logout } from '../../features/auth/authSlice';
-import './Nav.css';
+import './styles.css';
 
 const Nav = () => {
 	const dispatch = useDispatch();

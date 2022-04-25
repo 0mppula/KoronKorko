@@ -5,6 +5,7 @@
 
 .report-top {
     display: flex;
+    row-gap: 1rem;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -12,7 +13,6 @@
 .report-group {
     text-align: center;
     flex: 1 1 25%;
-    margin-bottom: 1rem;
 }
 
 .report-group h2 {
@@ -25,7 +25,12 @@
 
 @media only screen and (max-width: 992px) {
     .report-group {
-        text-align: center;
         flex: 1 1 50%;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .report-group {
+        flex: 1 1 100%;
     }
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import CompoundInterestReport from '../components/CompoundInterestReport/CompoundInterestReport';
-import { formatCurrency } from '../utils/format'
 
 const CompoundInterestCalculator = () => {
 	const [formData, setFormData] = useState({
@@ -13,7 +12,7 @@ const CompoundInterestCalculator = () => {
 		startingBalance: 0,
 		futureValue: 0,
 		totalProfit: 0,
-		annualizedReturn: 0,
+		totalReturn: 0,
 	});
 
 	const { startingBalance, interestRate, duration } = formData;
@@ -24,17 +23,17 @@ const CompoundInterestCalculator = () => {
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
-		const rate = interestRate / 100 + 1;
-		const value = (startingBalance * rate ** duration).toFixed(2);
-		const totalProfit = formatCurrency(value - startingBalance, 'en-US', 'USD');
 
-		console.log(totalProfit);
+		const rate = +interestRate / 100 + 1;
+		const futureValue = +(startingBalance * rate ** duration).toFixed(2);
+		const totalProfit = +(futureValue - startingBalance);
+		const totalReturn = +(futureValue / startingBalance - 1) * 100;
 
 		setReport({
 			startingBalance,
-			futureValue: value,
+			futureValue,
 			totalProfit,
-			annualizedReturn: interestRate,
+			totalReturn,
 		});
 	};
 
