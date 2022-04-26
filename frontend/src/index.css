@@ -185,26 +185,11 @@ li a:hover {
 	font-family: var(--font-main);
 	color: var(--clr-text-primary);
 	background-color: var(--clr-background-L2);
+	font-size: 1rem;
 }
 
 .split input {
 	width: 50%;
-}
-
-/* Override autofill styles */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-textarea:-webkit-autofill:active,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus,
-select:-webkit-autofill:active {
-	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L2) inset !important;
 }
 
 input:focus,
@@ -241,35 +226,6 @@ textarea:focus {
 	cursor: pointer;
 }
 
-/* React select */
-.react-select__control {
-	background-color: var(--bg-secondary);
-	border-color: var(--border-color);
-	transition: none;
-	background-color: var(--clr-background-L1) !important;
-	box-shadow: none !important;
-}
-
-.react-select__menu {
-	background-color: var(--bg-secondary);
-	border: 1px solid var(--border-color);
-	background-color: var(--clr-background-L1) !important;
-}
-
-.react-select__option:hover {
-	background-color: #68498d !important;
-}
-
-.react-select__indicator-separator {
-	background-color: var(--clr-text-primary) !important;
-}
-
-.react-select__placeholder,
-.react-select__single-value {
-	color: var(--clr-text-primary) !important;
-}
-/* End React select */
-
 /* Media Queries */
 @media only screen and (max-width: 480px) {
 	.container {
@@ -277,3 +233,48 @@ textarea:focus {
 	}
 }
 /* End Media Queries */
+
+/* React Select Styles */
+.react-select__control {
+	font-size: 1rem !important;
+	background-color: var(--clr-background-L2) !important;
+	border: none !important;
+}
+.react-select__control--is-focused {
+	background-color: var(--clr-background-L3) !important;
+	border: none !important;
+}
+.react-select__menu {
+	background-color: var(--clr-background-L2) !important;
+}
+.react-select__option {
+	font-size: 1rem !important;
+	color: var(--clr-text-primary) !important;
+}
+.react-select__option--is-focused:active {
+	color: var(--clr-white) !important;
+}
+.react-select__option--is-selected {
+	color: var(--clr-white) !important;
+}
+.react-select__indicator-separator {
+	display: none;
+}
+/* End React Select Styles */
+
+
+/* Override autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L2) inset !important;
+}
