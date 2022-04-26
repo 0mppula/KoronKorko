@@ -168,6 +168,7 @@ li a:hover {
 }
 
 .form-group label {
+	width: 100%;
 	user-select: none;
 	display: inline-block;
 	margin-bottom: 10px;
@@ -184,6 +185,10 @@ li a:hover {
 	font-family: var(--font-main);
 	color: var(--clr-text-primary);
 	background-color: var(--clr-background-L2);
+}
+
+.split input {
+	width: 50%;
 }
 
 /* Override autofill styles */
@@ -235,6 +240,35 @@ textarea:focus {
 	user-select: none;
 	cursor: pointer;
 }
+
+/* React select */
+.react-select__control {
+	background-color: var(--bg-secondary);
+	border-color: var(--border-color);
+	transition: none;
+	background-color: var(--clr-background-L1) !important;
+	box-shadow: none !important;
+}
+
+.react-select__menu {
+	background-color: var(--bg-secondary);
+	border: 1px solid var(--border-color);
+	background-color: var(--clr-background-L1) !important;
+}
+
+.react-select__option:hover {
+	background-color: #68498d !important;
+}
+
+.react-select__indicator-separator {
+	background-color: var(--clr-text-primary) !important;
+}
+
+.react-select__placeholder,
+.react-select__single-value {
+	color: var(--clr-text-primary) !important;
+}
+/* End React select */
 
 /* Media Queries */
 @media only screen and (max-width: 480px) {

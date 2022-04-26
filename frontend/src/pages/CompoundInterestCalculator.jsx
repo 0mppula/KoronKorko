@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 import CompoundInterestReport from '../components/CompoundInterestReport/CompoundInterestReport';
 
@@ -14,6 +15,15 @@ const CompoundInterestCalculator = () => {
 		totalProfit: 0,
 		totalReturn: 0,
 	});
+
+	const options = [
+		{ value: '1', label: 'Months' },
+		{ value: '12', label: 'Years' },
+		{ value: 'x', label: 'Months 2' },
+		{ value: 'xx', label: 'Years 2' },
+		{ value: 'xxx', label: 'Months 3' },
+		{ value: 'xxxx', label: 'Years 3' },
+	];
 
 	const { startingBalance, interestRate, duration } = formData;
 
@@ -35,6 +45,34 @@ const CompoundInterestCalculator = () => {
 			totalProfit,
 			totalReturn,
 		});
+	};
+
+	const customStyles = {
+		container: (provided, state) => ({
+			...provided,
+			width: '50%',
+		}),
+		control: (provided, state) => ({
+			...provided,
+			border: state.isFocused ? 0 : 0,
+			// This line disable the blue border
+			outline: state.isFocused
+				? `2px solid ${getComputedStyle(document.documentElement).getPropertyValue(
+						'--clr-primary'
+				  )}`
+				: `1px solid ${getComputedStyle(document.documentElement).getPropertyValue(
+						'--clr-text-secondary'
+				  )}`,
+			'&:hover': {
+				outline: state.isFocused
+					? `2px solid ${getComputedStyle(document.documentElement).getPropertyValue(
+							'--clr-primary'
+					  )}`
+					: `1px solid ${getComputedStyle(document.documentElement).getPropertyValue(
+							'--clr-text-secondary'
+					  )}`,
+			},
+		}),
 	};
 
 	return (
@@ -71,7 +109,7 @@ const CompoundInterestCalculator = () => {
 						/>
 					</div>
 
-					<div className="form-group">
+					<div className="form-group split">
 						<label htmlFor="duration">Duration</label>
 						<input
 							id="duration"
@@ -80,6 +118,14 @@ const CompoundInterestCalculator = () => {
 							type="text"
 							value={duration}
 							onChange={(e) => handleChange(e)}
+						/>
+						<Select
+							className="react-select-container"
+							classNamePrefix="react-select"
+							defaultValue={options[0]}
+							options={options}
+							styles={customStyles}
+							menuIsOpen
 						/>
 					</div>
 
