@@ -188,10 +188,6 @@ li a:hover {
 	font-size: 1rem;
 }
 
-.split input {
-	width: 50%;
-}
-
 input:focus,
 textarea:focus {
 	background-color: var(--clr-background-L3);
@@ -235,10 +231,15 @@ textarea:focus {
 /* End Media Queries */
 
 /* React Select Styles */
+.react-select-container {
+	margin-bottom: 10px !important;
+	height: 44px !important;
+}
 .react-select__control {
 	font-size: 1rem !important;
 	background-color: var(--clr-background-L2) !important;
 	border: none !important;
+	padding: 0.25rem 0 !important;
 }
 .react-select__control--is-focused {
 	background-color: var(--clr-background-L3) !important;

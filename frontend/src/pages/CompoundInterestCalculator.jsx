@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 
-import CompoundInterestReport from '../components/CompoundInterestReport/CompoundInterestReport';
+import CompoundInterestReport from '../components/CompoundInterestCalculator/CompoundInterestReport';
+import { customStyles, customTheme } from '../utils/reactSelectStyles';
+import './styles.css';
 
 const CompoundInterestCalculator = () => {
 	const [formData, setFormData] = useState({
@@ -43,45 +45,6 @@ const CompoundInterestCalculator = () => {
 		});
 	};
 
-	const customStyles = {
-		control: (provided, state) => ({
-			...provided,
-			outline: state.isFocused
-				? `2px solid ${getComputedStyle(document.documentElement).getPropertyValue(
-						'--clr-primary'
-				  )}`
-				: `1px solid ${getComputedStyle(document.documentElement).getPropertyValue(
-						'--clr-text-secondary'
-				  )}`,
-		}),
-	};
-
-	const theme = (theme) => ({
-		...theme,
-		colors: {
-			...theme.colors,
-			primary25: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-hover'
-			)}`,
-			primary: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-primary'
-			)}`,
-			neutral40: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-primary'
-			)}`,
-			neutral20: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-text-secondary'
-			)}`,
-			// input text color
-			neutral80: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-text-primary'
-			)}`,
-			primary50: `${getComputedStyle(document.documentElement).getPropertyValue(
-				'--clr-primary'
-			)}`,
-		},
-	});
-
 	return (
 		<>
 			<section className="heading">
@@ -97,7 +60,7 @@ const CompoundInterestCalculator = () => {
 						<input
 							id="startingBalance"
 							name="startingBalance"
-							placeholder="Enter your starting balance"
+							placeholder="Your starting balance"
 							type="text"
 							value={startingBalance}
 							onChange={(e) => handleChange(e)}
@@ -109,7 +72,7 @@ const CompoundInterestCalculator = () => {
 						<input
 							id="interestRate"
 							name="interestRate"
-							placeholder="Enter your projected interest rate"
+							placeholder="Your projected interest rate"
 							type="text"
 							value={interestRate}
 							onChange={(e) => handleChange(e)}
@@ -117,23 +80,29 @@ const CompoundInterestCalculator = () => {
 					</div>
 
 					<div className="form-group split">
-						<label htmlFor="duration">Duration</label>
-						<input
-							id="duration"
-							name="duration"
-							placeholder="Enter the duration of the compoundment"
-							type="text"
-							value={duration}
-							onChange={(e) => handleChange(e)}
-						/>
-						<Select
-							className="react-select-container"
-							classNamePrefix="react-select"
-							defaultValue={options[0]}
-							options={options}
-							theme={theme}
-							styles={customStyles}
-						/>
+						<div className="input-group-container">
+							<div className="input-group">
+								<label htmlFor="duration">Duration</label>
+								<input
+									id="duration"
+									name="duration"
+									placeholder="Duration of your investment"
+									type="text"
+									value={duration}
+									onChange={(e) => handleChange(e)}
+								/>
+							</div>
+							<div className="input-group">
+								<Select
+									className="react-select-container"
+									classNamePrefix="react-select"
+									defaultValue={options[0]}
+									options={options}
+									theme={customTheme}
+									styles={customStyles}
+								/>
+							</div>
+						</div>
 					</div>
 
 					<div className="form-group">

@@ -1,0 +1,8 @@
+.input-group-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+.input-group {
+    flex: 1 1 50%;
+}
