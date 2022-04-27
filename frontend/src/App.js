@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Dashboard from '../src/pages/Dashboard';
-import Login from '../src/pages/Login';
-import Register from '../src/pages/Register';
+import Dashboard from '../src/pages/Dashboard/Dashboard';
+import Login from '../src/pages/Login/Login';
+import Register from '../src/pages/Register/Register';
 import Footer from './components/Footer/Footer';
 import Nav from './components/Nav/Nav';
-import CompoundInterestCalculator from './pages/CompoundInterestCalculator';
+import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 
 function App() {
 	return (

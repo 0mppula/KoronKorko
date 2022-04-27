@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { reset, register } from '../features/auth/authSlice';
+import { reset, register } from '../../features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 
-import Spinner from '../components/Loading/Loading';
+import Spinner from '../../components/Loading/Loading';
 
 const Register = () => {
 	const [formData, setFormData] = useState({

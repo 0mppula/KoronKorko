@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 
-import CompoundInterestReport from '../components/CompoundInterestCalculator/CompoundInterestReport';
-import { customStyles, customTheme } from '../utils/reactSelectStyles';
+import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
+import { customStyles, customTheme } from '../../utils/reactSelectStyles';
 import './styles.css';
 
 const CompoundInterestCalculator = () => {
