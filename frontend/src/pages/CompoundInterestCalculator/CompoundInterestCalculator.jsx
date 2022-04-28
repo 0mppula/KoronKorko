@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
-import { customStyles, customTheme } from '../../utils/reactSelectStyles';
+import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
+import { durations, currencies } from '../../assets/data';
 import './styles.css';
 
 const CompoundInterestCalculator = () => {
@@ -10,6 +11,7 @@ const CompoundInterestCalculator = () => {
 		startingBalance: '',
 		interestRate: '',
 		duration: '',
+		durationMultiplier: '12',
 	});
 	const [report, setReport] = useState({
 		startingBalance: 0,
@@ -17,17 +19,26 @@ const CompoundInterestCalculator = () => {
 		totalProfit: 0,
 		totalReturn: 0,
 	});
-
-	const options = [
-		{ value: '1', label: 'Months' },
-		{ value: '12', label: 'Years' },
-	];
+	const [currency, setCurrency] = useState({
+		name: 'dollar',
+		value: 'usd',
+		label: '$',
+		locale: 'en-US',
+	});
 
 	const { startingBalance, interestRate, duration } = formData;
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
+
+	const handleSelectChange = (e) => {
+		setCurrency(e);
+	};
+
+
+	console.log(currency.label);
+	console.log('currency');
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
@@ -56,15 +67,31 @@ const CompoundInterestCalculator = () => {
 			<div className="form">
 				<form onSubmit={handleCalculation}>
 					<div className="form-group">
-						<label htmlFor="startingBalance">Starting Balance</label>
-						<input
-							id="startingBalance"
-							name="startingBalance"
-							placeholder="Your starting balance"
-							type="text"
-							value={startingBalance}
-							onChange={(e) => handleChange(e)}
-						/>
+						<div className="input-group-container">
+							<div className="input-group">
+								<label htmlFor="startingBalance">Starting Balance</label>
+								<input
+									id="startingBalance"
+									name="startingBalance"
+									placeholder="Your starting balance"
+									type="text"
+									autoComplete="off"
+									value={startingBalance}
+									onChange={(e) => handleChange(e)}
+								/>
+							</div>
+							<div className="input-group">
+								<Select
+									className="react-select-container"
+									classNamePrefix="react-select"
+									theme={customTheme}
+									styles={customStyles}
+									options={currencies}
+									defaultValue={currencies[0]}
+									onChange={handleSelectChange}
+								/>
+							</div>
+						</div>
 					</div>
 
 					<div className="form-group">
@@ -74,6 +101,7 @@ const CompoundInterestCalculator = () => {
 							name="interestRate"
 							placeholder="Your projected interest rate"
 							type="text"
+							autoComplete="off"
 							value={interestRate}
 							onChange={(e) => handleChange(e)}
 						/>
@@ -88,6 +116,7 @@ const CompoundInterestCalculator = () => {
 									name="duration"
 									placeholder="Duration of your investment"
 									type="text"
+									autoComplete="off"
 									value={duration}
 									onChange={(e) => handleChange(e)}
 								/>
@@ -96,8 +125,8 @@ const CompoundInterestCalculator = () => {
 								<Select
 									className="react-select-container"
 									classNamePrefix="react-select"
-									defaultValue={options[0]}
-									options={options}
+									defaultValue={durations[0]}
+									options={durations}
 									theme={customTheme}
 									styles={customStyles}
 								/>

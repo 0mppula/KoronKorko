@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatCurrency, formatPercentage } from '../../utils/format';
+import { formatCurrency, formatPercentage } from '../../helpers/format';
 import './styles.css';
 
 const CompoundInterestReport = ({ report }) => {
