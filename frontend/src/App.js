@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,8 +11,27 @@ import Footer from './components/Footer/Footer';
 import Nav from './components/Nav/Nav';
 import ScrollToTop from './components/Tools/ScrollToTop';
 import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
+import ToastCloseButton from './components/Tools/ToastCloseButton';
 
 function App() {
+	const { user } = useSelector((state) => state.auth);
+	const [darkMode, setDarkMode] = useState(
+		JSON.parse(localStorage.getItem('darkMode')) ||
+			(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+	);
+
+	useEffect(() => {
+		if (user) {
+			setDarkMode(user?.preferences.darkMode);
+		}
+	}, [[], user]);
+
+	useEffect(() => {
+		let body = document.body;
+		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');
+		localStorage.setItem('darkmode', darkMode);
+	}, [darkMode]);
+
 	return (
 		<>
 			<Router>
@@ -27,7 +47,7 @@ function App() {
 				</div>
 				<Footer />
 			</Router>
-			<ToastContainer />
+			<ToastContainer closeButton={<ToastCloseButton />} />
 		</>
 	);
 }

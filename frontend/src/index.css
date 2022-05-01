@@ -26,11 +26,10 @@
 	--nav-heigth: 3.35rem;
 	--box-shadow: 0px 0px 10px 0px rgb(27 27 27 / 35%);
 	--nav-height: 4rem;
+	--fast-transition: all 0.15s;
 	/* Toast styles */
-	--toastify-color-light: var(--clr-background-L1) !important;
-	--toastify-color-dark: var(--clr-background-L1) !important;
+	--toastify-color-light: var(--clr-background-L3) !important;
 	--toastify-text-color-light: var(--clr-text-primary) !important;
-	--toastify-text-color-dark: var(--clr-text-primary) !important;
 	--toastify-icon-color-success: var(--clr-success) !important;
 	--toastify-icon-color-error: var(--clr-danger) !important;
 	--toastify-color-progress-success: var(--clr-success) !important;
@@ -55,6 +54,13 @@
 	/* Success and Danger */
 	--clr-danger: #f96767;
 	--clr-success: #12cc2f;
+	/* Toast styles */
+	--toastify-color-light: var(--clr-background-L3) !important;
+	--toastify-text-color-light: var(--clr-text-primary) !important;
+	--toastify-icon-color-success: var(--clr-success) !important;
+	--toastify-icon-color-error: var(--clr-danger) !important;
+	--toastify-color-progress-success: var(--clr-success) !important;
+	--toastify-color-progress-error: var(--clr-danger) !important;
 }
 
 html {
@@ -208,7 +214,7 @@ textarea:focus {
 	font-size: 1rem;
 	color: var(--clr-white);
 	background-color: var(--clr-primary);
-	transition: all 0.15s;
+	transition: var(--fast-transition);
 }
 
 .btn:hover {
@@ -225,16 +231,16 @@ textarea:focus {
 	cursor: pointer;
 }
 
-
 /* React Select Styles */
 .react-select__value-container {
 	height: 44px !important;
 	padding: 0 !important;
 }
 .react-select__single-value {
+	color: var(--clr-text-primary) !important;
 	height: 44px !important;
 	padding: 10px !important;
-	margin: 0!important;
+	margin: 0 !important;
 	margin-bottom: 9px !important;
 }
 .react-select__indicators {
@@ -246,6 +252,7 @@ textarea:focus {
 	font-size: 1rem !important;
 	background-color: var(--clr-background-L2) !important;
 	border: none !important;
+	outline: solid 1px var(--clr-text-secondary);
 }
 .react-select__control--is-focused {
 	background-color: var(--clr-background-L3) !important;
@@ -269,21 +276,26 @@ textarea:focus {
 }
 /* End React Select Styles */
 
+/* Toast Styles */
+.Toastify-button-container {
+	color: var(--clr-text-secondary);
+	transition: var(--fast-transition);
+	height: 22px;
+}
+.Toastify-button-container:hover {
+	color: var(--clr-danger);
+}
+/* End Toast Styles */
 
 /* Override autofill styles */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
 input:-webkit-autofill:active,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-textarea:-webkit-autofill:active,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus,
-select:-webkit-autofill:active {
-	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L2) inset !important;
+input:-webkit-autofill:focus {
+	background-color: var(--clr-background-L3);
+	color: var(--clr-text-primary) !important;
+	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L3) inset !important;
+	-webkit-text-fill-color: var(--clr-text-primary) !important;
 }
 /* Media Queries */
 @media only screen and (max-width: 480px) {

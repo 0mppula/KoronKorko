@@ -1,3 +1,3 @@
 export const cssVar = (variable) => {
-	return `${getComputedStyle(document.documentElement).getPropertyValue(variable)}`;
+	return `${getComputedStyle(document.body).getPropertyValue(variable)}`;
 };

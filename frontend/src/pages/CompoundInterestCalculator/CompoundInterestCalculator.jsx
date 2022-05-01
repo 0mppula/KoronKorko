@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserCurrency } from '../../features/auth/authSlice';
 import Select from 'react-select';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
@@ -8,7 +10,9 @@ import './styles.css';
 import { useTitle } from '../../hooks/useTitle';
 
 const CompoundInterestCalculator = () => {
-	useTitle('Compound Interest Calculator')
+	useTitle('Compound Interest Calculator');
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
 	const [formData, setFormData] = useState({
 		startingBalance: '',
 		interestRate: '',
@@ -25,6 +29,12 @@ const CompoundInterestCalculator = () => {
 		totalReturn: 0,
 		currency: JSON.parse(localStorage.getItem('currency')) || currencies[0],
 	});
+
+	useEffect(() => {
+		if (user) {
+			setCurrency(user?.preferences.currency);
+		}
+	}, [user]);
 
 	const { startingBalance, interestRate, duration, durationMultiplier } = formData;
 
@@ -59,6 +69,9 @@ const CompoundInterestCalculator = () => {
 			totalReturn,
 			currency,
 		});
+
+			console.log(user.preferences.currency);
+		dispatch(updateUserCurrency(user.preferences.currency));
 	};
 
 	return (
@@ -93,7 +106,7 @@ const CompoundInterestCalculator = () => {
 									theme={customTheme}
 									styles={customStyles}
 									options={currencies}
-									defaultValue={currency}
+									value={currency}
 									isSearchable={false}
 									onChange={handleCurrencySelect}
 								/>

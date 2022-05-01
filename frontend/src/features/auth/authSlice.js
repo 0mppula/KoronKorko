@@ -48,6 +48,22 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 	await authService.logout();
 });
 
+// Update users currency preferences
+export const updateUserCurrency = createAsyncThunk(
+	'auth/update/currency',
+	async (userData, thunkAPI) => {
+		try {
+			await authService.updateUserCurrency();
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
@@ -99,7 +115,12 @@ export const authSlice = createSlice({
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
 				state.isLoading = false;
-			});
+			})
+			// Update currency
+			.addCase(updateUserCurrency.fulfilled, (state, action) => {
+				state.isSuccess = true;
+				state.user = action.payload;
+			})
 	},
 });
 

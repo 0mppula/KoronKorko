@@ -29,10 +29,22 @@ const logout = () => {
 	localStorage.removeItem('user');
 };
 
+// Update users currency preferences
+const updateUserCurrency = async (userData) => {
+	const response = await axios.put(`${API_URL}me/preferences/currency`, userData);
+
+	if (response.data) {
+		localStorage.setItem('user', JSON.stringify(response.data));
+	}
+
+	return response.data;
+};
+
 const authService = {
 	register,
 	logout,
 	login,
+	updateUserCurrency
 };
 
 export default authService;

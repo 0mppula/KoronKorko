@@ -75,6 +75,24 @@ const loginUser = asyncHandler(async (req, res) => {
 	}
 });
 
+// @desc    Update user currency preferences
+// @route   PUT /api/users/me/preferences/currency
+// @access  Private
+const updateUserCurrency = asyncHandler(async (req, res) => {
+	const { currency } = req.body;
+	// Check if user exists
+	if (!req.user) {
+		res.status(401);
+		throw new Error('User not found');
+	}
+	const updatedUser = await User.findByIdAndUpdate(
+		req.user.id,
+		{ "preferences.currency": { ...currency } },
+		{ new: true }
+	);
+	res.status(200).json(updatedUser);
+});
+
 // @desc    Get user data
 // @route   GET /api/users/me
 // @access  Private
@@ -93,4 +111,5 @@ module.exports = {
 	registerUser,
 	loginUser,
 	getUserData,
+	updateUserCurrency,
 };
