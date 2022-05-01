@@ -1,58 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import { durations, currencies } from '../../assets/data';
 import './styles.css';
+import { useTitle } from '../../hooks/useTitle';
 
 const CompoundInterestCalculator = () => {
+	useTitle('Compound Interest Calculator')
 	const [formData, setFormData] = useState({
 		startingBalance: '',
 		interestRate: '',
 		duration: '',
 		durationMultiplier: '12',
 	});
+	const [currency, setCurrency] = useState(
+		JSON.parse(localStorage.getItem('currency')) || currencies[0]
+	);
 	const [report, setReport] = useState({
 		startingBalance: 0,
 		futureValue: 0,
 		totalProfit: 0,
 		totalReturn: 0,
-	});
-	const [currency, setCurrency] = useState({
-		name: 'dollar',
-		value: 'usd',
-		label: '$',
-		locale: 'en-US',
+		currency: JSON.parse(localStorage.getItem('currency')) || currencies[0],
 	});
 
-	const { startingBalance, interestRate, duration } = formData;
+	const { startingBalance, interestRate, duration, durationMultiplier } = formData;
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
-	const handleSelectChange = (e) => {
+	const handleCurrencySelect = (e) => {
 		setCurrency(e);
 	};
 
-
-	console.log(currency.label);
-	console.log('currency');
+	const handleDurationSelect = (e) => {
+		setFormData((prev) => ({ ...prev, durationMultiplier: e.value }));
+	};
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
 
+		// Interest rate as a mutliplier
 		const rate = +interestRate / 100 + 1;
-		const futureValue = +(startingBalance * rate ** duration).toFixed(2);
+		const annualizedDuration = (duration * durationMultiplier) / 12;
+		const futureValue = +(startingBalance * rate ** annualizedDuration).toFixed(2);
 		const totalProfit = +(futureValue - startingBalance);
 		const totalReturn = +(futureValue / startingBalance - 1) * 100;
+
+		localStorage.setItem('currency', JSON.stringify(currency));
 
 		setReport({
 			startingBalance,
 			futureValue,
 			totalProfit,
 			totalReturn,
+			currency,
 		});
 	};
 
@@ -80,6 +85,7 @@ const CompoundInterestCalculator = () => {
 									onChange={(e) => handleChange(e)}
 								/>
 							</div>
+							{/* Currency selector */}
 							<div className="input-group">
 								<Select
 									className="react-select-container"
@@ -87,19 +93,20 @@ const CompoundInterestCalculator = () => {
 									theme={customTheme}
 									styles={customStyles}
 									options={currencies}
-									defaultValue={currencies[0]}
-									onChange={handleSelectChange}
+									defaultValue={currency}
+									isSearchable={false}
+									onChange={handleCurrencySelect}
 								/>
 							</div>
 						</div>
 					</div>
 
 					<div className="form-group">
-						<label htmlFor="interestRate">Interest Rate</label>
+						<label htmlFor="interestRate">Annual Interest Rate</label>
 						<input
 							id="interestRate"
 							name="interestRate"
-							placeholder="Your projected interest rate"
+							placeholder="Your projected annual interest rate"
 							type="text"
 							autoComplete="off"
 							value={interestRate}
@@ -122,19 +129,22 @@ const CompoundInterestCalculator = () => {
 								/>
 							</div>
 							<div className="input-group">
+								{/* Duration selector */}
 								<Select
 									className="react-select-container"
 									classNamePrefix="react-select"
 									defaultValue={durations[0]}
 									options={durations}
 									theme={customTheme}
+									onChange={handleDurationSelect}
 									styles={customStyles}
+									isSearchable={false}
 								/>
 							</div>
 						</div>
 					</div>
 
-					<div className="form-group">
+					<div className="form-group btn-group">
 						<button className="btn btn-block">Calculate</button>
 					</div>
 				</form>

@@ -181,11 +181,14 @@ li a:hover {
 	border: none;
 	outline: 1px solid var(--clr-text-secondary);
 	border-radius: 4px;
-	margin-bottom: 10px;
 	font-family: var(--font-main);
 	color: var(--clr-text-primary);
 	background-color: var(--clr-background-L2);
 	font-size: 1rem;
+}
+
+.form-group.btn-group {
+	margin-top: 1rem;
 }
 
 input:focus,
@@ -222,24 +225,27 @@ textarea:focus {
 	cursor: pointer;
 }
 
-/* Media Queries */
-@media only screen and (max-width: 480px) {
-	.container {
-		width: 90vw;
-	}
-}
-/* End Media Queries */
 
 /* React Select Styles */
-.react-select-container {
-	margin-bottom: 10px !important;
+.react-select__value-container {
+	height: 44px !important;
+	padding: 0 !important;
+}
+.react-select__single-value {
+	height: 44px !important;
+	padding: 10px !important;
+	margin: 0!important;
+	margin-bottom: 9px !important;
+}
+.react-select__indicators {
 	height: 44px !important;
 }
+
 .react-select__control {
+	height: 44px !important;
 	font-size: 1rem !important;
 	background-color: var(--clr-background-L2) !important;
 	border: none !important;
-	padding: 0.25rem 0 !important;
 }
 .react-select__control--is-focused {
 	background-color: var(--clr-background-L3) !important;
@@ -279,3 +285,10 @@ select:-webkit-autofill:focus,
 select:-webkit-autofill:active {
 	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L2) inset !important;
 }
+/* Media Queries */
+@media only screen and (max-width: 480px) {
+	.container {
+		width: 90vw;
+	}
+}
+/* End Media Queries */

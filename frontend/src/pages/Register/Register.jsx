@@ -6,14 +6,17 @@ import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 
 import Spinner from '../../components/Loading/Loading';
+import { useTitle } from '../../hooks/useTitle';
 
 const Register = () => {
+	useTitle('Register')
 	const [formData, setFormData] = useState({
 		username: '',
 		email: '',
 		password: '',
 		password2: '',
 	});
+	const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem(('darkMode'))) || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -50,6 +53,7 @@ const Register = () => {
 				username,
 				email,
 				password,
+				darkMode,
 			};
 
 			dispatch(register(userData));

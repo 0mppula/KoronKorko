@@ -1,4 +1,4 @@
-export const formatCurrency = (value, locale, currency) => {
+export const formatCurrency = (value, locale = 'en-US', currency = 'usd') => {
 	if (!isNaN(value)) {
 		let formatted = new Intl.NumberFormat(locale, {
 			style: 'currency',
@@ -16,8 +16,8 @@ export const formatCurrency = (value, locale, currency) => {
 	}
 };
 
-export const formatPercentage = (value='asdas') => {
-	let formatted ='0.00%';
+export const formatPercentage = (value = 'asdas') => {
+	let formatted = '0.00%';
 	if (!isNaN(value)) {
 		formatted = `${Number(value).toFixed(2)}%`;
 	}

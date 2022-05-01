@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Spinner from '../../components/Loading/Loading';
+import { useTitle } from '../../hooks/useTitle';
 
 const Login = () => {
+	useTitle('Login')
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',

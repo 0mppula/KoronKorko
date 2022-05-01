@@ -5,15 +5,15 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 
 // @desc    Register a new user
-// @route   POST /api/users/
+// @route   POST /api/users/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-	const { username, email, password } = req.body;
+	const { username, email, password, darkMode } = req.body;
 
 	// Check fields
 	if (!username || !email || !password) {
-		res.status(400)
-    throw new Error('Please add all fields')
+		res.status(400);
+		throw new Error('Please add all fields');
 	}
 
 	// Check if the user exists
@@ -33,6 +33,9 @@ const registerUser = asyncHandler(async (req, res) => {
 		username,
 		email,
 		password: hashedPassword,
+		preferences: {
+			darkMode,
+		},
 	});
 
 	// check if user is created successfully
@@ -41,6 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
 			_id: user._id,
 			username: user.username,
 			email: user.email,
+			preferences: user.preferences,
 			token: generateToken(user._id),
 		});
 	} else {
@@ -62,6 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
 			_id: user._id,
 			username: user.username,
 			email: user.email,
+			preferences: user.preferences,
 			token: generateToken(user._id),
 		});
 	} else {

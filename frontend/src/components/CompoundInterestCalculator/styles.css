@@ -33,4 +33,7 @@
     .report-group {
         flex: 1 1 100%;
     }
+    .input-group {
+        flex: 1 1 100% !important;
+    }
 }

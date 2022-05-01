@@ -5,5 +5,6 @@ export const currencies = [
 
 export const durations = [
 	{ value: '12', label: 'Years' },
+	{ value: '3', label: 'Quarters' },
 	{ value: '1', label: 'Months' },
 ];
