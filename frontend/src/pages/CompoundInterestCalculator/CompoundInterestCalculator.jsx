@@ -27,7 +27,7 @@ const CompoundInterestCalculator = () => {
 		futureValue: 0,
 		totalProfit: 0,
 		totalReturn: 0,
-		currency: JSON.parse(localStorage.getItem('currency')) || currencies[0],
+		currency: JSON?.parse(localStorage.getItem('currency')) || currencies[0],
 	});
 
 	useEffect(() => {
@@ -70,8 +70,7 @@ const CompoundInterestCalculator = () => {
 			currency,
 		});
 
-			console.log(user.preferences.currency);
-		dispatch(updateUserCurrency(user.preferences.currency));
+		dispatch(updateUserCurrency(currency));
 	};
 
 	return (

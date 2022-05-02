@@ -79,7 +79,8 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/me/preferences/currency
 // @access  Private
 const updateUserCurrency = asyncHandler(async (req, res) => {
-	const { currency } = req.body;
+	const currency = req.body;
+	
 	// Check if user exists
 	if (!req.user) {
 		res.status(401);
@@ -87,10 +88,10 @@ const updateUserCurrency = asyncHandler(async (req, res) => {
 	}
 	const updatedUser = await User.findByIdAndUpdate(
 		req.user.id,
-		{ "preferences.currency": { ...currency } },
+		{ 'preferences.currency': { ...currency } },
 		{ new: true }
 	);
-	res.status(200).json(updatedUser);
+	res.status(200).json(updatedUser.preferences);
 });
 
 // @desc    Get user data

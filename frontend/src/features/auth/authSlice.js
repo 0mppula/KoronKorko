@@ -53,7 +53,8 @@ export const updateUserCurrency = createAsyncThunk(
 	'auth/update/currency',
 	async (userData, thunkAPI) => {
 		try {
-			await authService.updateUserCurrency();
+			const user = thunkAPI.getState().auth.user;
+			return await authService.updateUserCurrency(user, userData);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -119,8 +120,8 @@ export const authSlice = createSlice({
 			// Update currency
 			.addCase(updateUserCurrency.fulfilled, (state, action) => {
 				state.isSuccess = true;
-				state.user = action.payload;
-			})
+				state.user = { ...state.user, preferences: action.payload };
+			});
 	},
 });
 

@@ -30,21 +30,27 @@ const logout = () => {
 };
 
 // Update users currency preferences
-const updateUserCurrency = async (userData) => {
-	const response = await axios.put(`${API_URL}me/preferences/currency`, userData);
+const updateUserCurrency = async (user, userData) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${user.token}`,
+		},
+	};
 
-	if (response.data) {
-		localStorage.setItem('user', JSON.stringify(response.data));
+	const response = await axios.put(`${API_URL}me/preferences/currency`, userData, config);
+	if(response.data) {
+		const updatedUser = {...user, preferences: response.data}
+		localStorage.setItem('user', JSON.stringify(updatedUser));
 	}
 
-	return response.data;
+	return response.data
 };
 
 const authService = {
 	register,
 	logout,
 	login,
-	updateUserCurrency
+	updateUserCurrency,
 };
 
 export default authService;
