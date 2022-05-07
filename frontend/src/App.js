@@ -22,8 +22,10 @@ function App() {
 
 	useEffect(() => {
 		if (user) {
+			// When user is logged in set darkmode to value from user preferences
 			setDarkMode(user?.preferences.darkMode);
 		} else {
+			// When user is not logged in set darkmode to value from local storage
 			setDarkMode(localStorage.getItem('darkMode'))
 		}
 	}, [user]);
@@ -31,6 +33,7 @@ function App() {
 	useEffect(() => {
 		let body = document.body;
 		if (!user) {
+			// When user is not logged update the local storage value for darkmode
 			localStorage.setItem('darkmode', darkMode);
 		}
 		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');

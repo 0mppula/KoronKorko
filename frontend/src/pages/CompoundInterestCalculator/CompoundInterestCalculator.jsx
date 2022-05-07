@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
 import Select from 'react-select';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import { durations, currencies } from '../../assets/data';
 import { useTitle } from '../../hooks/useTitle';
-import Spinner from '../../components/Loading/Loading'
+import Spinner from '../../components/Loading/Loading';
 import './styles.css';
 
 const CompoundInterestCalculator = () => {
@@ -52,33 +53,42 @@ const CompoundInterestCalculator = () => {
 		setFormData((prev) => ({ ...prev, durationMultiplier: e.value }));
 	};
 
+	const formValidated = () => {
+		const requiredFields = [startingBalance, interestRate, duration];
+
+		// Check that all the required fields are numbers and not empty values
+		return requiredFields.every((rf) => !isNaN(rf) && rf !== '' );
+	};
+
 	const handleCalculation = (e) => {
 		e.preventDefault();
+		if (formValidated()) {
+			// Interest rate as a mutliplier
+			const rate = +interestRate / 100 + 1;
+			const annualizedDuration = (duration * durationMultiplier) / 12;
+			const futureValue = +(startingBalance * rate ** annualizedDuration).toFixed(2);
+			const totalProfit = +(futureValue - startingBalance);
+			const totalReturn = +(futureValue / startingBalance - 1) * 100;
 
-		// Interest rate as a mutliplier
-		const rate = +interestRate / 100 + 1;
-		const annualizedDuration = (duration * durationMultiplier) / 12;
-		const futureValue = +(startingBalance * rate ** annualizedDuration).toFixed(2);
-		const totalProfit = +(futureValue - startingBalance);
-		const totalReturn = +(futureValue / startingBalance - 1) * 100;
+			!user && localStorage.setItem('currency', JSON.stringify(currency));
 
-		!user && localStorage.setItem('currency', JSON.stringify(currency));
+			setReport({
+				startingBalance,
+				futureValue,
+				totalProfit,
+				totalReturn,
+				currency,
+			});
 
-		setReport({
-			startingBalance,
-			futureValue,
-			totalProfit,
-			totalReturn,
-			currency,
-		});
-
-		user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
+			user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
+		} else {
+			toast.error('Incorrect field values')
+		}
 	};
 
 	if (isLoading) {
 		return <Spinner />;
 	}
-
 
 	return (
 		<>
