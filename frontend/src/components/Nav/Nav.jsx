@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaSignInAlt, FaSignOutAlt, FaUser, FaSun, FaMoon } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
 import { reset, logout } from '../../features/auth/authSlice';
+import UserOptionsList from './UserOptionsList';
 import './styles.css';
+import NavLinks from './NavLinks';
 
 const Nav = ({ darkMode, setDarkMode }) => {
+	const [listOpen, setListOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.auth);
 
 	const handleLogout = () => {
+		setListOpen(false);
 		dispatch(logout());
 		dispatch(reset());
 		navigate('/login');
@@ -33,38 +36,18 @@ const Nav = ({ darkMode, setDarkMode }) => {
 					</h1>
 				</Link>
 			</div>
-			<ul className="nav-links">
-				<li>
-					<a className="nav-icon" onClick={() => handleDarkModeChange()}>
-						{darkMode ? <FaSun /> : <FaMoon />}
-					</a>
-				</li>
-				{/* No user */}
-				{!user ? (
-					<>
-						<li>
-							<Link to="/login">
-								<FaSignInAlt />
-								Login
-							</Link>
-						</li>
-						<li>
-							<Link to="/register">
-								<FaUser /> Register
-							</Link>
-						</li>
-					</>
-				) : (
-					<>
-						<li>{user.username}</li>
-						<li onClick={handleLogout}>
-							<a>
-								<FaSignOutAlt /> Logout
-							</a>
-						</li>
-					</>
-				)}
-			</ul>
+			<NavLinks
+				user={user}
+				darkMode={darkMode}
+				listOpen={listOpen}
+				setListOpen={setListOpen}
+				handleDarkModeChange={handleDarkModeChange}
+			/>
+			<UserOptionsList
+				handleLogout={handleLogout}
+				listOpen={listOpen}
+				setListOpen={setListOpen}
+			/>
 		</nav>
 	);
 };
