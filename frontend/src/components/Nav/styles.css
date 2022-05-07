@@ -29,8 +29,16 @@ nav {
 }
 
 .nav-links li a {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    min-width: 40px;
     padding: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.25rem;
+}
+
+.nav-icon {
+    font-size: 1.125rem;
 }

@@ -23,20 +23,24 @@ function App() {
 	useEffect(() => {
 		if (user) {
 			setDarkMode(user?.preferences.darkMode);
+		} else {
+			setDarkMode(localStorage.getItem('darkMode'))
 		}
-	}, [[], user]);
+	}, [user]);
 
 	useEffect(() => {
 		let body = document.body;
+		if (!user) {
+			localStorage.setItem('darkmode', darkMode);
+		}
 		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');
-		localStorage.setItem('darkmode', darkMode);
 	}, [darkMode]);
 
 	return (
 		<>
 			<Router>
 				<ScrollToTop />/
-				<Nav />
+				<Nav darkMode={darkMode} setDarkMode={setDarkMode} />
 				<div className="container">
 					<Routes>
 						<Route path="/" element={<CompoundInterestCalculator />} />

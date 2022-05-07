@@ -118,9 +118,16 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 			})
 			// Update currency
+			.addCase(updateUserPreferences.pending, (state, action) => {
+				state.isLoading = true;
+			})
 			.addCase(updateUserPreferences.fulfilled, (state, action) => {
 				state.isSuccess = true;
 				state.user = { ...state.user, preferences: action.payload };
+				state.isLoading = false;
+			})
+			.addCase(updateUserPreferences.rejected, (state, action) => {
+				state.isLoading = false;
 			});
 	},
 });

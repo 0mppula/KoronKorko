@@ -6,13 +6,14 @@ import Select from 'react-select';
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import { durations, currencies } from '../../assets/data';
-import './styles.css';
 import { useTitle } from '../../hooks/useTitle';
+import Spinner from '../../components/Loading/Loading'
+import './styles.css';
 
 const CompoundInterestCalculator = () => {
 	useTitle('Compound Interest Calculator');
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.auth);
+	const { user, isLoading } = useSelector((state) => state.auth);
 	const [formData, setFormData] = useState({
 		startingBalance: '',
 		interestRate: '',
@@ -73,6 +74,11 @@ const CompoundInterestCalculator = () => {
 
 		user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
 	};
+
+	if (isLoading) {
+		return <Spinner />;
+	}
+
 
 	return (
 		<>
