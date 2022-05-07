@@ -48,13 +48,13 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 	await authService.logout();
 });
 
-// Update users currency preferences
-export const updateUserCurrency = createAsyncThunk(
+// Update users preferences
+export const updateUserPreferences = createAsyncThunk(
 	'auth/update/currency',
 	async (userData, thunkAPI) => {
 		try {
 			const user = thunkAPI.getState().auth.user;
-			return await authService.updateUserCurrency(user, userData);
+			return await authService.updateUserPreferences(user, userData);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -118,7 +118,7 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 			})
 			// Update currency
-			.addCase(updateUserCurrency.fulfilled, (state, action) => {
+			.addCase(updateUserPreferences.fulfilled, (state, action) => {
 				state.isSuccess = true;
 				state.user = { ...state.user, preferences: action.payload };
 			});

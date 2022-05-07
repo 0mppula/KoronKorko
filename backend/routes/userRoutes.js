@@ -4,13 +4,13 @@ const {
 	registerUser,
 	loginUser,
 	getUserData,
-	updateUserCurrency,
+	updateUserPreferences,
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/me', protect, getUserData);
-router.put('/me/preferences/currency', protect, updateUserCurrency);
+router.put('/me/preferences/currency', protect, updateUserPreferences);
 
 module.exports = router;

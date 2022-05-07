@@ -30,7 +30,7 @@ const logout = () => {
 };
 
 // Update users currency preferences
-const updateUserCurrency = async (user, userData) => {
+const updateUserPreferences = async (user, userData) => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${user.token}`,
@@ -50,7 +50,7 @@ const authService = {
 	register,
 	logout,
 	login,
-	updateUserCurrency,
+	updateUserPreferences,
 };
 
 export default authService;

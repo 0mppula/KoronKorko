@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserCurrency } from '../../features/auth/authSlice';
+import { updateUserPreferences } from '../../features/auth/authSlice';
 import Select from 'react-select';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
@@ -27,12 +27,13 @@ const CompoundInterestCalculator = () => {
 		futureValue: 0,
 		totalProfit: 0,
 		totalReturn: 0,
-		currency: JSON?.parse(localStorage.getItem('currency')) || currencies[0],
+		currency: currency,
 	});
 
 	useEffect(() => {
 		if (user) {
 			setCurrency(user?.preferences.currency);
+			setReport({ ...report, currency: user?.preferences.currency });
 		}
 	}, [user]);
 
@@ -60,7 +61,7 @@ const CompoundInterestCalculator = () => {
 		const totalProfit = +(futureValue - startingBalance);
 		const totalReturn = +(futureValue / startingBalance - 1) * 100;
 
-		localStorage.setItem('currency', JSON.stringify(currency));
+		!user && localStorage.setItem('currency', JSON.stringify(currency));
 
 		setReport({
 			startingBalance,
@@ -70,7 +71,7 @@ const CompoundInterestCalculator = () => {
 			currency,
 		});
 
-		dispatch(updateUserCurrency(currency));
+		user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
 	};
 
 	return (

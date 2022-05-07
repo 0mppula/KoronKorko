@@ -1,4 +1,4 @@
 cheat-cheat.md
-.*txt
+*.txt
 .env
 node_modules
