@@ -102,11 +102,6 @@ a {
 	cursor: pointer;
 }
 
-li a:hover {
-	background-color: var(--clr-hover);
-	border-radius: 4px;
-}
-
 .container {
 	padding-top: 4rem;
 	display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
@@ -7,9 +7,12 @@ import { reset, logout } from '../../features/auth/authSlice';
 import UserOptionsList from './UserOptionsList';
 import './styles.css';
 import NavLinks from './NavLinks';
+import Burger from './Burger';
 
 const Nav = ({ darkMode, setDarkMode }) => {
 	const [listOpen, setListOpen] = useState(false);
+	const [burgerActive, setBurgerActive] = useState(false);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.auth);
@@ -27,6 +30,14 @@ const Nav = ({ darkMode, setDarkMode }) => {
 		!user && setDarkMode(mode);
 	};
 
+	const handleBurgerClick = () => {
+		setBurgerActive(!burgerActive);
+	};
+
+	useEffect(() => {
+		setBurgerActive(false);
+	}, [darkMode]);
+
 	return (
 		<nav className="navbar">
 			<div className="logo">
@@ -42,12 +53,14 @@ const Nav = ({ darkMode, setDarkMode }) => {
 				listOpen={listOpen}
 				setListOpen={setListOpen}
 				handleDarkModeChange={handleDarkModeChange}
+				burgerActive={burgerActive}
 			/>
 			<UserOptionsList
 				handleLogout={handleLogout}
 				listOpen={listOpen}
 				setListOpen={setListOpen}
 			/>
+			<Burger handleBurgerClick={handleBurgerClick} burgerActive={burgerActive} />
 		</nav>
 	);
 };
