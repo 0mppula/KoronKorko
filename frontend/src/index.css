@@ -153,7 +153,7 @@ a {
 .form {
 	width: min(90%, 650px);
 	margin: 0 auto;
-	padding: 2rem;
+	padding: 1rem 2rem 2rem;
 	border-radius: 4px;
 	background-color: var(--clr-background-L1);
 	border: solid 2px var(--clr-primary);

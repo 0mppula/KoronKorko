@@ -23,6 +23,32 @@
     font-size: 1.5rem;
 }
 
+.form-controls-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.125rem;
+}
+
+.form-controls-top div.icon {
+    display: flex;
+    padding: 0.5rem;
+    font-size: 1.125rem;
+    color: var(--clr-text-secondary);
+    transition: var(--fast-transition);
+    border-radius: 4px;
+}
+
+.form-controls-top div.icon.save:hover {
+    color: var(--clr-success);
+    background-color: var(--clr-hover);
+}
+
+.form-controls-top div.icon.reset:hover {
+    color: var(--clr-danger);
+    background-color: var(--clr-hover);
+}
+
 @media only screen and (max-width: 992px) {
     .report-group {
         flex: 1 1 50%;
