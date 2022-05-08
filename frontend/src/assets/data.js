@@ -10,3 +10,8 @@ export const durations = [
 	{ value: '3', label: 'Quarters' },
 	{ value: '1', label: 'Months' },
 ];
+
+export const contributions = [
+	{ value: 1, label: 'Addition' },
+	{ value: -1, label: 'Withdrawal' },
+];

@@ -26,18 +26,19 @@ function App() {
 			setDarkMode(user?.preferences.darkMode);
 		} else {
 			// When user is not logged in set darkmode to value from local storage
-			setDarkMode(localStorage.getItem('darkMode'))
+			setDarkMode(JSON.parse(localStorage.getItem('darkMode')))
 		}
 	}, [user]);
-
+	
 	useEffect(() => {
 		let body = document.body;
 		if (!user) {
 			// When user is not logged update the local storage value for darkmode
-			localStorage.setItem('darkmode', darkMode);
+			localStorage.setItem('darkMode', darkMode);
 		}
 		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');
 	}, [darkMode]);
+
 
 	return (
 		<>

@@ -16,6 +16,8 @@ const CompoundInterestCalculator = () => {
 		startingBalance: '',
 		interestRate: '',
 		duration: '',
+		contribution: '',
+		contributionMultiplier: 1,
 		durationMultiplier: '12',
 	});
 	const [currency, setCurrency] = useState(
