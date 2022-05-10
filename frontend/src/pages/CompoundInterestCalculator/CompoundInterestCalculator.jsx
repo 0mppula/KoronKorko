@@ -18,6 +18,7 @@ const CompoundInterestCalculator = () => {
 		duration: '',
 		contribution: '',
 		contributionMultiplier: 1,
+		contributionFrequency: 1,
 		durationMultiplier: '12',
 	});
 	const [currency, setCurrency] = useState(

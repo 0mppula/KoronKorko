@@ -2,10 +2,11 @@ import React from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
-import { durations, currencies, contributions } from '../../assets/data';
+import { durations, currencies, contributionFrequencies } from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
 const CompoundInterestForm = ({
@@ -18,7 +19,14 @@ const CompoundInterestForm = ({
 	setCurrency,
 }) => {
 	const dispatch = useDispatch();
-	const { startingBalance, interestRate, duration, durationMultiplier, contribution } = formData;
+	const {
+		startingBalance,
+		interestRate,
+		duration,
+		durationMultiplier,
+		contribution,
+		contributionMultiplier,
+	} = formData;
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -33,27 +41,37 @@ const CompoundInterestForm = ({
 	};
 
 	const handleContributionSelect = (e) => {
-		setFormData((prev) => ({ ...prev, contributionMultiplier: e.value }));
+		setFormData((prev) => ({ ...prev, contributionFrequency: e.value }));
 	};
 
 	const formValidated = () => {
 		const requiredFields = [startingBalance, interestRate, duration];
+		const optionalFields = [contribution];
+		const optionalFieldsValidated = optionalFields.every(of => of === '' || (!isNaN(of) && of !== ''))
 
-		// Check that all the required fields are numbers and not empty values
-		return requiredFields.every((rf) => !isNaN(rf) && rf !== '');
+
+		// Check that all the required and optional fields are numbers and not empty values
+		return optionalFieldsValidated && requiredFields.every((rf) => !isNaN(rf) && rf !== '');
 	};
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
 		if (formValidated()) {
-			// Interest rate as a mutliplier
-			// A = P(1 + r/n)^(nt)
-      // Where:
-			// A = the future value of the investment/loan, including interest
-			// P = the principal investment amount (the initial deposit or loan amount) 
-      // r = the annual interest rate (decimal) 
-      // n = the number of times that interest is compounded per unit t 
-      // t = the time the money is invested or borrowed for
+			// Compounded Interest for Principal
+			// CI = P(1 + r/n)^(nt)
+
+			// Future Value of a Series
+			// FV = PMT * (((1 + r / n) ^ (nt - 1)) / (r / 2));
+
+			// Total amount
+			// T = CI + FV
+
+			// Where:
+			// CI = the future value of the investment/loan, including interest
+			// P = the principal investment amount (the initial deposit or loan amount)
+			// r = the annual interest rate (decimal)
+			// n = the number of times that interest is compounded per unit t
+			// t = investment time in years
 
 			const rate = +interestRate / 100 + 1;
 			const annualizedDuration = (duration * durationMultiplier) / 12;
@@ -84,6 +102,7 @@ const CompoundInterestForm = ({
 			interestRate: '',
 			duration: '',
 			contribution: '',
+			contributionMultiplier: 1,
 		});
 
 		setReport({
@@ -93,11 +112,26 @@ const CompoundInterestForm = ({
 			totalProfit: 0,
 			totalReturn: 0,
 		});
+
+		toast.success('Form cleared')
+	};
+
+	const save = () => {
+		toast.success('Form Saved')
+	}
+
+	const toggleContributionMultiplier = () => {
+		let value = depositting() ? -1 : 1;
+		setFormData({ ...formData, contributionMultiplier: value });
+	};
+
+	const depositting = () => {
+		return contributionMultiplier > -1;
 	};
 
 	return (
 		<div className="form">
-			<FormControlsTop resetCalculator={resetCalculator} />
+			<FormControlsTop save={save} resetCalculator={resetCalculator} />
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">
 					<div className="input-group-container">
@@ -179,20 +213,27 @@ const CompoundInterestForm = ({
 							<input
 								id="contribution"
 								name="contribution"
-								placeholder="Your contributions"
+								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
 								type="text"
 								autoComplete="off"
 								value={contribution}
 								onChange={(e) => handleChange(e)}
 							/>
+							<div
+								className={`contribution-multiplier-icon-container 
+								${depositting() ? 'deposit' : 'withdraw'} `}
+								onClick={toggleContributionMultiplier}
+							>
+								{depositting() ? <FaSignInAlt /> : <FaSignOutAlt />}
+							</div>
 						</div>
 						<div className="input-group">
 							{/* Contribution selector */}
 							<Select
 								className="react-select-container"
 								classNamePrefix="react-select"
-								defaultValue={contributions[0]}
-								options={contributions}
+								defaultValue={contributionFrequencies[0]}
+								options={contributionFrequencies}
 								theme={customTheme}
 								onChange={handleContributionSelect}
 								styles={customStyles}

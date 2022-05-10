@@ -1,65 +1,102 @@
 .report-container {
-    width: 100%;
-    padding: 1rem;
+	width: 100%;
+	padding: 1rem;
 }
 
 .report-top {
-    display: flex;
-    row-gap: 1rem;
-    flex-wrap: wrap;
-    width: 100%;
+	display: flex;
+	row-gap: 1rem;
+	flex-wrap: wrap;
+	width: 100%;
 }
 
 .report-group {
-    text-align: center;
-    flex: 1 1 25%;
+	text-align: center;
+	flex: 1 1 25%;
 }
 
 .report-group h2 {
-    font-size: 2rem;
+	font-size: 2rem;
 }
 
 .report-group p {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 .form-controls-top {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.125rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.125rem;
 }
 
 .form-controls-top div.icon {
-    display: flex;
-    padding: 0.5rem;
-    font-size: 1.125rem;
-    color: var(--clr-text-secondary);
-    transition: var(--fast-transition);
-    border-radius: 4px;
+	display: flex;
+	padding: 0.5rem;
+	font-size: 1.125rem;
+	color: var(--clr-text-secondary);
+	transition: var(--fast-transition);
+	border-radius: 4px;
 }
 
 .form-controls-top div.icon.save:hover {
-    color: var(--clr-success);
-    background-color: var(--clr-hover);
+	color: var(--clr-success);
+	background-color: var(--clr-hover);
 }
 
 .form-controls-top div.icon.reset:hover {
-    color: var(--clr-danger);
-    background-color: var(--clr-hover);
+	color: var(--clr-danger);
+	background-color: var(--clr-hover);
+}
+
+.contribution-multiplier-icon-container {
+	position: absolute;
+	top: 39px;
+	right: 2px;
+	cursor: pointer;
+	display: flex;
+	padding: 0.5rem;
+	font-size: 1.125rem;
+	color: var(--clr-text-secondary);
+	opacity: 0.5;
+	transition: var(--fast-transition);
+	border-radius: 4px;
+}
+
+input#contribution {
+	padding-right: 34px;
+}
+
+.contribution-multiplier-icon-container.withdraw {
+	color: var(--clr-danger);
+}
+.contribution-multiplier-icon-container.deposit {
+	color: var(--clr-success);
+}
+
+.contribution-multiplier-icon-container.withdraw:hover {
+	opacity: 1;
+}
+.contribution-multiplier-icon-container.deposit:hover {
+	opacity: 1;
 }
 
 @media only screen and (max-width: 992px) {
-    .report-group {
-        flex: 1 1 50%;
-    }
+	.report-group {
+		flex: 1 1 50%;
+	}
 }
 
 @media only screen and (max-width: 576px) {
-    .report-group {
-        flex: 1 1 100%;
-    }
-    .input-group {
-        flex: 1 1 100% !important;
-    }
+	.report-group {
+		flex: 1 1 100%;
+	}
+	.input-group {
+		flex: 1 1 100% !important;
+	}
+	.form-controls-top div.icon.save:hover,
+	.form-controls-top div.icon.reset:hover {
+		background-color: transparent;
+        color: var(--clr-text-secondary);
+	}
 }

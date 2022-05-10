@@ -1,4 +1,7 @@
 cheat-cheat.md
-*.txt
 .env
 node_modules
+
+# other
+*.xlsx
+*.txt

@@ -55,7 +55,7 @@ function App() {
 				</div>
 				<Footer />
 			</Router>
-			<ToastContainer closeButton={<ToastCloseButton />} />
+			<ToastContainer autoClose={3000} pauseOnFocusLoss={false} closeButton={<ToastCloseButton />} />
 		</>
 	);
 }

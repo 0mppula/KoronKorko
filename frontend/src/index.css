@@ -59,8 +59,10 @@
 	--toastify-text-color-light: var(--clr-text-primary) !important;
 	--toastify-icon-color-success: var(--clr-success) !important;
 	--toastify-icon-color-error: var(--clr-danger) !important;
+	--toastify-icon-color-info: var(--clr-primary) !important;
 	--toastify-color-progress-success: var(--clr-success) !important;
 	--toastify-color-progress-error: var(--clr-danger) !important;
+	--toastify-color-progress-info: var(--clr-primary) !important;
 }
 
 html {
@@ -196,6 +198,10 @@ input:focus,
 textarea:focus {
 	background-color: var(--clr-background-L3);
 	outline: solid 2px var(--clr-primary);
+}
+input::placeholder,
+textarea::placeholder {
+	user-select: none;
 }
 
 .btn {

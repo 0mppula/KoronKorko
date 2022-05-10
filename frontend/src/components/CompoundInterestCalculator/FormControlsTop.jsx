@@ -1,10 +1,10 @@
 import React from 'react';
 import { FaSyncAlt, FaSave } from 'react-icons/fa';
 
-const FormControlsTop = ({ resetCalculator }) => {
+const FormControlsTop = ({ save, resetCalculator }) => {
 	return (
 		<div className="form-controls-top">
-			<div className="icon save">
+			<div className="icon save" onClick={save}>
 				<FaSave />
 			</div>
 			<div className="icon reset" onClick={resetCalculator}>
