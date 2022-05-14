@@ -163,6 +163,7 @@ a {
 }
 
 .form-group {
+	position: relative;
 	margin-bottom: 10px;
 }
 
@@ -202,6 +203,17 @@ textarea:focus {
 input::placeholder,
 textarea::placeholder {
 	user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
 }
 
 .btn {

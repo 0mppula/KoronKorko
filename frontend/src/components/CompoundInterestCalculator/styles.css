@@ -49,6 +49,17 @@
 	background-color: var(--clr-hover);
 }
 
+.input-icon-wrapper {
+	position: absolute;
+	top: 39px;
+	right: 2px;
+	pointer-events: none;
+	display: flex;
+	padding: 0.5rem;
+	color: var(--clr-text-secondary);
+	opacity: 0.5;
+}
+
 .contribution-multiplier-icon-container {
 	position: absolute;
 	top: 39px;
@@ -63,7 +74,8 @@
 	border-radius: 4px;
 }
 
-input#contribution {
+input#contribution,
+input#interestRate {
 	padding-right: 34px;
 }
 

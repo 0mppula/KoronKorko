@@ -7,9 +7,9 @@ export const currencies = [
 
 export const durations = [
 	// The value represents the amount of months in given duration option
-	{ value: '12', label: 'Years' },
-	{ value: '3', label: 'Quarters' },
-	{ value: '1', label: 'Months' },
+	{ value: 12, label: 'Years' },
+	{ value: 3, label: 'Quarters' },
+	{ value: 1, label: 'Months' },
 ];
 
 export const contributionFrequencies = [

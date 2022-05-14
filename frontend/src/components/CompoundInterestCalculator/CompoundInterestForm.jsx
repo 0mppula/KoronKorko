@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
+import { FaSignOutAlt, FaSignInAlt, FaPercent } from 'react-icons/fa';
 
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
@@ -26,6 +26,7 @@ const CompoundInterestForm = ({
 		durationMultiplier,
 		contribution,
 		contributionMultiplier,
+		contributionFrequency,
 	} = formData;
 
 	const handleChange = (e) => {
@@ -37,7 +38,7 @@ const CompoundInterestForm = ({
 	};
 
 	const handleDurationSelect = (e) => {
-		setFormData((prev) => ({ ...prev, durationMultiplier: e.value }));
+		setFormData((prev) => ({ ...prev, durationMultiplier: e }));
 	};
 
 	const handleContributionSelect = (e) => {
@@ -47,8 +48,9 @@ const CompoundInterestForm = ({
 	const formValidated = () => {
 		const requiredFields = [startingBalance, interestRate, duration];
 		const optionalFields = [contribution];
-		const optionalFieldsValidated = optionalFields.every(of => of === '' || (!isNaN(of) && of !== ''))
-
+		const optionalFieldsValidated = optionalFields.every(
+			(of) => of === '' || (!isNaN(of) && of !== '')
+		);
 
 		// Check that all the required and optional fields are numbers and not empty values
 		return optionalFieldsValidated && requiredFields.every((rf) => !isNaN(rf) && rf !== '');
@@ -61,37 +63,43 @@ const CompoundInterestForm = ({
 			// CI = P(1 + r/n)^(nt)
 
 			// Future Value of a Series
-			// FV = PMT * (((1 + r / n) ^ (nt - 1)) / (r / 2));
+			// FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n))
 
 			// Total amount
 			// T = CI + FV
 
 			// Where:
 			// CI = the future value of the investment/loan, including interest
-			// P = the principal investment amount (the initial deposit or loan amount)
-			// r = the annual interest rate (decimal)
-			// n = the number of times that interest is compounded per unit t
-			// t = investment time in years
+			// P = Principal investment amount (the initial deposit or loan amount)
+			// r = Annual interest rate (decimal)
+			// n = Compound frequency per year
+			// t = Investment time in years
 
-			const rate = +interestRate / 100 + 1;
-			const annualizedDuration = (duration * durationMultiplier) / 12;
-			const futureValue = +(startingBalance * rate ** annualizedDuration).toFixed(2);
-			const totalProfit = +(futureValue - startingBalance);
-			const totalReturn = +(futureValue / startingBalance - 1) * 100;
+			const PMT = contribution;
+			const P = +startingBalance;
+			const r = interestRate / 100;
+			const n = contributionFrequency;
+			const t = (duration * durationMultiplier.value) / 12;
+
+			const CI = P * (1 + r / n) ** (n * t);
+			const FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n));
+			const T = CI + FV;
+			const totalContributions = contribution * contributionFrequency * t;
+			const totalPrincipal = totalContributions + P;
+
+			const totalProfit = T - totalPrincipal;
+			const totalReturn = (totalProfit / totalPrincipal) * 100;
 
 			!user && localStorage.setItem('currency', JSON.stringify(currency));
+			user && dispatch(updateUserPreferences())
 
 			setReport({
 				startingBalance,
-				futureValue,
+				futureValue: T,
 				totalProfit,
 				totalReturn,
 				currency,
 			});
-
-			user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
-		} else {
-			toast.error('Incorrect field values');
 		}
 	};
 
@@ -101,8 +109,10 @@ const CompoundInterestForm = ({
 			startingBalance: '',
 			interestRate: '',
 			duration: '',
+			durationMultiplier: { value: 12, label: 'Years' },
 			contribution: '',
 			contributionMultiplier: 1,
+			contributionFrequency: 1,
 		});
 
 		setReport({
@@ -113,12 +123,12 @@ const CompoundInterestForm = ({
 			totalReturn: 0,
 		});
 
-		toast.success('Form cleared')
+		toast.success('Form cleared');
 	};
 
 	const save = () => {
-		toast.success('Form Saved')
-	}
+		toast.success('Form Saved');
+	};
 
 	const toggleContributionMultiplier = () => {
 		let value = depositting() ? -1 : 1;
@@ -141,7 +151,7 @@ const CompoundInterestForm = ({
 								id="startingBalance"
 								name="startingBalance"
 								placeholder="Your starting balance"
-								type="text"
+								type="number"
 								autoComplete="off"
 								value={startingBalance}
 								onChange={(e) => handleChange(e)}
@@ -169,11 +179,14 @@ const CompoundInterestForm = ({
 						id="interestRate"
 						name="interestRate"
 						placeholder="Your projected annual interest rate"
-						type="text"
+						type="number"
 						autoComplete="off"
 						value={interestRate}
 						onChange={(e) => handleChange(e)}
 					/>
+					<div className="input-icon-wrapper">
+						<FaPercent />
+					</div>
 				</div>
 
 				<div className="form-group split">
@@ -184,7 +197,7 @@ const CompoundInterestForm = ({
 								id="duration"
 								name="duration"
 								placeholder="Duration of your investment"
-								type="text"
+								type="number"
 								autoComplete="off"
 								value={duration}
 								onChange={(e) => handleChange(e)}
@@ -195,7 +208,7 @@ const CompoundInterestForm = ({
 							<Select
 								className="react-select-container"
 								classNamePrefix="react-select"
-								defaultValue={durations[0]}
+								value={durationMultiplier}
 								options={durations}
 								theme={customTheme}
 								onChange={handleDurationSelect}
@@ -214,7 +227,7 @@ const CompoundInterestForm = ({
 								id="contribution"
 								name="contribution"
 								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
-								type="text"
+								type="number"
 								autoComplete="off"
 								value={contribution}
 								onChange={(e) => handleChange(e)}

@@ -16,10 +16,10 @@ const CompoundInterestCalculator = () => {
 		startingBalance: '',
 		interestRate: '',
 		duration: '',
+		durationMultiplier: { value: 12, label: 'Years' },
 		contribution: '',
-		contributionMultiplier: 1,
+		contributionMultiplier: 1 /* +/- */,
 		contributionFrequency: 1,
-		durationMultiplier: '12',
 	});
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
