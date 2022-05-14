@@ -91,7 +91,7 @@ const CompoundInterestForm = ({
 			const totalReturn = (totalProfit / totalPrincipal) * 100;
 
 			!user && localStorage.setItem('currency', JSON.stringify(currency));
-			user && dispatch(updateUserPreferences())
+			user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
 
 			setReport({
 				startingBalance,
@@ -100,6 +100,8 @@ const CompoundInterestForm = ({
 				totalReturn,
 				currency,
 			});
+		} else {
+			toast.error('Incorrect field values');
 		}
 	};
 
