@@ -5,15 +5,21 @@ export const currencies = [
 	{ name: 'yen', value: 'jpy', label: '¥', locale: 'en-US' },
 ];
 
-export const durations = [
-	// The value represents the amount of months in given duration option
+export const durationMultipliers = [
+	// The value represents the amount of months in given option
 	{ value: 12, label: 'Years' },
 	{ value: 3, label: 'Quarters' },
 	{ value: 1, label: 'Months' },
 ];
 
 export const contributionFrequencies = [
-	// The value represents the compound frequency per year in given duration option
+	// The value represents the contribution frequency per year in given option
+	{ value: 1, label: 'Annualy' },
+	{ value: 12, label: 'Monthly' },
+];
+
+export const compoundFrequencies = [
+	// The value represents the compound frequency per year in given option
 	{ value: 1, label: 'Annualy' },
 	{ value: 12, label: 'Monthly' },
 ];

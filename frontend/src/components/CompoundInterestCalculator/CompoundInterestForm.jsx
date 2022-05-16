@@ -6,7 +6,12 @@ import { FaSignOutAlt, FaSignInAlt, FaPercent } from 'react-icons/fa';
 
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
-import { durations, currencies, contributionFrequencies } from '../../assets/data';
+import {
+	durationMultipliers,
+	currencies,
+	contributionFrequencies,
+	compoundFrequencies,
+} from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
 const CompoundInterestForm = ({
@@ -22,6 +27,7 @@ const CompoundInterestForm = ({
 	const {
 		startingBalance,
 		interestRate,
+		compoundFrequency,
 		duration,
 		durationMultiplier,
 		contribution,
@@ -37,12 +43,16 @@ const CompoundInterestForm = ({
 		setCurrency(e);
 	};
 
+	const handleCompoundFrequencySelect = (e) => {
+		setFormData((prev) => ({ ...prev, compoundFrequency: e }));
+	};
+
 	const handleDurationSelect = (e) => {
 		setFormData((prev) => ({ ...prev, durationMultiplier: e }));
 	};
 
 	const handleContributionSelect = (e) => {
-		setFormData((prev) => ({ ...prev, contributionFrequency: e.value }));
+		setFormData((prev) => ({ ...prev, contributionFrequency: e }));
 	};
 
 	const formValidated = () => {
@@ -110,11 +120,12 @@ const CompoundInterestForm = ({
 			...formData,
 			startingBalance: '',
 			interestRate: '',
+			compoundFrequency: compoundFrequencies[0],
 			duration: '',
-			durationMultiplier: { value: 12, label: 'Years' },
+			durationMultiplier: durationMultipliers[0],
 			contribution: '',
 			contributionMultiplier: 1,
-			contributionFrequency: 1,
+			contributionFrequency: contributionFrequencies[0],
 		});
 
 		setReport({
@@ -175,19 +186,36 @@ const CompoundInterestForm = ({
 					</div>
 				</div>
 
-				<div className="form-group">
-					<label htmlFor="interestRate">Annual Interest Rate</label>
-					<input
-						id="interestRate"
-						name="interestRate"
-						placeholder="Your projected annual interest rate"
-						type="number"
-						autoComplete="off"
-						value={interestRate}
-						onChange={(e) => handleChange(e)}
-					/>
-					<div className="input-icon-wrapper">
-						<FaPercent />
+				<div className="form-group split">
+					<div className="input-group-container">
+						<div className="input-group">
+							<label htmlFor="interestRate">Interest Rate</label>
+							<input
+								id="interestRate"
+								name="interestRate"
+								placeholder="Your projected interest rate"
+								type="number"
+								autoComplete="off"
+								value={interestRate}
+								onChange={(e) => handleChange(e)}
+							/>
+							<div className="input-icon-wrapper">
+								<FaPercent />
+							</div>
+						</div>
+						<div className="input-group">
+							{/* Compound frequency selector */}
+							<Select
+								className="react-select-container"
+								classNamePrefix="react-select"
+								value={compoundFrequency}
+								options={compoundFrequencies}
+								theme={customTheme}
+								onChange={handleCompoundFrequencySelect}
+								styles={customStyles}
+								isSearchable={false}
+							/>
+						</div>
 					</div>
 				</div>
 
@@ -211,7 +239,7 @@ const CompoundInterestForm = ({
 								className="react-select-container"
 								classNamePrefix="react-select"
 								value={durationMultiplier}
-								options={durations}
+								options={durationMultipliers}
 								theme={customTheme}
 								onChange={handleDurationSelect}
 								styles={customStyles}
@@ -247,7 +275,7 @@ const CompoundInterestForm = ({
 							<Select
 								className="react-select-container"
 								classNamePrefix="react-select"
-								defaultValue={contributionFrequencies[0]}
+								value={contributionFrequency}
 								options={contributionFrequencies}
 								theme={customTheme}
 								onChange={handleContributionSelect}
