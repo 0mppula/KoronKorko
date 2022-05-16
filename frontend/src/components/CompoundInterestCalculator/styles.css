@@ -1,6 +1,15 @@
 .report-container {
-	width: 100%;
-	padding: 1rem;
+	width: min(90%, 650px);
+}
+
+.report-container h1 {
+	margin-bottom: 0.5rem;
+}
+
+.summary-container {
+	border-top: solid 2px var(--clr-primary);
+	border-bottom: solid 2px var(--clr-primary);
+	padding: 1rem 0;
 }
 
 .report-top {
@@ -11,8 +20,8 @@
 }
 
 .report-group {
-	text-align: center;
-	flex: 1 1 25%;
+	text-align: left;
+	flex: 1 1 50%;
 }
 
 .report-group h2 {
@@ -20,7 +29,7 @@
 }
 
 .report-group p {
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 }
 
 .form-controls-top {
@@ -91,12 +100,6 @@ input#interestRate {
 }
 .contribution-multiplier-icon-container.deposit:hover {
 	opacity: 1;
-}
-
-@media only screen and (max-width: 992px) {
-	.report-group {
-		flex: 1 1 50%;
-	}
 }
 
 @media only screen and (max-width: 576px) {

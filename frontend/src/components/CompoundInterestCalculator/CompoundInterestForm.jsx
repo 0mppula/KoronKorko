@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -79,35 +79,44 @@ const CompoundInterestForm = ({
 			// T = CI + FV
 
 			// Where:
+			// PMT = addition freq / compound freq
 			// CI = the future value of the investment/loan, including interest
 			// P = Principal investment amount (the initial deposit or loan amount)
 			// r = Annual interest rate (decimal)
 			// n = Compound frequency per year
 			// t = Investment time in years
 
-			const PMT = contribution;
+			const PMT =
+				contributionMultiplier *
+				contribution *
+				(contributionFrequency.value / compoundFrequency.value);
 			const P = +startingBalance;
 			const r = interestRate / 100;
-			const n = contributionFrequency;
+			const n = compoundFrequency.value;
 			const t = (duration * durationMultiplier.value) / 12;
 
 			const CI = P * (1 + r / n) ** (n * t);
 			const FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n));
 			const T = CI + FV;
-			const totalContributions = contribution * contributionFrequency * t;
-			const totalPrincipal = totalContributions + P;
+			const APY = ((1 + r / n) ** n - 1) * 100;
 
+			const totalContributions =
+				contributionMultiplier * contribution * contributionFrequency.value * t;
+
+			const totalPrincipal = totalContributions + P;
 			const totalProfit = T - totalPrincipal;
-			const totalReturn = (totalProfit / totalPrincipal) * 100;
 
 			!user && localStorage.setItem('currency', JSON.stringify(currency));
 			user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
 
 			setReport({
-				startingBalance,
+				contribution: totalPrincipal,
 				futureValue: T,
 				totalProfit,
-				totalReturn,
+				totalReturn: APY,
+				principal: P,
+				additional: totalContributions,
+				depositting: depositting(),
 				currency,
 			});
 		} else {
