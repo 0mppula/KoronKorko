@@ -38,11 +38,11 @@ const CompoundInterestReport = ({ report }) => {
 					</div>
 					<div className="report-group">
 						<p>Initial Amount</p>
-						<h2>{formatCurrency(principal)}</h2>
+						<h2>{formatCurrency(principal, currency?.locale, currency?.value)}</h2>
 					</div>
 					<div className="report-group">
 						<p>{depositting ? 'Additional Deposits' : 'Additional Withdrawals'}</p>
-						<h2>{formatCurrency(additional)}</h2>
+						<h2>{formatCurrency(additional, currency?.locale, currency?.value)}</h2>
 					</div>
 				</div>
 			</div>

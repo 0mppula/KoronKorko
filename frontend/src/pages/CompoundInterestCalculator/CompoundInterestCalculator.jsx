@@ -31,10 +31,12 @@ const CompoundInterestCalculator = () => {
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
 	);
 	const [report, setReport] = useState({
-		startingBalance: 0,
+		contribution: 0,
 		futureValue: 0,
 		totalProfit: 0,
 		totalReturn: 0,
+		principal: 0,
+		additional: 0,
 		currency: currency,
 	});
 

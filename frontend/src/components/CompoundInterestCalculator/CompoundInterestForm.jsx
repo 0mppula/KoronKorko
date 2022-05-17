@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -34,6 +34,11 @@ const CompoundInterestForm = ({
 		contributionMultiplier,
 		contributionFrequency,
 	} = formData;
+
+	const currencyRef = useRef();
+	const interestIntervalRef = useRef();
+	const durationRef = useRef();
+	const contributionFrequencyRef = useRef();
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -139,10 +144,12 @@ const CompoundInterestForm = ({
 
 		setReport({
 			...report,
-			startingBalance: 0,
+			contribution: 0,
 			futureValue: 0,
 			totalProfit: 0,
 			totalReturn: 0,
+			principal: 0,
+			additional: 0,
 		});
 
 		toast.success('Form cleared');
@@ -181,7 +188,9 @@ const CompoundInterestForm = ({
 						</div>
 						{/* Currency selector */}
 						<div className="input-group">
+							<label onClick={() => currencyRef.current.focus()}>Currency</label>
 							<Select
+								ref={currencyRef}
 								className="react-select-container"
 								classNamePrefix="react-select"
 								theme={customTheme}
@@ -214,7 +223,11 @@ const CompoundInterestForm = ({
 						</div>
 						<div className="input-group">
 							{/* Compound frequency selector */}
+							<label onClick={() => interestIntervalRef.current.focus()}>
+								Compound Interval
+							</label>
 							<Select
+								ref={interestIntervalRef}
 								className="react-select-container"
 								classNamePrefix="react-select"
 								value={compoundFrequency}
