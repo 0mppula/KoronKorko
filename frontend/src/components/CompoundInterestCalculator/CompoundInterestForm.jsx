@@ -13,15 +13,18 @@ import {
 	compoundFrequencies,
 } from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
+import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
+import createChartData from '../../helpers/createChartData';
 
 const CompoundInterestForm = ({
 	user,
 	formData,
 	setFormData,
-	report,
 	setReport,
 	currency,
 	setCurrency,
+	chartReport,
+	setChartReport,
 }) => {
 	const dispatch = useDispatch();
 	const {
@@ -46,6 +49,8 @@ const CompoundInterestForm = ({
 
 	const handleCurrencySelect = (e) => {
 		setCurrency(e);
+		!user && localStorage.setItem('currency', JSON.stringify(e));
+		user && dispatch(updateUserPreferences({ ...user.preferences, currency: { ...e } }));
 	};
 
 	const handleCompoundFrequencySelect = (e) => {
@@ -74,53 +79,11 @@ const CompoundInterestForm = ({
 	const handleCalculation = (e) => {
 		e.preventDefault();
 		if (formValidated()) {
-			// Compounded Interest for Principal
-			// CI = P(1 + r/n)^(nt)
-
-			// Future Value of a Series
-			// FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n))
-
-			// Total amount
-			// T = CI + FV
-
-			// Where:
-			// PMT = addition freq / compound freq
-			// CI = the future value of the investment/loan, including interest
-			// P = Principal investment amount (the initial deposit or loan amount)
-			// r = Annual interest rate (decimal)
-			// n = Compound frequency per year
-			// t = Investment time in years
-
-			const PMT =
-				contributionMultiplier *
-				contribution *
-				(contributionFrequency.value / compoundFrequency.value);
-			const P = +startingBalance;
-			const r = interestRate / 100;
-			const n = compoundFrequency.value;
-			const t = (duration * durationMultiplier.value) / 12;
-
-			const CI = P * (1 + r / n) ** (n * t);
-			const FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n));
-			const T = CI + FV;
-			const APY = ((1 + r / n) ** n - 1) * 100;
-
-			const totalContributions =
-				contributionMultiplier * contribution * contributionFrequency.value * t;
-
-			const totalPrincipal = totalContributions + P;
-			const totalProfit = T - totalPrincipal;
-
-			!user && localStorage.setItem('currency', JSON.stringify(currency));
-			user && dispatch(updateUserPreferences({ ...user.preferences, currency }));
+			const compoundInterest = calculateCompoundInterest(formData);
+			const chartData = createChartData(formData)
 
 			setReport({
-				contribution: totalPrincipal,
-				futureValue: T,
-				totalProfit,
-				totalReturn: APY,
-				principal: P,
-				additional: totalContributions,
+				...compoundInterest,
 				depositting: depositting(),
 				currency,
 			});
@@ -142,15 +105,7 @@ const CompoundInterestForm = ({
 			contributionFrequency: contributionFrequencies[0],
 		});
 
-		setReport({
-			...report,
-			contribution: 0,
-			futureValue: 0,
-			totalProfit: 0,
-			totalReturn: 0,
-			principal: 0,
-			additional: 0,
-		});
+		setReport(null);
 
 		toast.success('Form cleared');
 	};
@@ -257,7 +212,9 @@ const CompoundInterestForm = ({
 						</div>
 						<div className="input-group">
 							{/* Duration selector */}
+							<label onClick={() => durationRef.current.focus()}>Duration Type</label>
 							<Select
+								ref={durationRef}
 								className="react-select-container"
 								classNamePrefix="react-select"
 								value={durationMultiplier}
@@ -294,9 +251,13 @@ const CompoundInterestForm = ({
 						</div>
 						<div className="input-group">
 							{/* Contribution selector */}
+							<label onClick={() => contributionFrequencyRef.current.focus()}>
+								Contribution Frequency
+							</label>
 							<Select
 								className="react-select-container"
 								classNamePrefix="react-select"
+								ref={contributionFrequencyRef}
 								value={contributionFrequency}
 								options={contributionFrequencies}
 								theme={customTheme}

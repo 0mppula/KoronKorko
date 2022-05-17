@@ -7,17 +7,19 @@ const CompoundInterestReport = ({ report }) => {
 	const {
 		futureValue,
 		totalProfit,
-		contribution,
+		totalContribution,
 		totalReturn,
 		principal,
-		additional,
+		additionalContributions,
 		depositting,
 		currency,
 	} = report;
 
 	return (
 		<div className="report-container">
-			<h1>Summary</h1>
+			<h1>
+				<span>S</span>ummary
+			</h1>
 			<div className="summary-container">
 				<div className="report-top">
 					<div className="report-group">
@@ -26,7 +28,9 @@ const CompoundInterestReport = ({ report }) => {
 					</div>
 					<div className="report-group">
 						<p>Total Contributions</p>
-						<h2>{formatCurrency(contribution, currency?.locale, currency?.value)}</h2>
+						<h2>
+							{formatCurrency(totalContribution, currency?.locale, currency?.value)}
+						</h2>
 					</div>
 					<div className="report-group">
 						<p>Total Profit</p>
@@ -42,7 +46,13 @@ const CompoundInterestReport = ({ report }) => {
 					</div>
 					<div className="report-group">
 						<p>{depositting ? 'Additional Deposits' : 'Additional Withdrawals'}</p>
-						<h2>{formatCurrency(additional, currency?.locale, currency?.value)}</h2>
+						<h2>
+							{formatCurrency(
+								additionalContributions,
+								currency?.locale,
+								currency?.value
+							)}
+						</h2>
 					</div>
 				</div>
 			</div>

@@ -5,6 +5,9 @@
 .report-container h1 {
 	margin-bottom: 0.5rem;
 }
+.report-container h1 span {
+	color: var(--clr-primary);
+}
 
 .summary-container {
 	border-top: solid 2px var(--clr-primary);

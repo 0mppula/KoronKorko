@@ -30,6 +30,7 @@ const CompoundInterestCalculator = () => {
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
 	);
+	// const [report, setReport] = useState(null);
 	const [report, setReport] = useState({
 		contribution: 0,
 		futureValue: 0,
@@ -39,11 +40,11 @@ const CompoundInterestCalculator = () => {
 		additional: 0,
 		currency: currency,
 	});
+	const [chartReport, setChartReport] = useState(null);
 
 	useEffect(() => {
 		if (user) {
 			setCurrency(user?.preferences.currency);
-			setReport({ ...report, currency: user?.preferences.currency });
 		}
 	}, [user]);
 
@@ -63,12 +64,13 @@ const CompoundInterestCalculator = () => {
 				user={user}
 				formData={formData}
 				setFormData={setFormData}
-				report={report}
 				setReport={setReport}
 				currency={currency}
 				setCurrency={setCurrency}
+				chartReport={chartReport}
+				setChartReport={setChartReport}
 			/>
-			<CompoundInterestReport report={report} />
+			{report && <CompoundInterestReport report={report} />}
 		</>
 	);
 };
