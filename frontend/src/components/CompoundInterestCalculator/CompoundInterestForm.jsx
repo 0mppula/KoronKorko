@@ -23,7 +23,6 @@ const CompoundInterestForm = ({
 	setReport,
 	currency,
 	setCurrency,
-	chartReport,
 	setChartReport,
 }) => {
 	const dispatch = useDispatch();
@@ -80,7 +79,9 @@ const CompoundInterestForm = ({
 		e.preventDefault();
 		if (formValidated()) {
 			const compoundInterest = calculateCompoundInterest(formData);
-			const chartData = createChartData(formData)
+			const chartData = createChartData(formData);
+
+			setChartReport(chartData);
 
 			setReport({
 				...compoundInterest,

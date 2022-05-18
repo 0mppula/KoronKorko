@@ -1,5 +1,6 @@
 .report-container {
 	width: min(90%, 650px);
+	margin-bottom: 3rem;
 }
 
 .report-container h1 {

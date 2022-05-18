@@ -11,6 +11,7 @@ import {
 import { useTitle } from '../../hooks/useTitle';
 import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
+import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
 import './styles.css';
 
 const CompoundInterestCalculator = () => {
@@ -67,10 +68,10 @@ const CompoundInterestCalculator = () => {
 				setReport={setReport}
 				currency={currency}
 				setCurrency={setCurrency}
-				chartReport={chartReport}
 				setChartReport={setChartReport}
 			/>
 			{report && <CompoundInterestReport report={report} />}
+			{chartReport && <CompoundInterestBreakdown chartReport={chartReport} />}
 		</>
 	);
 };

@@ -29,6 +29,12 @@ const createChartData = (formData) => {
 	// time in months
 	const tm = duration * durationMultiplier.value;
 
+	// Arrays for chart
+	const totalInterest = [];
+	const totalAdditions = [];
+	const totalPrincipal = [];
+	const totalmonths = [];
+
 	const PMT =
 		contributionMultiplier *
 		contribution *
@@ -36,28 +42,46 @@ const createChartData = (formData) => {
 	const P = +startingBalance;
 	const r = interestRate / 100;
 	const n = compoundFrequency.value;
-	const t = (duration * durationMultiplier.value) / 12;
-
-	const CI = P * (1 + r / n) ** (n * t);
-	const FV = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n));
-	const T = CI + FV;
 
 	for (let i = 0; i <= tm; i++) {
 		let CI_i = P * (1 + r / n) ** (n * (i / 12));
 		let FV_i = PMT * (((1 + r / n) ** (n * (i / 12)) - 1) / (r / n));
 		let T_i = CI_i + FV_i;
 
+		const additions = i * PMT;
+		const interest = T_i - (P + additions);
+		const month = i;
+		const principal = P;
 
-		const interest = T_i - (P + i * PMT);
-		console.log(interest);
-		// totalInterest.push();
+		totalInterest.push(interest);
+		totalAdditions.push(additions);
+		totalmonths.push(month);
+		totalPrincipal.push(principal);
 	}
 
-	const totalPrincipal = [];
-	const totalAdditions = [];
-	const totalInterest = [];
+	const chartData = {
+		labels: totalmonths,
+		datasets: [
+			{
+				label: 'Total Principal',
+				data: totalPrincipal,
+				backgroundColor: 'rgb(53, 162, 235)',
+			},
+			{
+				label: 'Total Deposits',
+				data: totalAdditions,
+				backgroundColor: 'rgb(75, 192, 192)',
+			},
+			{
+				label: 'Total Interest',
+				data: totalInterest,
+				backgroundColor: 'rgb(255, 99, 132)',
+			},
+		],
+	};
 
-	console.log(tm);
+	console.log(chartData);
+	return chartData;
 };
 
 export default createChartData;
