@@ -43,16 +43,19 @@ const createChartData = (formData) => {
 	const T = CI + FV;
 
 	for (let i = 0; i <= tm; i++) {
-		let CI_i = P * (1 + r / n) ** (n * t);
-		let FV_i = PMT * (((1 + r / n) ** (n * t) - 1) / (r / n));
+		let CI_i = P * (1 + r / n) ** (n * (i / 12));
+		let FV_i = PMT * (((1 + r / n) ** (n * (i / 12)) - 1) / (r / n));
 		let T_i = CI_i + FV_i;
 
-		console.log('month:', i);
+
+		const interest = T_i - (P + i * PMT);
+		console.log(interest);
+		// totalInterest.push();
 	}
 
-	const principal = [];
-	const additions = [];
-	const interest = [];
+	const totalPrincipal = [];
+	const totalAdditions = [];
+	const totalInterest = [];
 
 	console.log(tm);
 };

@@ -18,14 +18,14 @@ const CompoundInterestCalculator = () => {
 	const { user, isLoading } = useSelector((state) => state.auth);
 
 	const [formData, setFormData] = useState({
-		startingBalance: '',
-		interestRate: '',
-		compoundFrequency: compoundFrequencies[0],
-		duration: '',
+		startingBalance: 10000,
+		interestRate: 10,
+		compoundFrequency: compoundFrequencies[1],
+		duration: 10,
 		durationMultiplier: durationMultipliers[0],
-		contribution: '',
+		contribution: 250,
 		contributionMultiplier: 1 /* depositting or withdrawing */,
-		contributionFrequency: contributionFrequencies[0],
+		contributionFrequency: contributionFrequencies[1],
 	});
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
