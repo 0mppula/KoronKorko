@@ -16,6 +16,10 @@
 	padding: 1rem 0;
 }
 
+.chart-container {
+	height: 420px;
+}
+
 .report-top {
 	display: flex;
 	row-gap: 1rem;
@@ -104,6 +108,10 @@ input#interestRate {
 }
 .contribution-multiplier-icon-container.deposit:hover {
 	opacity: 1;
+}
+
+.interest-chart {
+	/* background-color: var(--clr-background-L2); */
 }
 
 @media only screen and (max-width: 576px) {

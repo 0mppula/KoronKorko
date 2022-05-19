@@ -15,6 +15,7 @@ import ToastCloseButton from './components/Tools/ToastCloseButton';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
+	const [updates, setUpdates] = useState(0);
 	const [darkMode, setDarkMode] = useState(
 		JSON.parse(localStorage.getItem('darkMode')) ||
 			(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -26,10 +27,10 @@ function App() {
 			setDarkMode(user?.preferences.darkMode);
 		} else {
 			// When user is not logged in set darkmode to value from local storage
-			setDarkMode(JSON.parse(localStorage.getItem('darkMode')))
+			setDarkMode(JSON.parse(localStorage.getItem('darkMode')));
 		}
 	}, [user]);
-	
+
 	useEffect(() => {
 		let body = document.body;
 		if (!user) {
@@ -37,8 +38,8 @@ function App() {
 			localStorage.setItem('darkMode', darkMode);
 		}
 		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');
+		setUpdates(updates + 1);
 	}, [darkMode]);
-
 
 	return (
 		<>
@@ -47,7 +48,7 @@ function App() {
 				<Nav darkMode={darkMode} setDarkMode={setDarkMode} />
 				<div className="container">
 					<Routes>
-						<Route path="/" element={<CompoundInterestCalculator />} />
+						<Route path="/" element={<CompoundInterestCalculator  darkMode={darkMode} />} />
 						<Route path="/plans" element={<Dashboard />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
@@ -55,7 +56,11 @@ function App() {
 				</div>
 				<Footer />
 			</Router>
-			<ToastContainer autoClose={3000} pauseOnFocusLoss={false} closeButton={<ToastCloseButton />} />
+			<ToastContainer
+				autoClose={3000}
+				pauseOnFocusLoss={false}
+				closeButton={<ToastCloseButton />}
+			/>
 		</>
 	);
 }

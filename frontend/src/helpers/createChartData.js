@@ -1,4 +1,4 @@
-const createChartData = (formData) => {
+const createChartData = (formData, color) => {
 	const {
 		startingBalance,
 		interestRate,
@@ -65,22 +65,21 @@ const createChartData = (formData) => {
 			{
 				label: 'Total Principal',
 				data: totalPrincipal,
-				backgroundColor: 'rgb(53, 162, 235)',
+				backgroundColor: color.totalPrincipal,
 			},
 			{
 				label: 'Total Deposits',
 				data: totalAdditions,
-				backgroundColor: 'rgb(75, 192, 192)',
+				backgroundColor: color.totalDeposits,
 			},
 			{
 				label: 'Total Interest',
 				data: totalInterest,
-				backgroundColor: 'rgb(255, 99, 132)',
+				backgroundColor: color.totalInterest,
 			},
 		],
 	};
 
-	console.log(chartData);
 	return chartData;
 };
 

@@ -14,7 +14,7 @@ import CompoundInterestForm from '../../components/CompoundInterestCalculator/Co
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
 import './styles.css';
 
-const CompoundInterestCalculator = () => {
+const CompoundInterestCalculator = ({ darkMode }) => {
 	useTitle('Compound Interest Calculator');
 	const { user, isLoading } = useSelector((state) => state.auth);
 
@@ -41,7 +41,6 @@ const CompoundInterestCalculator = () => {
 		additional: 0,
 		currency: currency,
 	});
-	const [chartReport, setChartReport] = useState(null);
 
 	useEffect(() => {
 		if (user) {
@@ -68,10 +67,15 @@ const CompoundInterestCalculator = () => {
 				setReport={setReport}
 				currency={currency}
 				setCurrency={setCurrency}
-				setChartReport={setChartReport}
 			/>
 			{report && <CompoundInterestReport report={report} />}
-			{chartReport && <CompoundInterestBreakdown chartReport={chartReport} />}
+			{report && (
+				<CompoundInterestBreakdown
+					formData={formData}
+					report={report}
+					darkMode={darkMode}
+				/>
+			)}
 		</>
 	);
 };

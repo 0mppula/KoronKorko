@@ -14,7 +14,6 @@ import {
 } from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
-import createChartData from '../../helpers/createChartData';
 
 const CompoundInterestForm = ({
 	user,
@@ -23,7 +22,6 @@ const CompoundInterestForm = ({
 	setReport,
 	currency,
 	setCurrency,
-	setChartReport,
 }) => {
 	const dispatch = useDispatch();
 	const {
@@ -79,9 +77,6 @@ const CompoundInterestForm = ({
 		e.preventDefault();
 		if (formValidated()) {
 			const compoundInterest = calculateCompoundInterest(formData);
-			const chartData = createChartData(formData);
-
-			setChartReport(chartData);
 
 			setReport({
 				...compoundInterest,
