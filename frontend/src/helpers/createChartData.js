@@ -1,4 +1,4 @@
-const createChartData = (formData, color) => {
+const createChartData = (formData, darkMode) => {
 	const {
 		startingBalance,
 		interestRate,
@@ -28,6 +28,8 @@ const createChartData = (formData, color) => {
 
 	// time in months
 	const tm = duration * durationMultiplier.value;
+
+	const depositting = formData.contributionMultiplier > -1;
 
 	// Arrays for chart
 	const totalInterest = [];
@@ -65,17 +67,21 @@ const createChartData = (formData, color) => {
 			{
 				label: 'Total Principal',
 				data: totalPrincipal,
-				backgroundColor: color.totalPrincipal,
+				backgroundColor: `${darkMode ? '#aeaeae' : '#5f5f5f'}`,
 			},
 			{
-				label: 'Total Deposits',
+				label: `${depositting ? 'Total Deposits' : 'Total Withdrawals'}`,
 				data: totalAdditions,
-				backgroundColor: color.totalDeposits,
+				backgroundColor: `${
+					depositting
+						? `${darkMode ? '#12cc2f' : '#096a19'}`
+						: `${darkMode ? '#f96767' : '#ab141c'}`
+				}`,
 			},
 			{
 				label: 'Total Interest',
 				data: totalInterest,
-				backgroundColor: color.totalInterest,
+				backgroundColor: `${darkMode ? '#b69ed3' : '#68498d'}`,
 			},
 		],
 	};

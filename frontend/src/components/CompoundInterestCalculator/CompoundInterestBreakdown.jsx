@@ -17,13 +17,7 @@ const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
 	const [chartReport, setChartReport] = useState(null);
 
 	useEffect(() => {
-		console.log('render');
-		const colors = {
-			totalPrincipal: cssVar('--clr-text-secondary'),
-			totalDeposits: cssVar('--clr-success'),
-			totalInterest: cssVar('--clr-primary'),
-		};
-		const chartData = createChartData(formData, colors);
+		const chartData = createChartData(formData, darkMode);
 
 		setChartReport(chartData);
 	}, [report, darkMode]);
@@ -69,24 +63,6 @@ const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
 			},
 		},
 	};
-
-	// const colorizeData = () => {
-	// 	const data = { ...chartReport };
-
-	// 	// Colorize datasets for render
-	// 	data.datasets.map((dataset) => {
-	// 		if (dataset.label === 'Total Principal')
-	// 			dataset.backgroundColor = cssVar('--clr-text-secondary');
-	// 		if (dataset.label === 'Total Deposits')
-	// 			dataset.backgroundColor = cssVar('--clr-success');
-	// 		if (dataset.label === 'Total Interest')
-	// 			dataset.backgroundColor = cssVar('--clr-primary');
-	// 	});
-
-	// 	return data;
-	// };
-
-	// const chartData = colorizeData();
 
 	return (
 		<div className="report-container">
