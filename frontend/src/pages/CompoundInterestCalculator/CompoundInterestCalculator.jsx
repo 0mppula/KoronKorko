@@ -71,6 +71,7 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 			{report && <CompoundInterestReport report={report} />}
 			{report && (
 				<CompoundInterestBreakdown
+					user={user}
 					formData={formData}
 					report={report}
 					darkMode={darkMode}

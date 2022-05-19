@@ -67,7 +67,7 @@ const createChartData = (formData, darkMode) => {
 			{
 				label: 'Total Principal',
 				data: totalPrincipal,
-				backgroundColor: `${darkMode ? '#aeaeae' : '#5f5f5f'}`,
+				backgroundColor: `${darkMode ? '#363636' : '#c9c9c9'}`,
 			},
 			{
 				label: `${depositting ? 'Total Deposits' : 'Total Withdrawals'}`,
