@@ -45,20 +45,43 @@ const createChartData = (formData, darkMode) => {
 	const r = interestRate / 100;
 	const n = compoundFrequency.value;
 
+	// Decreasable pricipal for when depositting
+	let p = +startingBalance;
+
 	for (let i = 0; i <= tm; i++) {
+		// Spread deposits/withdrawals evenly depending on deposits/withdrawals frequency
+		let pmt = (contributionFrequency.value / 12) * (contributionMultiplier * contribution);
 		let CI_i = P * (1 + r / n) ** (n * (i / 12));
 		let FV_i = PMT * (((1 + r / n) ** (n * (i / 12)) - 1) / (r / n));
 		let T_i = CI_i + FV_i;
 
-		const additions = i * PMT;
+		const additions = i * pmt;
 		const interest = T_i - (P + additions);
 		const month = i;
 		const principal = P;
 
-		totalInterest.push(interest);
 		totalAdditions.push(additions);
 		totalmonths.push(month);
-		totalPrincipal.push(principal);
+
+		if (depositting) {
+			totalPrincipal.push(principal);
+			totalInterest.push(interest);
+		} else {
+			// Dont withdraw on first iteration
+			if (i > 0) {
+				p += pmt;
+			}
+			// when principal is depleted value is 0
+			const offsetPrincipal = p > 0 ? p : 0;
+			// The remainder value when principal is depleted
+			const remainder = p + pmt > P ? 0 : p;
+
+			// Dont show negative pricipal & skip first iteration
+			totalPrincipal.push(p >= 0 ? p : 0);
+
+			// Substract from interest when pricipal is depleted & skip first iteration
+			totalInterest.push(i > 0 ? interest + remainder - offsetPrincipal : 0);
+		}
 	}
 
 	const chartData = {

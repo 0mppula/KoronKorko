@@ -158,7 +158,7 @@ const CompoundInterestForm = ({
 				<div className="form-group split">
 					<div className="input-group-container">
 						<div className="input-group">
-							<label htmlFor="interestRate">Interest Rate</label>
+							<label htmlFor="interestRate">Annual Interest Rate</label>
 							<input
 								id="interestRate"
 								name="interestRate"

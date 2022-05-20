@@ -27,25 +27,15 @@ const CompoundInterestReport = ({ report }) => {
 						<h2>{formatCurrency(futureValue, currency?.locale, currency?.value)}</h2>
 					</div>
 					<div className="report-group">
-						<p>Total Contributions</p>
-						<h2>
-							{formatCurrency(totalContribution, currency?.locale, currency?.value)}
-						</h2>
-					</div>
-					<div className="report-group">
 						<p>Total Profit</p>
 						<h2>{formatCurrency(totalProfit, currency?.locale, currency?.value)}</h2>
-					</div>
-					<div className="report-group">
-						<p>Total Return (APY)</p>
-						<h2>{formatPercentage(totalReturn)}</h2>
 					</div>
 					<div className="report-group">
 						<p>Initial Amount</p>
 						<h2>{formatCurrency(principal, currency?.locale, currency?.value)}</h2>
 					</div>
 					<div className="report-group">
-						<p>{depositting ? 'Additional Deposits' : 'Additional Withdrawals'}</p>
+						<p>{depositting ? 'Total Deposits' : 'Total Withdrawals'}</p>
 						<h2>
 							{formatCurrency(
 								additionalContributions,
@@ -53,6 +43,16 @@ const CompoundInterestReport = ({ report }) => {
 								currency?.value
 							)}
 						</h2>
+					</div>
+					<div className="report-group">
+						<p>Net Contributions</p>
+						<h2>
+							{formatCurrency(totalContribution, currency?.locale, currency?.value)}
+						</h2>
+					</div>
+					<div className="report-group">
+						<p>Total Return (APY)</p>
+						<h2>{formatPercentage(totalReturn)}</h2>
 					</div>
 				</div>
 			</div>
