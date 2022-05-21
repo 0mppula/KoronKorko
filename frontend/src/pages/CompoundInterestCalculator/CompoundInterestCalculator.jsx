@@ -39,6 +39,7 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 		totalReturn: 0,
 		principal: 0,
 		additional: 0,
+		breakdown: 'monthly',
 		currency: currency,
 	});
 
@@ -74,6 +75,7 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 					user={user}
 					formData={formData}
 					report={report}
+					setReport={setReport}
 					darkMode={darkMode}
 				/>
 			)}

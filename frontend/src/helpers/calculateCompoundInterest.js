@@ -26,6 +26,8 @@ const calculateCompoundInterest = (formData) => {
 	// n = Compound frequency per year
 	// t = Investment time in years
 
+	const depositting = contributionMultiplier > -1;
+
 	const PMT =
 		contributionMultiplier *
 		contribution *
@@ -46,9 +48,12 @@ const calculateCompoundInterest = (formData) => {
 	const totalContribution = additionalContributions + P;
 	const totalProfit = T - totalContribution;
 
+	// If no rate is provides show the future future value of investment
+	const noRateT = additionalContributions + P;
+
 	return {
 		totalContribution,
-		futureValue: T,
+		futureValue: r !== 0 ? T : noRateT,
 		totalProfit,
 		totalReturn: APY,
 		principal: P,

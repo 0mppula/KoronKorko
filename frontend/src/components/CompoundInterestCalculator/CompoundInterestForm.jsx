@@ -44,6 +44,12 @@ const CompoundInterestForm = ({
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
+	const disableArrowKeys = (e) => {
+		if (e.which === 38 || e.which === 40) {
+			e.preventDefault();
+		}
+	};
+
 	const handleCurrencySelect = (e) => {
 		setCurrency(e);
 		!user && localStorage.setItem('currency', JSON.stringify(e));
@@ -77,11 +83,20 @@ const CompoundInterestForm = ({
 		e.preventDefault();
 		if (formValidated()) {
 			const compoundInterest = calculateCompoundInterest(formData);
+			let breakdown;
+
+			// If investment duration is over 24 months set the chart breakdown option to yearly
+			if (durationMultiplier.value * duration >= 24) {
+				breakdown = 'yearly';
+			} else {
+				breakdown = 'monthly';
+			}
 
 			setReport({
 				...compoundInterest,
 				depositting: depositting(),
 				currency,
+				breakdown,
 			});
 		} else {
 			toast.error('Incorrect field values');
@@ -134,6 +149,8 @@ const CompoundInterestForm = ({
 								type="number"
 								autoComplete="off"
 								value={startingBalance}
+								onKeyDown={(e) => disableArrowKeys(e)}
+								onWheel={(e) => document.activeElement.blur()}
 								onChange={(e) => handleChange(e)}
 							/>
 						</div>
@@ -167,6 +184,8 @@ const CompoundInterestForm = ({
 								autoComplete="off"
 								value={interestRate}
 								onChange={(e) => handleChange(e)}
+								onKeyDown={(e) => disableArrowKeys(e)}
+								onWheel={(e) => document.activeElement.blur()}
 							/>
 							<div className="input-icon-wrapper">
 								<FaPercent />
@@ -204,6 +223,8 @@ const CompoundInterestForm = ({
 								autoComplete="off"
 								value={duration}
 								onChange={(e) => handleChange(e)}
+								onKeyDown={(e) => disableArrowKeys(e)}
+								onWheel={(e) => document.activeElement.blur()}
 							/>
 						</div>
 						<div className="input-group">
@@ -236,6 +257,8 @@ const CompoundInterestForm = ({
 								autoComplete="off"
 								value={contribution}
 								onChange={(e) => handleChange(e)}
+								onKeyDown={(e) => disableArrowKeys(e)}
+								onWheel={(e) => document.activeElement.blur()}
 							/>
 							<div
 								className={`contribution-multiplier-icon-container 

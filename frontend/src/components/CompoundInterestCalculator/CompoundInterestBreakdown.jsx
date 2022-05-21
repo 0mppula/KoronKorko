@@ -13,12 +13,14 @@ import {
 import { cssVar } from '../../helpers/getCssVariable';
 import { formatCurrency, formatCurrencyK } from '../../helpers/format';
 import createChartData from '../../helpers/createChartData';
+import ChartBreakdownOptions from './ChartBreakdownOptions';
 
-const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
+const CompoundInterestBreakdown = ({ formData, report, setReport, darkMode }) => {
 	const [chartReport, setChartReport] = useState(null);
+	const { breakdown } = report;
 
 	useEffect(() => {
-		const chartData = createChartData(formData, darkMode);
+		const chartData = createChartData(formData, breakdown, darkMode);
 
 		setChartReport(chartData);
 		// eslint-disable-next-line
@@ -46,8 +48,9 @@ const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
 			tooltip: {
 				callbacks: {
 					title: (context) => {
-						const defaultTitle = context[0].label;
-						return `Month: ${defaultTitle}`;
+						const defaultTitle = context[0].dataIndex;
+						const breakdownType = breakdown === 'yearly' ? 'Year' : 'Month';
+						return `${breakdownType}: ${defaultTitle}`;
 					},
 					label: (context) => {
 						const dataset = context.dataset.data;
@@ -76,9 +79,12 @@ const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
 				stacked: true,
 				ticks: {
 					color: cssVar('--clr-text-primary'),
+					callback: (rawValue) => {
+						return rawValue;
+					},
 				},
 				title: {
-					text: 'Months',
+					text: `${breakdown === 'yearly' ? 'Years' : 'Months'}`,
 					color: cssVar('--clr-text-primary'),
 					display: true,
 				},
@@ -110,14 +116,17 @@ const CompoundInterestBreakdown = ({ formData, report, darkMode }) => {
 			<h1>
 				<span>B</span>reakdown
 			</h1>
-			<div className="summary-container chart-container">
+			<div className="summary-container">
+				<ChartBreakdownOptions report={report} setReport={setReport} />
 				{chartReport && (
-					<Bar
-						className="interest-chart"
-						options={options}
-						data={chartReport}
-						plugins={plugins}
-					/>
+					<div className="chart-container">
+						<Bar
+							className="interest-chart"
+							options={options}
+							data={chartReport}
+							plugins={plugins}
+						/>
+					</div>
 				)}
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-const createChartData = (formData, darkMode) => {
+const createChartData = (formData, breakdown, darkMode) => {
 	const {
 		startingBalance,
 		interestRate,
@@ -29,7 +29,7 @@ const createChartData = (formData, darkMode) => {
 	// time in months
 	const tm = duration * durationMultiplier.value;
 
-	const depositting = formData.contributionMultiplier > -1;
+	const depositting = contributionMultiplier > -1;
 
 	// Arrays for chart
 	const totalInterest = [];
@@ -84,29 +84,77 @@ const createChartData = (formData, darkMode) => {
 		}
 	}
 
+	const filterChartBreakdown = (data) => {
+		// Filter data array so that the first and the last elements stay
+		// Additionally filter elements either yearly (1/12) or monthly (1/1)
+		const filterFrequency = breakdown === 'yearly' ? 12 : 1;
+		let lastInsertIndex = 0;
+
+		const filtered = [];
+
+		data.forEach((el, i) => {
+			if (i === 0) {
+				// Always add the fist element
+				filtered.push(el);
+			} else if (i === data.length - 1) {
+				// Always add the last element
+				filtered.push(el);
+			} else if (i === lastInsertIndex + filterFrequency) {
+				// Add elements depending on breakdown frequency
+				filtered.push(el);
+				lastInsertIndex = i;
+			}
+		});
+
+		return filtered;
+	};
+
 	const chartData = {
-		labels: totalmonths,
-		datasets: [
-			{
-				label: 'Total Principal',
-				data: totalPrincipal,
-				backgroundColor: `${darkMode ? '#363636' : '#c9c9c9'}`,
-			},
-			{
-				label: `${depositting ? 'Total Deposits' : 'Total Withdrawals'}`,
-				data: totalAdditions,
-				backgroundColor: `${
-					depositting
-						? `${darkMode ? '#12cc2f' : '#096a19'}`
-						: `${darkMode ? '#f96767' : '#ab141c'}`
-				}`,
-			},
-			{
-				label: 'Total Interest',
-				data: totalInterest,
-				backgroundColor: `${darkMode ? '#b69ed3' : '#68498d'}`,
-			},
-		],
+		labels: filterChartBreakdown(totalmonths),
+		// Show interest on top of deposits when withrawing
+		datasets: depositting
+			? [
+					{
+						label: 'Total Principal',
+						data: filterChartBreakdown(totalPrincipal),
+						backgroundColor: `${darkMode ? '#363636' : '#c9c9c9'}`,
+					},
+					{
+						label: `${depositting ? 'Total Deposits' : 'Total Withdrawals'}`,
+						data: filterChartBreakdown(totalAdditions),
+						backgroundColor: `${
+							depositting
+								? `${darkMode ? '#12cc2f' : '#096a19'}`
+								: `${darkMode ? '#f96767' : '#ab141c'}`
+						}`,
+					},
+					{
+						label: 'Total Interest',
+						data: filterChartBreakdown(totalInterest),
+						backgroundColor: `${darkMode ? '#b69ed3' : '#68498d'}`,
+					},
+			  ]
+			: [
+					{
+						label: 'Total Principal',
+						data: filterChartBreakdown(totalPrincipal),
+						backgroundColor: `${darkMode ? '#363636' : '#c9c9c9'}`,
+					},
+					{
+						label: 'Total Interest',
+						data: filterChartBreakdown(totalInterest),
+						backgroundColor: `${darkMode ? '#b69ed3' : '#68498d'}`,
+					},
+					{
+						label: `${depositting ? 'Total Deposits' : 'Total Withdrawals'}`,
+						data: filterChartBreakdown(totalAdditions),
+						backgroundColor: `${
+							depositting
+								? `${darkMode ? '#12cc2f' : '#096a19'}`
+								: `${darkMode ? '#f96767' : '#ab141c'}`
+						}`,
+					},
+			  ],
 	};
 
 	return chartData;

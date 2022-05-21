@@ -114,6 +114,38 @@ input#interestRate {
 	/* background-color: var(--clr-background-L2); */
 }
 
+.options-toggler-container {
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	border-radius: 4px;
+	background-color: var(--clr-hover);
+	box-shadow: var(--button-box-shadow);
+}
+
+.options-toggler-container div {
+	padding: 10px;
+	cursor: pointer;
+	width: 100%;
+	text-align: center;
+	user-select: none;
+	color: var(--clr-text-primary);
+}
+
+.options-toggler-container div:nth-child(1) {
+	border-radius: 4px 0 0 4px;
+}
+.options-toggler-container div:nth-child(2) {
+	border-radius: 0 4px 4px 0;
+}
+
+.options-toggler-container div.active {
+	background-color: var(--clr-primary);
+	color: var(--clr-white);
+}
+
 @media only screen and (max-width: 576px) {
 	.report-group {
 		flex: 1 1 100%;
@@ -124,6 +156,6 @@ input#interestRate {
 	.form-controls-top div.icon.save:hover,
 	.form-controls-top div.icon.reset:hover {
 		background-color: transparent;
-        color: var(--clr-text-secondary);
+		color: var(--clr-text-secondary);
 	}
 }
