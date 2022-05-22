@@ -1,13 +1,16 @@
 import React from 'react';
-import { FaSyncAlt, FaSave } from 'react-icons/fa';
+import { FaSyncAlt, FaSave, FaFileImport } from 'react-icons/fa';
 
-const FormControlsTop = ({ save, resetCalculator }) => {
+const FormControlsTop = ({ openCalculation, save, resetCalculator }) => {
 	return (
 		<div className="form-controls-top">
-			<div className="icon save" onClick={save}>
+			<div className="icon success" onClick={openCalculation}>
+				<FaFileImport />
+			</div>
+			<div className="icon success" onClick={save}>
 				<FaSave />
 			</div>
-			<div className="icon reset" onClick={resetCalculator}>
+			<div className="icon danger" onClick={resetCalculator}>
 				<FaSyncAlt />
 			</div>
 		</div>

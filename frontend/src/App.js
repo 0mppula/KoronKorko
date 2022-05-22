@@ -12,6 +12,7 @@ import Nav from './components/Nav/Nav';
 import ScrollToTop from './components/Tools/ScrollToTop';
 import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 import ToastCloseButton from './components/Tools/ToastCloseButton';
+import ToTop from './components/Tools/ToTop';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -48,7 +49,10 @@ function App() {
 				<Nav darkMode={darkMode} setDarkMode={setDarkMode} />
 				<div className="container">
 					<Routes>
-						<Route path="/" element={<CompoundInterestCalculator  darkMode={darkMode} />} />
+						<Route
+							path="/"
+							element={<CompoundInterestCalculator darkMode={darkMode} />}
+						/>
 						<Route path="/plans" element={<Dashboard />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
@@ -56,6 +60,7 @@ function App() {
 				</div>
 				<Footer />
 			</Router>
+			<ToTop />
 			<ToastContainer
 				autoClose={3000}
 				pauseOnFocusLoss={false}

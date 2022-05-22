@@ -10,12 +10,20 @@
     justify-content: center;
     align-items: center;
   }
+
+  .loading-container-small {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
   .loadingSpinner {
     width: 64px;
     height: 64px;
     border: 8px solid;
-    border-color: #000 transparent #555 transparent;
+    border-color: var(--clr-text-primary) transparent var(--clr-primary) transparent;
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
   }

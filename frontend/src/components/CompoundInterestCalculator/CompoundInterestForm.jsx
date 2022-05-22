@@ -22,6 +22,8 @@ const CompoundInterestForm = ({
 	setReport,
 	currency,
 	setCurrency,
+	setCalculationCount,
+	setLoadingCalculation,
 }) => {
 	const dispatch = useDispatch();
 	const {
@@ -98,6 +100,8 @@ const CompoundInterestForm = ({
 				currency,
 				breakdown,
 			});
+			setCalculationCount((prev) => prev + 1);
+			setLoadingCalculation(true);
 		} else {
 			toast.error('Incorrect field values');
 		}
@@ -125,6 +129,10 @@ const CompoundInterestForm = ({
 		toast.success('Form Saved');
 	};
 
+	const openCalculation = () => {
+		toast.success('Calculation Opened');
+	}
+
 	const toggleContributionMultiplier = () => {
 		let value = depositting() ? -1 : 1;
 		setFormData({ ...formData, contributionMultiplier: value });
@@ -136,7 +144,7 @@ const CompoundInterestForm = ({
 
 	return (
 		<div className="form">
-			<FormControlsTop save={save} resetCalculator={resetCalculator} />
+			<FormControlsTop openCalculation={openCalculation} save={save} resetCalculator={resetCalculator} />
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">
 					<div className="input-group-container">
@@ -147,6 +155,7 @@ const CompoundInterestForm = ({
 								name="startingBalance"
 								placeholder="Your starting balance"
 								type="number"
+								min="0"
 								autoComplete="off"
 								value={startingBalance}
 								onKeyDown={(e) => disableArrowKeys(e)}
@@ -181,6 +190,7 @@ const CompoundInterestForm = ({
 								name="interestRate"
 								placeholder="Your projected interest rate"
 								type="number"
+								min="0"
 								autoComplete="off"
 								value={interestRate}
 								onChange={(e) => handleChange(e)}
@@ -220,6 +230,8 @@ const CompoundInterestForm = ({
 								name="duration"
 								placeholder="Duration of your investment"
 								type="number"
+								min="0"
+								max="999"
 								autoComplete="off"
 								value={duration}
 								onChange={(e) => handleChange(e)}
@@ -254,6 +266,7 @@ const CompoundInterestForm = ({
 								name="contribution"
 								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
 								type="number"
+								min="0"
 								autoComplete="off"
 								value={contribution}
 								onChange={(e) => handleChange(e)}

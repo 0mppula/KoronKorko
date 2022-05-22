@@ -155,7 +155,7 @@ const createChartData = (formData, breakdown, darkMode) => {
 						}`,
 					},
 			  ],
-	};
+	}
 
 	return chartData;
 };

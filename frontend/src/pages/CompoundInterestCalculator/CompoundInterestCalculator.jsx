@@ -13,6 +13,7 @@ import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
 import './styles.css';
+import CompoundInterestModal from '../../components/CompoundInterestCalculator/CompoundInterestModal';
 
 const CompoundInterestCalculator = ({ darkMode }) => {
 	useTitle('Compound Interest Calculator');
@@ -31,17 +32,20 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
 	);
-	// const [report, setReport] = useState(null);
-	const [report, setReport] = useState({
-		contribution: 0,
-		futureValue: 0,
-		totalProfit: 0,
-		totalReturn: 0,
-		principal: 0,
-		additional: 0,
-		breakdown: 'monthly',
-		currency: currency,
-	});
+	const [report, setReport] = useState(null);
+	const [calculationCount, setCalculationCount] = useState(0);
+	const [loadingCalculation, setLoadingCalculation] = useState(false);
+	const [modalOpen, setModalOpen] = useState(true);
+	// const [report, setReport] = useState({
+	// 	contribution: 0,
+	// 	futureValue: 0,
+	// 	totalProfit: 0,
+	// 	totalReturn: 0,
+	// 	principal: 0,
+	// 	additional: 0,
+	// 	breakdown: 'monthly',
+	// 	currency: currency,
+	// });
 
 	useEffect(() => {
 		if (user) {
@@ -49,18 +53,16 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 		}
 	}, [user]);
 
-	if (isLoading) {
-		return <Spinner />;
-	}
-
 	return (
 		<>
+			{isLoading && <Spinner />}
 			<section className="heading">
 				<h1>
 					<span>C</span>ompound&nbsp;<span>I</span>nterest&nbsp;<span>C</span>alculator
 				</h1>
 			</section>
 
+			<CompoundInterestModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
 			<CompoundInterestForm
 				user={user}
 				formData={formData}
@@ -68,8 +70,16 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 				setReport={setReport}
 				currency={currency}
 				setCurrency={setCurrency}
+				setCalculationCount={setCalculationCount}
+				setLoadingCalculation={setLoadingCalculation}
 			/>
-			{report && <CompoundInterestReport report={report} />}
+			{report && (
+				<CompoundInterestReport
+					report={report}
+					setLoadingCalculation={setLoadingCalculation}
+					loadingCalculation={loadingCalculation}
+				/>
+			)}
 			{report && (
 				<CompoundInterestBreakdown
 					user={user}
@@ -77,6 +87,9 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 					report={report}
 					setReport={setReport}
 					darkMode={darkMode}
+					calculationCount={calculationCount}
+					loadingCalculation={loadingCalculation}
+					setLoadingCalculation={setLoadingCalculation}
 				/>
 			)}
 		</>

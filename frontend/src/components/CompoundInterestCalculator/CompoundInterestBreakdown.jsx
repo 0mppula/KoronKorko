@@ -14,17 +14,42 @@ import { cssVar } from '../../helpers/getCssVariable';
 import { formatCurrency, formatCurrencyK } from '../../helpers/format';
 import createChartData from '../../helpers/createChartData';
 import ChartBreakdownOptions from './ChartBreakdownOptions';
+import LoadingSmall from '../Loading/LoadingSmall';
 
-const CompoundInterestBreakdown = ({ formData, report, setReport, darkMode }) => {
+const CompoundInterestBreakdown = ({
+	formData,
+	report,
+	setReport,
+	darkMode,
+	calculationCount,
+	loadingCalculation,
+	setLoadingCalculation,
+}) => {
 	const [chartReport, setChartReport] = useState(null);
 	const { breakdown } = report;
 
 	useEffect(() => {
-		const chartData = createChartData(formData, breakdown, darkMode);
+		const getChartData = () => {
+			const chartData = createChartData(formData, breakdown, darkMode);
 
-		setChartReport(chartData);
+			setChartReport(chartData);
+			setTimeout(() => setLoadingCalculation(false), 500);
+		};
+
+		getChartData();
 		// eslint-disable-next-line
 	}, [report, darkMode]);
+
+	useEffect(() => {
+		const reportSummary = document.querySelector('.report-container');
+
+		window.scrollTo({
+			top: reportSummary.offsetTop - 60,
+			left: 0,
+			behavior: 'smooth',
+		});
+
+	}, [calculationCount]);
 
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -116,18 +141,26 @@ const CompoundInterestBreakdown = ({ formData, report, setReport, darkMode }) =>
 			<h1>
 				<span>B</span>reakdown
 			</h1>
-			<div className="summary-container">
-				<ChartBreakdownOptions report={report} setReport={setReport} />
-				{chartReport && (
-					<div className="chart-container">
-						<Bar
-							className="interest-chart"
-							options={options}
-							data={chartReport}
-							plugins={plugins}
-						/>
-					</div>
-				)}
+			<div className={`summary-container ${loadingCalculation ? 'loading' : ''}`}>
+				<>
+					{loadingCalculation ? (
+						<LoadingSmall />
+					) : (
+						<>
+							<ChartBreakdownOptions report={report} setReport={setReport} />
+							{chartReport && (
+								<div className="chart-container">
+									<Bar
+										className="interest-chart"
+										options={options}
+										data={chartReport}
+										plugins={plugins}
+									/>
+								</div>
+							)}
+						</>
+					)}
+				</>
 			</div>
 		</div>
 	);
