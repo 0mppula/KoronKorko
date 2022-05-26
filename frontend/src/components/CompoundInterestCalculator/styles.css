@@ -81,7 +81,18 @@
 	display: flex;
 	padding: 0.5rem;
 	color: var(--clr-text-secondary);
+	transition: var(--fast-transition);
 	opacity: 0.5;
+}
+
+.input-icon-wrapper.clear {
+	cursor: pointer;
+	pointer-events: all;
+}
+
+.input-icon-wrapper.clear:hover {
+	opacity: 1;
+	color: var(--clr-danger);
 }
 
 .contribution-multiplier-icon-container {
@@ -96,11 +107,6 @@
 	opacity: 0.5;
 	transition: var(--fast-transition);
 	border-radius: 4px;
-}
-
-input#contribution,
-input#interestRate {
-	padding-right: 34px;
 }
 
 .contribution-multiplier-icon-container.withdraw {
@@ -154,7 +160,7 @@ input#interestRate {
 }
 
 /* Compound Interest Modal */
-.compound-interest-modal-container {
+.compound-interest-modal-overlay {
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -163,16 +169,72 @@ input#interestRate {
 	position: fixed;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	z-index: 10000;
+	padding-top: 13vh;
+	align-items: flex-start;
+	z-index: -1;
 	background-color: rgba(0, 0, 0, 0.33);
+	opacity: 0;
+	transition: var(--fast-transition);
+	pointer-events: none;
+}
+
+.compound-interest-modal-overlay.show {
+	opacity: 1;
+	pointer-events: all;
+	z-index: 10000;
+	padding-top: 15vh;
 }
 
 .compound-interest-modal {
-	padding: 2rem;
+	padding: 1.5rem;
+	padding-top: 1rem;
 	border-radius: 4px;
 	border: solid 2px var(--clr-primary);
 	background-color: var(--clr-background-L3);
+	position: relative;
+}
+
+.close-container {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--clr-text-secondary);
+	transition: var(--fast-transition);
+	padding: 0.125rem;
+	font-size: 1.5rem;
+}
+
+.close-container:hover {
+	color: var(--clr-danger);
+}
+
+.modal-header {
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.25rem;
+	border-bottom: solid 1px var(--clr-primary);
+	user-select: none;
+}
+
+.modal-body {
+	padding: 1rem 0;
+}
+
+.modal-body .input-icon-wrapper {
+	font-size: 1.75rem;
+	padding: 0.125rem;
+}
+
+.modal-footer {
+	margin-top: 1.5rem;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 @media only screen and (max-width: 576px) {

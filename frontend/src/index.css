@@ -216,6 +216,10 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+input.icon-input {
+	padding-right: 34px;
+}
+
 /* Firefox */
 input[type='number'] {
 	-moz-appearance: textfield;
@@ -241,6 +245,10 @@ input[type='number'] {
 
 .btn-block {
 	width: 100%;
+}
+
+.btn-secondary {
+	background-color: var(--clr-text-secondary);
 }
 
 .icon {

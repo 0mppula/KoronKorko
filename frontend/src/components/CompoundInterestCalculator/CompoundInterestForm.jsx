@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -14,6 +14,7 @@ import {
 } from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
+import CompoundInterestSaveModal from './CompoundInterestSaveModal';
 
 const CompoundInterestForm = ({
 	user,
@@ -25,6 +26,8 @@ const CompoundInterestForm = ({
 	setCalculationCount,
 	setLoadingCalculation,
 }) => {
+	const [calculationName, setCalculationName] = useState('');
+	const [saveModalOpen, setSaveModalOpen] = useState(false);
 	const dispatch = useDispatch();
 	const {
 		startingBalance,
@@ -40,6 +43,7 @@ const CompoundInterestForm = ({
 	const currencyRef = useRef();
 	const interestIntervalRef = useRef();
 	const durationRef = useRef();
+	const contributionRef = useRef();
 	const contributionFrequencyRef = useRef();
 
 	const handleChange = (e) => {
@@ -125,17 +129,41 @@ const CompoundInterestForm = ({
 		toast.success('Form cleared');
 	};
 
+	const openSaveModal = () => {
+		if (user) {
+			if (formValidated()) {
+				setSaveModalOpen(true)
+			} else {
+				toast.error('Incorrect field values');
+			}
+		} else {
+			toast.error('Please login to save calculation');
+		}
+	};
+
 	const save = () => {
-		toast.success('Form Saved');
+		const data = {
+			calculationName,
+			formData,
+		};
+
+		setCalculationName('')
+		console.log('SAVING!!!');
+		console.log(data);
 	};
 
 	const openCalculation = () => {
-		toast.success('Calculation Opened');
-	}
+		if (user) {
+			console.log('OPENING CALCULATION!!!');
+		} else {
+			toast.error('Please login to load a calculation');
+		}
+	};
 
 	const toggleContributionMultiplier = () => {
 		let value = depositting() ? -1 : 1;
 		setFormData({ ...formData, contributionMultiplier: value });
+		contributionRef.current.focus();
 	};
 
 	const depositting = () => {
@@ -144,7 +172,18 @@ const CompoundInterestForm = ({
 
 	return (
 		<div className="form">
-			<FormControlsTop openCalculation={openCalculation} save={save} resetCalculator={resetCalculator} />
+			<CompoundInterestSaveModal
+				modalOpen={saveModalOpen}
+				setModalOpen={setSaveModalOpen}
+				calculationName={calculationName}
+				setCalculationName={setCalculationName}
+				save={save}
+			/>
+			<FormControlsTop
+				openSaveModal={openSaveModal}
+				setModalOpen={setSaveModalOpen}
+				resetCalculator={resetCalculator}
+			/>
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">
 					<div className="input-group-container">
@@ -187,6 +226,7 @@ const CompoundInterestForm = ({
 							<label htmlFor="interestRate">Annual Interest Rate</label>
 							<input
 								id="interestRate"
+								className="icon-input"
 								name="interestRate"
 								placeholder="Your projected interest rate"
 								type="number"
@@ -263,17 +303,20 @@ const CompoundInterestForm = ({
 							<label htmlFor="contribution">Contributions (optional)</label>
 							<input
 								id="contribution"
+								className="icon-input"
 								name="contribution"
 								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
 								type="number"
 								min="0"
 								autoComplete="off"
 								value={contribution}
+								ref={contributionRef}
 								onChange={(e) => handleChange(e)}
 								onKeyDown={(e) => disableArrowKeys(e)}
 								onWheel={(e) => document.activeElement.blur()}
 							/>
 							<div
+								tabIndex={0}
 								className={`contribution-multiplier-icon-container 
 								${depositting() ? 'deposit' : 'withdraw'} `}
 								onClick={toggleContributionMultiplier}

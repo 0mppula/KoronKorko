@@ -13,7 +13,6 @@ import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
 import './styles.css';
-import CompoundInterestModal from '../../components/CompoundInterestCalculator/CompoundInterestModal';
 
 const CompoundInterestCalculator = ({ darkMode }) => {
 	useTitle('Compound Interest Calculator');
@@ -35,7 +34,6 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	const [report, setReport] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [loadingCalculation, setLoadingCalculation] = useState(false);
-	const [modalOpen, setModalOpen] = useState(true);
 	// const [report, setReport] = useState({
 	// 	contribution: 0,
 	// 	futureValue: 0,
@@ -62,7 +60,6 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 				</h1>
 			</section>
 
-			<CompoundInterestModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
 			<CompoundInterestForm
 				user={user}
 				formData={formData}
