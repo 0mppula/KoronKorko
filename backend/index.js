@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/plans', require('./routes/planRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/compound-interest-calculations', require('./routes/compoundInterestCalculationRoutes'));
 
 app.use(errorHandler);
 
