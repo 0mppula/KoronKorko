@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
@@ -17,14 +18,22 @@ import './styles.css';
 const CompoundInterestCalculator = ({ darkMode }) => {
 	useTitle('Compound Interest Calculator');
 	const { user, isLoading } = useSelector((state) => state.auth);
+	const {
+		calculations,
+		activeCalculation,
+		isError,
+		isSuccess,
+		isLoading: calculationLoading,
+		message,
+	} = useSelector((state) => state.compoundInterestCalculations);
 
 	const [formData, setFormData] = useState({
-		startingBalance: 10000,
-		interestRate: 10,
+		startingBalance: '',
+		interestRate: '',
 		compoundFrequency: compoundFrequencies[1],
-		duration: 10,
+		duration: '',
 		durationMultiplier: durationMultipliers[0],
-		contribution: 250,
+		contribution: '',
 		contributionMultiplier: 1 /* depositting or withdrawing */,
 		contributionFrequency: contributionFrequencies[1],
 	});
@@ -34,22 +43,25 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	const [report, setReport] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [loadingCalculation, setLoadingCalculation] = useState(false);
-	// const [report, setReport] = useState({
-	// 	contribution: 0,
-	// 	futureValue: 0,
-	// 	totalProfit: 0,
-	// 	totalReturn: 0,
-	// 	principal: 0,
-	// 	additional: 0,
-	// 	breakdown: 'monthly',
-	// 	currency: currency,
-	// });
+
+	useEffect(() => {
+		if (isError) {
+			toast.error(message);
+		}
+	}, [isError, message]);
 
 	useEffect(() => {
 		if (user) {
 			setCurrency(user?.preferences.currency);
 		}
 	}, [user]);
+
+	useEffect(() => {
+		if (activeCalculation) {
+			// If active calculation is present set it to state
+			setFormData({ ...activeCalculation.formData, _id: activeCalculation._id });
+		}
+	}, [activeCalculation]);
 
 	return (
 		<>

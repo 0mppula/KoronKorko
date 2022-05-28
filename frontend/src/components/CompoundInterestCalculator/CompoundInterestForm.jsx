@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaSignOutAlt, FaSignInAlt, FaPercent } from 'react-icons/fa';
 
+import { createCalculation, updateCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
 import {
@@ -28,7 +29,11 @@ const CompoundInterestForm = ({
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
+
+	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+
 	const dispatch = useDispatch();
+
 	const {
 		startingBalance,
 		interestRate,
@@ -38,7 +43,7 @@ const CompoundInterestForm = ({
 		contribution,
 		contributionMultiplier,
 		contributionFrequency,
-	} = formData;
+	} = formData || {};
 
 	const currencyRef = useRef();
 	const interestIntervalRef = useRef();
@@ -132,7 +137,7 @@ const CompoundInterestForm = ({
 	const openSaveModal = () => {
 		if (user) {
 			if (formValidated()) {
-				setSaveModalOpen(true)
+				setSaveModalOpen(true);
 			} else {
 				toast.error('Incorrect field values');
 			}
@@ -143,13 +148,20 @@ const CompoundInterestForm = ({
 
 	const save = () => {
 		const data = {
-			calculationName,
+			name: calculationName,
 			formData,
 		};
 
-		setCalculationName('')
-		console.log('SAVING!!!');
-		console.log(data);
+		if(activeCalculation) {
+			// Update excisting active calculation
+			dispatch(updateCalculation(data));
+			toast.success('Calculation saved');
+		} else {
+			// Create a new calculation
+			dispatch(createCalculation(data));
+			toast.success('New calculation saved');
+		}
+		setCalculationName('');
 	};
 
 	const openCalculation = () => {

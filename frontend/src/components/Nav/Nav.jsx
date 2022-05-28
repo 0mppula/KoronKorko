@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
 import { reset, logout } from '../../features/auth/authSlice';
+import { reset as resetCompoundInterestCalculations } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import UserOptionsList from './UserOptionsList';
 import './styles.css';
 import NavLinks from './NavLinks';
@@ -21,6 +22,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 		setListOpen(false);
 		dispatch(logout());
 		dispatch(reset());
+		dispatch(resetCompoundInterestCalculations());
 		navigate('/login');
 	};
 

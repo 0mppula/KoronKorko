@@ -21,6 +21,78 @@ const postCalculation = asyncHandler(async (req, res) => {
 	res.status(200).json(compoundInterestCalculation);
 });
 
+// @desc GET Compound Interest Calculations
+// @route GET /api/compound-interest-calculations
+// @acces Private
+const getCalculations = asyncHandler(async (req, res) => {
+	const calculations = await CompoundInterestCalculation.find({ user: req.user.id });
+
+	res.status(200).json(calculations);
+});
+
+// @desc Update a Compound Interest Calculation
+// @route PUT /api/compound-interest-calculations
+// @acces Private
+const putCalculation = asyncHandler(async (req, res) => {
+	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+
+	if (!calculation) {
+		res.status(400);
+		throw new Error('Calculation does not exist');
+	}
+
+	// Check for user
+	if (!req.user) {
+		res.status(401);
+		throw new Error('User not found');
+	}
+
+	// Make sure the logged in user matches the calculation owner
+	if (calculation.user.toString() !== req.user.id) {
+		res.status(401);
+		throw new Error('User not authorized');
+	}
+
+	const updatedCalculation = await CompoundInterestCalculation.updateOne(
+		{ _id: req.params.id },
+		{ $set: { formData: req.body.formData } },
+		{ new: true }
+	);
+
+	res.status(200).json(updatedCalculation);
+});
+
+// @desc Delete a Compound Interest Calculation
+// @route DELETE /api/compound-interest-calculations
+// @acces Private
+const deleteCalculation = asyncHandler(async (req, res) => {
+	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+
+	if (!calculation) {
+		res.status(400);
+		throw new Error('Calculation does not exist');
+	}
+
+	// Check for user
+	if (!req.user) {
+		res.status(401);
+		throw new Error('User not found');
+	}
+
+	// Make sure the logged in user matches the calculation owner
+	if (calculation.user.toString() !== req.user.id) {
+		res.status(401);
+		throw new Error('User not authorized');
+	}
+
+	await calculation.remove();
+
+	res.status(200).json({ id: req.params.id });
+});
+
 module.exports = {
 	postCalculation,
+	getCalculations,
+	putCalculation,
+	deleteCalculation,
 };
