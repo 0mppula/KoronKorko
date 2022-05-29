@@ -4,7 +4,10 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaSignOutAlt, FaSignInAlt, FaPercent } from 'react-icons/fa';
 
-import { createCalculation, updateCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
+import {
+	createCalculation,
+	updateCalculation,
+} from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
 import {
@@ -16,6 +19,7 @@ import {
 import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
 import CompoundInterestSaveModal from './CompoundInterestSaveModal';
+import CompoundInterestImportModal from './CompoundInterestImportModal';
 
 const CompoundInterestForm = ({
 	user,
@@ -29,8 +33,11 @@ const CompoundInterestForm = ({
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
+	const [importModalOpen, setImportModalOpen] = useState(false);
 
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+	const { activeCalculation, isError } = useSelector(
+		(state) => state.compoundInterestCalculations
+	);
 
 	const dispatch = useDispatch();
 
@@ -121,12 +128,12 @@ const CompoundInterestForm = ({
 			...formData,
 			startingBalance: '',
 			interestRate: '',
-			compoundFrequency: compoundFrequencies[0],
+			compoundFrequency: compoundFrequencies[1],
 			duration: '',
 			durationMultiplier: durationMultipliers[0],
 			contribution: '',
 			contributionMultiplier: 1,
-			contributionFrequency: contributionFrequencies[0],
+			contributionFrequency: contributionFrequencies[1],
 		});
 
 		setReport(null);
@@ -135,9 +142,21 @@ const CompoundInterestForm = ({
 	};
 
 	const openSaveModal = () => {
+		const data = {
+			name: calculationName,
+			formData,
+		};
+
 		if (user) {
 			if (formValidated()) {
-				setSaveModalOpen(true);
+				if (!activeCalculation) {
+					// Prompt user to name the calculation
+					setSaveModalOpen(true);
+				} else {
+					// Update excisting active calculation
+					dispatch(updateCalculation(data));
+					setCalculationName('');
+				}
 			} else {
 				toast.error('Incorrect field values');
 			}
@@ -152,21 +171,15 @@ const CompoundInterestForm = ({
 			formData,
 		};
 
-		if(activeCalculation) {
-			// Update excisting active calculation
-			dispatch(updateCalculation(data));
-			toast.success('Calculation saved');
-		} else {
-			// Create a new calculation
-			dispatch(createCalculation(data));
-			toast.success('New calculation saved');
-		}
+		// Create a new calculation and set it as active
+		dispatch(createCalculation(data));
+
 		setCalculationName('');
 	};
 
-	const openCalculation = () => {
+	const openImportModal = () => {
 		if (user) {
-			console.log('OPENING CALCULATION!!!');
+			setImportModalOpen(true)
 		} else {
 			toast.error('Please login to load a calculation');
 		}
@@ -191,9 +204,13 @@ const CompoundInterestForm = ({
 				setCalculationName={setCalculationName}
 				save={save}
 			/>
+			<CompoundInterestImportModal
+				modalOpen={importModalOpen}
+				setModalOpen={setImportModalOpen}
+			/>
 			<FormControlsTop
 				openSaveModal={openSaveModal}
-				setModalOpen={setSaveModalOpen}
+				openImportModal={openImportModal}
 				resetCalculator={resetCalculator}
 			/>
 			<form onSubmit={handleCalculation}>

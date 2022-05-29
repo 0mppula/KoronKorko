@@ -19,7 +19,6 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	useTitle('Compound Interest Calculator');
 	const { user, isLoading } = useSelector((state) => state.auth);
 	const {
-		calculations,
 		activeCalculation,
 		isError,
 		isSuccess,
@@ -45,10 +44,16 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	const [loadingCalculation, setLoadingCalculation] = useState(false);
 
 	useEffect(() => {
-		if (isError) {
+		if (isError && message) {
 			toast.error(message);
 		}
 	}, [isError, message]);
+
+	useEffect(() => {
+		if (isSuccess && !isError && message) {
+			toast.success(message);
+		}
+	}, [isSuccess, message, isError]);
 
 	useEffect(() => {
 		if (user) {
@@ -57,15 +62,28 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	}, [user]);
 
 	useEffect(() => {
-		if (activeCalculation) {
+		if (user && activeCalculation) {
 			// If active calculation is present set it to state
 			setFormData({ ...activeCalculation.formData, _id: activeCalculation._id });
 		}
-	}, [activeCalculation]);
+
+		if (user && !activeCalculation) {
+			setFormData({
+				startingBalance: '',
+				interestRate: '',
+				compoundFrequency: compoundFrequencies[1],
+				duration: '',
+				durationMultiplier: durationMultipliers[0],
+				contribution: '',
+				contributionMultiplier: 1 /* depositting or withdrawing */,
+				contributionFrequency: contributionFrequencies[1],
+			});
+		}
+	}, [activeCalculation, user]);
 
 	return (
 		<>
-			{isLoading && <Spinner />}
+			{(isLoading || calculationLoading) && <Spinner />}
 			<section className="heading">
 				<h1>
 					<span>C</span>ompound&nbsp;<span>I</span>nterest&nbsp;<span>C</span>alculator

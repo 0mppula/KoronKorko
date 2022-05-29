@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler');
 
 const CompoundInterestCalculation = require('../models/compoundInterestCalculationModel');
-const User = require('../models/userModel');
 
 // @desc    Post a Compound Interest Calculation
 // @route   POST /api/compound-interest-calculations
@@ -30,8 +29,34 @@ const getCalculations = asyncHandler(async (req, res) => {
 	res.status(200).json(calculations);
 });
 
+// @desc GET a Compound Interest Calculation
+// @route GET /api/compound-interest-calculations/:id
+// @acces Private
+const getCalculation = asyncHandler(async (req, res) => {
+	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+
+	if (!calculation) {
+		res.status(400);
+		throw new Error('Calculation does not exist');
+	}
+
+	// Check for user
+	if (!req.user) {
+		res.status(401);
+		throw new Error('User not found');
+	}
+
+	// Make sure the logged in user matches the calculation owner
+	if (calculation.user.toString() !== req.user.id) {
+		res.status(401);
+		throw new Error('User not authorized');
+	}
+
+	res.status(200).json(calculation);
+});
+
 // @desc Update a Compound Interest Calculation
-// @route PUT /api/compound-interest-calculations
+// @route PUT /api/compound-interest-calculations/:id
 // @acces Private
 const putCalculation = asyncHandler(async (req, res) => {
 	const calculation = await CompoundInterestCalculation.findById(req.params.id);
@@ -63,7 +88,7 @@ const putCalculation = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete a Compound Interest Calculation
-// @route DELETE /api/compound-interest-calculations
+// @route DELETE /api/compound-interest-calculations/:id
 // @acces Private
 const deleteCalculation = asyncHandler(async (req, res) => {
 	const calculation = await CompoundInterestCalculation.findById(req.params.id);
@@ -87,12 +112,13 @@ const deleteCalculation = asyncHandler(async (req, res) => {
 
 	await calculation.remove();
 
-	res.status(200).json({ id: req.params.id });
+	res.status(200).json({ id: req.params.id, name: calculation.name });
 });
 
 module.exports = {
 	postCalculation,
 	getCalculations,
+	getCalculation,
 	putCalculation,
 	deleteCalculation,
 };

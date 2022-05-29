@@ -9,20 +9,20 @@ const CompoundInterestSaveModal = ({
 	save,
 }) => {
 	useEffect(() => {
-		let handler = (e) => {
-			const modalOverlayClass = 'compound-interest-modal-overlay';
-			if (e.target.classList.contains(modalOverlayClass)) {
-				setModalOpen(false);
-        setCalculationName('')
-			}
-		};
-
-		modalOpen && document.addEventListener('click', handler);
+		document.addEventListener('click', closeOnOutsideClick);
+		document.addEventListener('keydown', closeWithEsc);
 
 		return () => {
-			document.removeEventListener('click', handler);
+			document.removeEventListener('click', closeOnOutsideClick);
+			document.removeEventListener('keydown', closeWithEsc);
 		};
-	});
+	}, []);
+
+	useEffect(() => {
+		if (modalOpen) {
+			calculationNameRef.current.focus();
+		}
+	}, [modalOpen]);
 
 	const calculationNameRef = useRef();
 
@@ -31,7 +31,7 @@ const CompoundInterestSaveModal = ({
 		calculationNameRef.current.focus();
 	};
 
-	const handleCancel = () => {
+	const closeModal = () => {
 		setModalOpen(false);
 		setCalculationName('');
 	};
@@ -39,6 +39,19 @@ const CompoundInterestSaveModal = ({
 	const handleSave = () => {
 		setModalOpen(false);
 		save();
+	};
+
+	const closeWithEsc = (e) => {
+		const key = e.key;
+		key === 'Escape' && closeModal();
+	};
+
+	const closeOnOutsideClick = (e) => {
+		const modalOverlayClass = 'compound-interest-modal-overlay';
+		if (e.target.classList.contains(modalOverlayClass)) {
+			setModalOpen(false);
+			setCalculationName('');
+		}
 	};
 
 	return (
@@ -80,7 +93,7 @@ const CompoundInterestSaveModal = ({
 					</div>
 				</div>
 				<div className="modal-footer">
-					<button className="btn btn-block btn-secondary" onClick={handleCancel}>
+					<button className="btn btn-block btn-secondary" onClick={closeModal}>
 						Cancel
 					</button>
 					<button className="btn btn-block" onClick={handleSave}>

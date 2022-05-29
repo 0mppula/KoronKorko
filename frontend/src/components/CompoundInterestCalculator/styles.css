@@ -54,7 +54,7 @@
 	gap: 0.125rem;
 }
 
-.form-controls-top div.icon {
+div.icon {
 	display: flex;
 	padding: 0.5rem;
 	font-size: 1.125rem;
@@ -63,12 +63,12 @@
 	border-radius: 4px;
 }
 
-.form-controls-top div.icon.success:hover {
+div.icon.success:hover {
 	color: var(--clr-success);
 	background-color: var(--clr-hover);
 }
 
-.form-controls-top div.icon.danger:hover {
+div.icon.danger:hover {
 	color: var(--clr-danger);
 	background-color: var(--clr-hover);
 }
@@ -190,8 +190,11 @@
 	padding-top: 1rem;
 	border-radius: 4px;
 	border: solid 2px var(--clr-primary);
-	background-color: var(--clr-background-L3);
+	background-color: var(--clr-background-L1);
 	position: relative;
+	width: min(95%, 450px);
+	overflow: auto;
+	max-height: 70vh;
 }
 
 .close-container {
@@ -219,6 +222,10 @@
 	user-select: none;
 }
 
+.modal-header h2 {
+	font-size: clamp(1.125rem, 5vw, 1.5rem);
+}
+
 .modal-body {
 	padding: 1rem 0;
 }
@@ -237,6 +244,29 @@
 	gap: 0.5rem;
 }
 
+.calculation-item {
+	padding: 0.5rem 0 0.5rem 0.5rem;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	gap: 1rem;
+	border-bottom: solid 1px var(--clr-hover);
+}
+
+.calculation-item:hover {
+	background: transparent;
+}
+
+.calculation-item-name {
+	width: 100%;
+}
+
+.calculation-item-options {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
 @media only screen and (max-width: 576px) {
 	.report-group {
 		flex: 1 1 100%;
@@ -244,8 +274,8 @@
 	.input-group {
 		flex: 1 1 100% !important;
 	}
-	.form-controls-top div.icon.save:hover,
-	.form-controls-top div.icon.reset:hover {
+	div.icon.save:hover,
+	div.icon.reset:hover {
 		background-color: transparent;
 		color: var(--clr-text-secondary);
 	}

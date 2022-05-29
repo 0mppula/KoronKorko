@@ -26,6 +26,18 @@ const getCalculations = async (token) => {
 	return response.data;
 };
 
+// Get a users calculation
+const getCalculation = async (calculationId, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	const response = await axios.get(`${API_URL}${calculationId}`, config);
+	return response.data;
+};
+
 // Update a users calculation
 const updateCalculation = async (calculationData, token) => {
 	const config = {
@@ -39,10 +51,24 @@ const updateCalculation = async (calculationData, token) => {
 	return response.data;
 };
 
+// Delete a users calculation
+const deleteCalculation = async (calculationId, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	const response = await axios.delete(`${API_URL}${calculationId}`, config);
+	return response.data;
+};
+
 const compoundInterestCalculatorService = {
 	createCalculation,
 	getCalculations,
+	getCalculation,
 	updateCalculation,
+	deleteCalculation,
 };
 
 export default compoundInterestCalculatorService;
