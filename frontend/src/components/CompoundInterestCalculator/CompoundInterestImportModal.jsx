@@ -10,7 +10,7 @@ import {
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
 const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
-	const { calculations, activeCalculation, isError } = useSelector(
+	const { calculations } = useSelector(
 		(state) => state.compoundInterestCalculations
 	);
 	const dispatch = useDispatch();

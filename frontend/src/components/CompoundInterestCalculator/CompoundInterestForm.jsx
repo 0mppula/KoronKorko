@@ -20,6 +20,7 @@ import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
 import CompoundInterestSaveModal from './CompoundInterestSaveModal';
 import CompoundInterestImportModal from './CompoundInterestImportModal';
+import CompoundInterestRenameModal from './CompoundInterestRenameModal';
 
 const CompoundInterestForm = ({
 	user,
@@ -33,11 +34,10 @@ const CompoundInterestForm = ({
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
+	const [renameModalOpen, setRenameModalOpen] = useState(false);
 	const [importModalOpen, setImportModalOpen] = useState(false);
 
-	const { activeCalculation } = useSelector(
-		(state) => state.compoundInterestCalculations
-	);
+	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
 
 	const dispatch = useDispatch();
 
@@ -165,6 +165,10 @@ const CompoundInterestForm = ({
 		}
 	};
 
+	const openRenameModal = () => {
+		setRenameModalOpen(true);
+	};
+
 	const save = () => {
 		const data = {
 			name: calculationName,
@@ -179,7 +183,7 @@ const CompoundInterestForm = ({
 
 	const openImportModal = () => {
 		if (user) {
-			setImportModalOpen(true)
+			setImportModalOpen(true);
 		} else {
 			toast.error('Please login to load a calculation');
 		}
@@ -208,11 +212,15 @@ const CompoundInterestForm = ({
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
 			/>
+			<CompoundInterestRenameModal
+				modalOpen={renameModalOpen}
+				setModalOpen={setRenameModalOpen}
+			/>
 			<FormControlsTop
 				openSaveModal={openSaveModal}
+				openRenameModal={openRenameModal}
 				openImportModal={openImportModal}
 				resetCalculator={resetCalculator}
-				activeCalculation={activeCalculation}
 			/>
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">

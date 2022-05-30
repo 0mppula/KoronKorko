@@ -1,20 +1,18 @@
 import React from 'react';
-import { FaSyncAlt, FaSave, FaFileImport } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { FaSyncAlt, FaSave, FaFileImport, FaEdit } from 'react-icons/fa';
 
-const FormControlsTop = ({
-	openSaveModal,
-	resetCalculator,
-	openImportModal,
-	activeCalculation,
-}) => {
+const FormControlsTop = ({ openSaveModal, resetCalculator, openImportModal, openRenameModal }) => {
+	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+	
 	return (
 		<div className="form-controls-top">
 			<div className="form-controls-name">
 				{activeCalculation && (
 					<>
-						<p>Calculation: {activeCalculation.name}</p>{' '}
-						<div className="icon success">
-							<FaFileImport />
+						<p>{activeCalculation.name}</p>
+						<div className="icon success" onClick={openRenameModal}>
+							<FaEdit />
 						</div>
 					</>
 				)}

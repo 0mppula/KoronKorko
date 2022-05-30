@@ -171,7 +171,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(updateCalculation.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isSuccess = true;
-				state.calculations = action.payload;
+				state.activeCalculation = action.payload;
 				state.message = 'Plan Saved';
 				state.isError = false;
 			})

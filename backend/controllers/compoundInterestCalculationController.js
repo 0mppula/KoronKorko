@@ -78,7 +78,19 @@ const putCalculation = asyncHandler(async (req, res) => {
 		throw new Error('User not authorized');
 	}
 
-	const updatedCalculation = await CompoundInterestCalculation.updateOne(
+	// If also updating name
+	if(req.body.name) {
+		const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
+			{ _id: req.params.id },
+			{ $set: { formData: req.body.formData, name: req.body.name.trim() } },
+			{ new: true }
+		);
+	
+		res.status(200).json(updatedCalculation);
+		return
+	}
+
+	const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
 		{ _id: req.params.id },
 		{ $set: { formData: req.body.formData } },
 		{ new: true }
