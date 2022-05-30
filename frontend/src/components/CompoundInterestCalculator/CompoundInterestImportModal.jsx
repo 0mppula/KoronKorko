@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 
 import {
@@ -72,7 +71,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 					<h2>Import Your Calculation</h2>
 				</div>
 				<div className="modal-mody">
-					{calculations.length > 0 && (
+					{calculations.length > 0 ? (
 						<ul>
 							{calculations.map((calculation) => (
 								<li key={calculation._id} className="calculation-item">
@@ -98,7 +97,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 								</li>
 							))}
 						</ul>
-					)}
+					): <p>You do not have any saved calculations yet</p>}
 				</div>
 			</div>
 		</div>

@@ -35,7 +35,7 @@ const CompoundInterestForm = ({
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
 	const [importModalOpen, setImportModalOpen] = useState(false);
 
-	const { activeCalculation, isError } = useSelector(
+	const { activeCalculation } = useSelector(
 		(state) => state.compoundInterestCalculations
 	);
 
@@ -212,6 +212,7 @@ const CompoundInterestForm = ({
 				openSaveModal={openSaveModal}
 				openImportModal={openImportModal}
 				resetCalculator={resetCalculator}
+				activeCalculation={activeCalculation}
 			/>
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">

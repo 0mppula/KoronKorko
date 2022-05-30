@@ -49,9 +49,24 @@
 
 .form-controls-top {
 	display: flex;
-	justify-content: flex-end;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	align-items: center;
 	gap: 0.125rem;
+	padding-bottom: 0.25rem;
+	margin-bottom: 0.75rem;
+	border-bottom: solid 1px var(--clr-primary);
+}
+
+.form-controls-icons {
+	display: flex;
+	gap: 0.125rem;
+}
+
+.form-controls-name {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
 }
 
 div.icon {
