@@ -27,12 +27,12 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	} = useSelector((state) => state.compoundInterestCalculations);
 
 	const [formData, setFormData] = useState({
-		startingBalance: '',
-		interestRate: '',
+		startingBalance: 0,
+		interestRate: 0,
 		compoundFrequency: compoundFrequencies[1],
-		duration: '',
+		duration: 0,
 		durationMultiplier: durationMultipliers[0],
-		contribution: '',
+		contribution: 0,
 		contributionMultiplier: 1 /* depositting or withdrawing */,
 		contributionFrequency: contributionFrequencies[1],
 	});
@@ -64,17 +64,17 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 	useEffect(() => {
 		if (user && activeCalculation) {
 			// If active calculation is present set it to state
-			setFormData({ ...activeCalculation.formData, _id: activeCalculation._id });
+			setFormData({ ...activeCalculation.formData });
 		}
 
 		if (user && !activeCalculation) {
 			setFormData({
-				startingBalance: '',
-				interestRate: '',
+				startingBalance: 0,
+				interestRate: 0,
 				compoundFrequency: compoundFrequencies[1],
-				duration: '',
+				duration: 0,
 				durationMultiplier: durationMultipliers[0],
-				contribution: '',
+				contribution: 0,
 				contributionMultiplier: 1 /* depositting or withdrawing */,
 				contributionFrequency: contributionFrequencies[1],
 			});

@@ -39,13 +39,24 @@ const getCalculation = async (calculationId, token) => {
 };
 
 // Update a users calculation
-const updateCalculation = async (calculationData, token) => {
+const updateCalculation = async (calculationId, calculationData, token) => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
 	};
-	const calculationId = calculationData.formData._id;
+
+	const response = await axios.put(`${API_URL}${calculationId}`, calculationData, config);
+	return response.data;
+};
+
+// Update a users calculation name
+const renameCalculation = async (calculationId, calculationData, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
 	const response = await axios.put(`${API_URL}${calculationId}`, calculationData, config);
 	return response.data;
@@ -68,6 +79,7 @@ const compoundInterestCalculatorService = {
 	getCalculations,
 	getCalculation,
 	updateCalculation,
+	renameCalculation,
 	deleteCalculation,
 };
 

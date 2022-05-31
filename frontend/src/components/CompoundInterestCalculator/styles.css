@@ -29,17 +29,18 @@
 
 .report-top {
 	display: flex;
-	row-gap: 1rem;
+	gap: 1rem;
 	flex-wrap: wrap;
 	width: 100%;
 }
 
 .report-group {
 	text-align: left;
-	flex: 1 1 50%;
+	flex: 1 1 calc(50% - 1rem / 2);
 }
 
 .report-group h2 {
+	word-break: break-word;
 	font-size: 2rem;
 }
 
@@ -293,5 +294,17 @@ div.icon.danger:hover {
 	div.icon.reset:hover {
 		background-color: transparent;
 		color: var(--clr-text-secondary);
+	}
+}
+@media only screen and (max-width: 440px) {
+	.form-controls-icons {
+		width: 100%;
+		justify-content: flex-end;
+	}
+
+	.form-controls-name {
+		width: 100%;
+		order: 1;
+		justify-content: space-between;
 	}
 }

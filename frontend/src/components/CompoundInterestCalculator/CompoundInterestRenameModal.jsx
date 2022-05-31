@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-import { updateCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
+import { renameCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
 const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	const [calculationName, setCalculationName] = useState('');
@@ -47,17 +47,19 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 
 	const handleSave = () => {
 		const data = {
+			_id: activeCalculation._id,
 			name: calculationName,
-			formData: { ...activeCalculation.formData, _id: activeCalculation._id },
 		};
 
 		// Check for empty names
-		if(calculationName.trim().length === 0) {
-			toast.error('Please provide a name for your calculation')
-			return
+		if (calculationName.trim().length === 0) {
+			toast.error('Please provide a name for your calculation');
+			return;
 		}
-		// Update excisting active calculation
-		dispatch(updateCalculation(data));
+		// Update excisting active calculation only if name has changed
+		if(calculationName.trim() !== activeCalculation.name) {
+			dispatch(renameCalculation(data));
+		}
 		setModalOpen(false);
 	};
 

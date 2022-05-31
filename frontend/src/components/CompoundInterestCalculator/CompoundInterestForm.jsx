@@ -125,13 +125,12 @@ const CompoundInterestForm = ({
 
 	const resetCalculator = () => {
 		setFormData({
-			...formData,
-			startingBalance: '',
-			interestRate: '',
+			startingBalance: 0,
+			interestRate: 0,
 			compoundFrequency: compoundFrequencies[1],
-			duration: '',
+			duration: 0,
 			durationMultiplier: durationMultipliers[0],
-			contribution: '',
+			contribution: 0,
 			contributionMultiplier: 1,
 			contributionFrequency: contributionFrequencies[1],
 		});
@@ -142,17 +141,18 @@ const CompoundInterestForm = ({
 	};
 
 	const openSaveModal = () => {
-		const data = {
-			name: calculationName,
-			formData,
-		};
-
 		if (user) {
 			if (formValidated()) {
 				if (!activeCalculation) {
 					// Prompt user to name the calculation
 					setSaveModalOpen(true);
 				} else {
+					const data = {
+						_id: activeCalculation._id,
+						name: calculationName,
+						formData,
+					};
+
 					// Update excisting active calculation
 					dispatch(updateCalculation(data));
 					setCalculationName('');

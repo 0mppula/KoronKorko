@@ -71,6 +71,28 @@ export const updateCalculation = createAsyncThunk(
 		try {
 			const token = thunkAPI.getState().auth.user.token;
 			return await compoundInterestCalculatorService.updateCalculation(
+				calculationData._id,
+				calculationData,
+				token
+			);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.mesage ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// Update a users calculation name
+export const renameCalculation = createAsyncThunk(
+	'compound-interest-calculations/rename',
+	async (calculationData, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await compoundInterestCalculatorService.renameCalculation(
+				calculationData._id,
 				calculationData,
 				token
 			);
@@ -105,7 +127,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 	name: 'compoundInterestCalculator',
 	initialState,
 	reducers: {
-		reset: (state) => initialState,
+		reset: () => initialState,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -181,6 +203,24 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.message = action.payload;
 			})
 			// End Update users calculations
+			// Update a users calculation name
+			.addCase(renameCalculation.pending, (state) => {
+				state.message = '';
+				state.isLoading = true;
+			})
+			.addCase(renameCalculation.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.activeCalculation = action.payload;
+				state.message = 'Plan Renamed';
+				state.isError = false;
+			})
+			.addCase(renameCalculation.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
+			})
+			// End Update a users calculation name
 			// Delete a users calculation
 			.addCase(deleteCalculation.pending, (state) => {
 				state.message = '';
