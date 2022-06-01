@@ -1,9 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { FaSyncAlt, FaSave, FaFileImport, FaEdit, FaPlus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaSyncAlt, FaSave, FaFileImport, FaEdit } from 'react-icons/fa';
+import { RiCloseLine } from 'react-icons/ri';
+
+import { closeCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
 const FormControlsTop = ({ openSaveModal, resetCalculator, openImportModal, openRenameModal }) => {
 	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+	const dispatch = useDispatch();
+
+	const handleClose = () => {
+		dispatch(closeCalculation());
+	};
 
 	return (
 		<div className="form-controls-top">
@@ -11,26 +19,26 @@ const FormControlsTop = ({ openSaveModal, resetCalculator, openImportModal, open
 				{activeCalculation && (
 					<>
 						<p>{activeCalculation.name}</p>
-						<div
-							className="icon success"
-							title="Rename calculation"
-							onClick={openRenameModal}
-						>
-							<FaEdit />
+						<div>
+							<div
+								className="icon success"
+								title="Rename calculation"
+								onClick={openRenameModal}
+							>
+								<FaEdit />
+							</div>
+							<div
+								className="icon ri danger"
+								title="Close calculation"
+								onClick={handleClose}
+							>
+								<RiCloseLine />
+							</div>
 						</div>
 					</>
 				)}
 			</div>
 			<div className="form-controls-icons">
-				{activeCalculation && (
-					<div
-						className="icon success"
-						title="Create new calculation"
-						onClick={openImportModal}
-					>
-						<FaPlus />
-					</div>
-				)}
 				<div className="icon success" title="Import calculation" onClick={openImportModal}>
 					<FaFileImport />
 				</div>

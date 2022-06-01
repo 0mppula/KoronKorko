@@ -11,6 +11,7 @@ const createCalculation = async (calculationData, token) => {
 	};
 
 	const response = await axios.post(API_URL, calculationData, config);
+
 	return response.data;
 };
 
@@ -59,6 +60,7 @@ const renameCalculation = async (calculationId, calculationData, token) => {
 	};
 
 	const response = await axios.put(`${API_URL}${calculationId}`, calculationData, config);
+	
 	return response.data;
 };
 

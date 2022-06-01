@@ -54,7 +54,6 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 
 	const removeCalculation = (calculationId) => {
 		dispatch(deleteCalculation(calculationId));
-		closeModal();
 	};
 
 	return (

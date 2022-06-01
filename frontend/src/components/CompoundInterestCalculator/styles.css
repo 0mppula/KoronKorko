@@ -70,6 +70,11 @@
 	align-items: center;
 }
 
+.form-controls-name div {
+	display: flex;
+	gap: 0.125rem;
+}
+
 div.icon {
 	display: flex;
 	padding: 0.5rem;
@@ -77,6 +82,11 @@ div.icon {
 	color: var(--clr-text-secondary);
 	transition: var(--fast-transition);
 	border-radius: 4px;
+}
+
+div.ri{
+	padding: 0.1875rem 0.1875rem 0.125rem 0.1875rem;
+	font-size: 1.75rem;
 }
 
 div.icon.success:hover {
@@ -296,7 +306,7 @@ div.icon.danger:hover {
 		color: var(--clr-text-secondary);
 	}
 }
-@media only screen and (max-width: 440px) {
+@media only screen and (max-width: 480px) {
 	.form-controls-icons {
 		width: 100%;
 		justify-content: flex-end;

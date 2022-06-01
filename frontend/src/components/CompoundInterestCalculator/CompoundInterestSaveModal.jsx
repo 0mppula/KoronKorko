@@ -76,6 +76,7 @@ const CompoundInterestSaveModal = ({
 							placeholder="Calculation name"
 							autoComplete="false"
 							type="text"
+							maxlength="30"
 							name="calculation-name"
 							value={calculationName}
 							ref={calculationNameRef}

@@ -21,6 +21,7 @@ export const createCalculation = createAsyncThunk(
 				token
 			);
 		} catch (error) {
+			console.log(error);
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
 				error.mesage ||
@@ -128,6 +129,14 @@ export const compoundInterestCalculatorSlice = createSlice({
 	initialState,
 	reducers: {
 		reset: () => initialState,
+		// Close a users calculation
+		closeCalculation: (state) => {
+			state.isLoading = false;
+			state.isSuccess = true;
+			state.activeCalculation = null;
+			state.message = 'Calculation closed';
+			state.isError = false;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -141,7 +150,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isSuccess = true;
 				state.calculations.push(action.payload);
 				state.activeCalculation = action.payload;
-				state.message = 'New Plan Created';
+				state.message = 'New calculation created';
 				state.isError = false;
 			})
 			.addCase(createCalculation.rejected, (state, action) => {
@@ -194,7 +203,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.activeCalculation = action.payload;
-				state.message = 'Plan Saved';
+				state.message = 'Calculation Saved';
 				state.isError = false;
 			})
 			.addCase(updateCalculation.rejected, (state, action) => {
@@ -212,7 +221,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.activeCalculation = action.payload;
-				state.message = 'Plan Renamed';
+				state.message = 'Calculation Renamed';
 				state.isError = false;
 			})
 			.addCase(renameCalculation.rejected, (state, action) => {
@@ -248,5 +257,5 @@ export const compoundInterestCalculatorSlice = createSlice({
 	},
 });
 
-export const { reset } = compoundInterestCalculatorSlice.actions;
+export const { reset, closeCalculation } = compoundInterestCalculatorSlice.actions;
 export default compoundInterestCalculatorSlice.reducer;
