@@ -189,6 +189,7 @@ li.seperator {
 
 	.user-options li {
 		justify-content: flex-end;
+		gap: 0.5rem;
 	}
 
 	li.seperator {
@@ -202,6 +203,7 @@ li.seperator {
 
 	.nav-links li a {
 		justify-content: flex-end;
+		gap: 0.5rem;
 	}
 
 	ul li:hover {

@@ -96,7 +96,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 							id="calculation-name"
 							className="form-control icon-input"
 							placeholder="Calculation name"
-							maxlength="30"
+							maxLength="30"
 							autoComplete="false"
 							type="text"
 							name="calculation-name"

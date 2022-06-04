@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 
+import checkKeyDown from '../../helpers/checkKeyDown';
+
 const UserOptionsList = ({ handleLogout, listOpen, setListOpen }) => {
 	useEffect(() => {
 		let handler = (e) => {
@@ -19,11 +21,15 @@ const UserOptionsList = ({ handleLogout, listOpen, setListOpen }) => {
 	const listRef = useRef();
 	return (
 		<ul className={`user-options ${listOpen ? 'show' : ''}`} ref={listRef}>
-			<li>Prefereces</li>
-			<li>Plans</li>
-			<li className="seperator"></li>
-			<li onClick={handleLogout}>
-				<FaSignOutAlt /> Logout
+			<li tabIndex={0}>Prefereces</li>
+			<li tabIndex={0}>Plans</li>
+			<li className="seperator" />
+			<li
+				onClick={handleLogout}
+				tabIndex={0}
+				onKeyDown={(e) => checkKeyDown(e, handleLogout)}
+			>
+				Logout <FaSignOutAlt />
 			</li>
 		</ul>
 	);

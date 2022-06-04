@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSignInAlt, FaUser, FaSun, FaMoon, FaCaretDown } from 'react-icons/fa';
+
+import checkKeyDown from '../../helpers/checkKeyDown';
 
 const NavLinks = ({
 	user,
@@ -10,18 +12,28 @@ const NavLinks = ({
 	handleDarkModeChange,
 	burgerActive,
 }) => {
+	const loginLinkRef = useRef();
+	const registerLinkRef = useRef();
+
 	return (
 		<ul className={`nav-links ${burgerActive ? 'active' : ''}`}>
 			<li>
-				<a className="nav-icon" onClick={() => handleDarkModeChange()}>
+				<a
+					tabIndex={0}
+					className="nav-icon"
+					onClick={() => handleDarkModeChange()}
+					onKeyDown={(e) => checkKeyDown(e, handleDarkModeChange)}
+					title={`${darkMode ? 'Switch to light mode' : 'Switch to dark mode'}`}
+				>
 					{darkMode ? (
 						<>
-							<FaSun /> <span className="darkmode-toggler-mobile">Lightmode</span>
+							<span className="darkmode-toggler-mobile">Lightmode</span>
+							<FaSun />
 						</>
 					) : (
 						<>
-							<FaMoon />
 							<span className="darkmode-toggler-mobile">Darkmode</span>
+							<FaMoon />
 						</>
 					)}
 				</a>
@@ -29,23 +41,31 @@ const NavLinks = ({
 			{/* No user */}
 			{!user ? (
 				<>
-					<li>
-						<Link to="/login">
-							<FaSignInAlt />
+					<li
+						tabIndex={0}
+						onKeyDown={(e) => checkKeyDown(e, () => loginLinkRef.current.click())}
+					>
+						<Link to="/login" tabIndex={-1} ref={loginLinkRef}>
 							Login
+							<FaSignInAlt />
 						</Link>
 					</li>
-					<li>
-						<Link to="/register">
-							<FaUser /> Register
+					<li
+						tabIndex={0}
+						onKeyDown={(e) => checkKeyDown(e, () => registerLinkRef.current.click())}
+					>
+						<Link to="/register" tabIndex={-1} ref={registerLinkRef}>
+							Register <FaUser />
 						</Link>
 					</li>
 				</>
 			) : (
 				<>
 					<li
+						tabIndex={0}
 						className={`user-options-toggler ${listOpen ? 'active' : ''} `}
 						onClick={() => setListOpen(!listOpen)}
+						onKeyDown={(e) => checkKeyDown(e, () => setListOpen(!listOpen))}
 					>
 						<a>
 							{user.username} <FaCaretDown />
