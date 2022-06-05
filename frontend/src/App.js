@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Dashboard from '../src/pages/Dashboard/Dashboard';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
 import Footer from './components/Footer/Footer';
@@ -53,7 +52,6 @@ function App() {
 							path="/"
 							element={<CompoundInterestCalculator darkMode={darkMode} />}
 						/>
-						<Route path="/plans" element={<Dashboard />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 					</Routes>

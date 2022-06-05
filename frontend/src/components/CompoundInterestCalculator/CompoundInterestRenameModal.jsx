@@ -4,6 +4,7 @@ import { RiCloseLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import { renameCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
+import checkKeyDown from '../../helpers/checkKeyDown';
 
 const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	const [calculationName, setCalculationName] = useState('');
@@ -57,7 +58,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 			return;
 		}
 		// Update excisting active calculation only if name has changed
-		if(calculationName.trim() !== activeCalculation.name) {
+		if (calculationName.trim() !== activeCalculation.name) {
 			dispatch(renameCalculation(data));
 		}
 		setModalOpen(false);
@@ -83,6 +84,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
+					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
 				>
 					<RiCloseLine />
 				</div>
@@ -93,6 +95,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 					<div className="form-group">
 						<label htmlFor="calculation-name">Calculation name</label>
 						<input
+							tabIndex={`${modalOpen ? 0 : -1}`}
 							id="calculation-name"
 							className="form-control icon-input"
 							placeholder="Calculation name"
@@ -106,9 +109,10 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 						/>
 						{calculationName && (
 							<div
-								tabIndex={0}
+								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
 								onClick={clearInpur}
+								onKeyDown={(e) => checkKeyDown(e, clearInpur())}
 							>
 								<RiCloseLine />
 							</div>
@@ -116,10 +120,20 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 					</div>
 				</div>
 				<div className="modal-footer">
-					<button className="btn btn-block btn-secondary" onClick={closeModal}>
+					<button
+						tabIndex={`${modalOpen ? 0 : -1}`}
+						className="btn btn-block btn-secondary"
+						onClick={closeModal}
+						onKeyDown={(e) => checkKeyDown(e, closeModal())}
+					>
 						Cancel
 					</button>
-					<button className="btn btn-block" onClick={handleSave}>
+					<button
+						tabIndex={`${modalOpen ? 0 : -1}`}
+						className="btn btn-block"
+						onClick={handleSave}
+						onKeyDown={(e) => checkKeyDown(e, handleSave())}
+					>
 						Save
 					</button>
 				</div>

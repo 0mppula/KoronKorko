@@ -21,12 +21,12 @@ const UserOptionsList = ({ handleLogout, listOpen, setListOpen }) => {
 	const listRef = useRef();
 	return (
 		<ul className={`user-options ${listOpen ? 'show' : ''}`} ref={listRef}>
-			<li tabIndex={0}>Prefereces</li>
-			<li tabIndex={0}>Plans</li>
+			<li tabIndex={`${listOpen ? 0 : -1}`}>Prefereces</li>
+			<li tabIndex={`${listOpen ? 0 : -1}`}>Calculations</li>
 			<li className="seperator" />
 			<li
 				onClick={handleLogout}
-				tabIndex={0}
+				tabIndex={`${listOpen ? 0 : -1}`}
 				onKeyDown={(e) => checkKeyDown(e, handleLogout)}
 			>
 				Logout <FaSignOutAlt />

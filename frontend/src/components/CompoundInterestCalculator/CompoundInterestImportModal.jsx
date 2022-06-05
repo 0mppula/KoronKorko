@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 
+import checkKeyDown from '../../helpers/checkKeyDown';
+
 import {
 	getCalculations,
 	getCalculation,
@@ -10,9 +12,7 @@ import {
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
 const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
-	const { calculations } = useSelector(
-		(state) => state.compoundInterestCalculations
-	);
+	const { calculations } = useSelector((state) => state.compoundInterestCalculations);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -63,6 +63,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
+					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
 				>
 					<RiCloseLine />
 				</div>
@@ -77,18 +78,28 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 									<div className="calculation-item-name">{calculation.name}</div>
 									<div className="calculation-item-options">
 										<div
-											tabIndex={0}
+											tabIndex={`${modalOpen ? 0 : -1}`}
 											className="icon success"
 											title="Import calculation"
 											onClick={() => importCalculation(calculation._id)}
+											onKeyDown={(e) =>
+												checkKeyDown(e, () =>
+													importCalculation(calculation._id)
+												)
+											}
 										>
 											<FaFileImport />
 										</div>
 										<div
-											tabIndex={0}
+											tabIndex={`${modalOpen ? 0 : -1}`}
 											className="icon danger"
 											title="Delete calculation"
 											onClick={() => removeCalculation(calculation._id)}
+											onKeyDown={(e) =>
+												checkKeyDown(e, () =>
+													removeCalculation(calculation._id)
+												)
+											}
 										>
 											<FaTrash />
 										</div>
@@ -96,7 +107,9 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 								</li>
 							))}
 						</ul>
-					): <p>You do not have any saved calculations yet</p>}
+					) : (
+						<p>You do not have any saved calculations yet</p>
+					)}
 				</div>
 			</div>
 		</div>

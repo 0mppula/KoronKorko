@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
+import checkKeyDown from '../../helpers/checkKeyDown';
+
 const CompoundInterestSaveModal = ({
 	modalOpen,
 	setModalOpen,
@@ -61,6 +63,7 @@ const CompoundInterestSaveModal = ({
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
+					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
 				>
 					<RiCloseLine />
 				</div>
@@ -71,6 +74,7 @@ const CompoundInterestSaveModal = ({
 					<div className="form-group">
 						<label htmlFor="calculation-name">Calculation name</label>
 						<input
+							tabIndex={`${modalOpen ? 0 : -1}`}
 							id="calculation-name"
 							className="form-control icon-input"
 							placeholder="Calculation name"
@@ -84,9 +88,10 @@ const CompoundInterestSaveModal = ({
 						/>
 						{calculationName && (
 							<div
-								tabIndex={0}
+								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
 								onClick={clearInpur}
+								onKeyDown={(e) => checkKeyDown(e, clearInpur())}
 							>
 								<RiCloseLine />
 							</div>
@@ -94,10 +99,20 @@ const CompoundInterestSaveModal = ({
 					</div>
 				</div>
 				<div className="modal-footer">
-					<button className="btn btn-block btn-secondary" onClick={closeModal}>
+					<button
+						tabIndex={`${modalOpen ? 0 : -1}`}
+						className="btn btn-block btn-secondary"
+						onClick={closeModal}
+						onKeyDown={(e) => checkKeyDown(e, closeModal())}
+					>
 						Cancel
 					</button>
-					<button className="btn btn-block" onClick={handleSave}>
+					<button
+						tabIndex={`${modalOpen ? 0 : -1}`}
+						className="btn btn-block"
+						onClick={handleSave}
+						onKeyDown={(e) => checkKeyDown(e, handleSave())}
+					>
 						Save
 					</button>
 				</div>
