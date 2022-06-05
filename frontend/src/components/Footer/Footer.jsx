@@ -5,7 +5,7 @@ import Link from './Link';
 import Icon from './Icon';
 import './styles.css';
 
-const Footer = ({ darkMode }) => {
+const Footer = () => {
 	const [year] = useState(new Date(Date.now()).getFullYear());
 
 	return (
