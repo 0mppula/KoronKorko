@@ -9,7 +9,7 @@ import Spinner from '../../components/Loading/Loading';
 import { useTitle } from '../../hooks/useTitle';
 
 const Login = () => {
-	useTitle('Login')
+	useTitle('Login');
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -27,7 +27,7 @@ const Login = () => {
 		}
 
 		if (isSuccess || user) {
-			navigate('/');	
+			navigate('/');
 		}
 
 		dispatch(reset());
@@ -59,7 +59,7 @@ const Login = () => {
 		<>
 			<section className="heading authentication">
 				<h1>
-					<FaSignInAlt /> <span>L</span>ogin
+					<span>L</span>ogin
 				</h1>
 				<p>Login to KoronKorko</p>
 			</section>
@@ -67,29 +67,31 @@ const Login = () => {
 			<section className="form">
 				<form onSubmit={(e) => onSubmit(e)}>
 					<div className="form-group">
+						<label htmlFor="email">Email</label>
 						<input
+							id="email"
 							className="form-control"
 							placeholder="Enter your email"
 							autoComplete="false"
 							type="text"
 							name="email"
-							id="email"
 							value={email}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
+						<label htmlFor="password">Password</label>
 						<input
+							id="password"
 							className="form-control"
 							placeholder="Enter password"
 							type="password"
 							name="password"
-							id="password"
 							value={password}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
-					<div className="form-group">
+					<div className="form-group btn-group">
 						<button type="submit" className="btn btn-block">
 							Login
 						</button>

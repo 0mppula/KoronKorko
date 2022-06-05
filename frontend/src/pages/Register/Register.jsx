@@ -71,7 +71,7 @@ const Register = () => {
 		<>
 			<section className="heading authentication">
 				<h1>
-					<FaUser /> <span>R</span>egister
+					<span>R</span>egister
 				</h1>
 				<p>Create a KoronKorko account</p>
 			</section>
@@ -79,50 +79,54 @@ const Register = () => {
 			<section className="form">
 				<form onSubmit={(e) => onSubmit(e)}>
 					<div className="form-group">
+						<label htmlFor="username">Username</label>
 						<input
+							id="username"
 							className="form-control"
 							placeholder="Enter your username"
 							type="text"
 							name="username"
-							id="username"
 							value={username}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
+						<label htmlFor="email">Email</label>
 						<input
+							id="email"
 							className="form-control"
 							placeholder="Enter your email"
 							type="text"
 							name="email"
-							id="email"
 							value={email}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
+						<label htmlFor="password">Password</label>
 						<input
+							id="password"
 							className="form-control"
 							placeholder="Enter password"
 							type="password"
 							name="password"
-							id="password"
 							value={password}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 					<div className="form-group">
+						<label htmlFor="password2">Confirm Password</label>
 						<input
+							id="password2"
 							className="form-control"
 							placeholder="Confirm password"
 							type="password"
 							name="password2"
-							id="password2"
 							value={password2}
 							onChange={(e) => handleChange(e)}
 						/>
 					</div>
-					<div className="from-group">
+					<div className="form-group btn-group">
 						<button type="submit" className="btn btn-block">
 							Register
 						</button>
