@@ -117,7 +117,7 @@ a {
 	width: min(992px, 95vw);
 	margin: 0 auto;
 	margin-top: var(--nav-heigth);
-	padding-bottom: 2rem;
+	padding-bottom: 8rem;
 	align-items: center;
 }
 
@@ -127,6 +127,10 @@ a {
 	margin-bottom: 3rem;
 	padding: 0 20px;
 	user-select: none;
+}
+
+.heading:not(.authentication) {
+	margin-bottom: 1.5rem;
 }
 
 .heading h1 {

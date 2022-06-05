@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaChevronUp } from 'react-icons/fa';
 
+import checkKeyDown from '../../helpers/checkKeyDown';
 import './styles.css';
 
 const ToTop = () => {
@@ -27,7 +28,7 @@ const ToTop = () => {
 		<div
 			tabIndex={active ? 0 : -1}
 			onClick={scrollToTop}
-			onKeyPress={scrollToTop}
+			onKeyDown={(e) => checkKeyDown(e, scrollToTop)}
 			className={`to-top-button ${active ? 'active' : ''}`}
 		>
 			<FaChevronUp />
