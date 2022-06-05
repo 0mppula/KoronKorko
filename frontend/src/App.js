@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -49,11 +49,16 @@ function App() {
 				<div className="container">
 					<Routes>
 						<Route
-							path="/"
+							path="/compound-interest-calculator"
 							element={<CompoundInterestCalculator darkMode={darkMode} />}
 						/>
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
+						{/* Fall back url is the compound interest calculator page */}
+						<Route
+							path="*"
+							element={<Navigate replace to={'/compound-interest-calculator'} />}
+						/>
 					</Routes>
 				</div>
 				<Footer />
