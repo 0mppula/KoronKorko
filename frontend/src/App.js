@@ -57,7 +57,7 @@ function App() {
 						{/* Fall back url is the compound interest calculator page */}
 						<Route
 							path="*"
-							element={<Navigate replace to={'/compound-interest-calculator'} />}
+							element={<Navigate replace to="/compound-interest-calculator" />}
 						/>
 					</Routes>
 				</div>

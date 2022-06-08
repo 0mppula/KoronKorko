@@ -11,11 +11,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/users', require('./routes/userRoutes'));
-app.use(
-	'/api/compound-interest-calculations',
-	require('./routes/compoundInterestCalculationRoutes')
-);
+// Routes
+const userRoutes = require('./routes/userRoutes');
+const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalculationRoutes');
+
+app.use('/api/users', userRoutes);
+app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
 
 app.use(errorHandler);
 
