@@ -3,9 +3,11 @@ import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 import Link from './Link';
 import Icon from './Icon';
+import logo_dark from '../../assets/images/logo_dark.png';
+import logo_light from '../../assets/images/logo_light.png';
 import './styles.css';
 
-const Footer = () => {
+const Footer = ({ darkMode }) => {
 	const [year] = useState(new Date(Date.now()).getFullYear());
 
 	return (
@@ -13,7 +15,11 @@ const Footer = () => {
 			<div className="footer-top">
 				<div className="footer-brand-section">
 					<div className="brand">
-						<img className="footer-logo" alt="logo" />
+						<img
+							className="footer-logo"
+							src={darkMode ? logo_dark : logo_light}
+							alt="logo"
+						/>
 						<h2>
 							<span>K</span>oron<span>K</span>orko
 						</h2>
@@ -86,10 +92,7 @@ const Footer = () => {
 								url="https://en.wikipedia.org/wiki/Compound_interest"
 								text="Compound Interest (Wikipedia)"
 							/>
-							<Link
-								url="https://www.investopedia.com/"
-								text="Investopedia"
-							/>
+							<Link url="https://www.investopedia.com/" text="Investopedia" />
 						</ul>
 					</div>
 				</div>

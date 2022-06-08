@@ -9,6 +9,8 @@ import UserOptionsList from './UserOptionsList';
 import './styles.css';
 import NavLinks from './NavLinks';
 import Burger from './Burger';
+import logo_dark from '../../assets/images/logo_dark.png';
+import logo_light from '../../assets/images/logo_light.png';
 
 const Nav = ({ darkMode, setDarkMode }) => {
 	const [listOpen, setListOpen] = useState(false);
@@ -44,6 +46,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 		<nav className="navbar">
 			<div className="logo">
 				<Link to="/">
+					<img src={darkMode ? logo_dark : logo_light} alt="logo.jpg" />
 					<h1>
 						<span>K</span>oron<span>K</span>orko
 					</h1>

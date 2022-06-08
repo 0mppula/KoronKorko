@@ -61,7 +61,7 @@ function App() {
 						/>
 					</Routes>
 				</div>
-				<Footer />
+				<Footer darkMode={darkMode} />
 			</Router>
 			<ToTop />
 			<ToastContainer

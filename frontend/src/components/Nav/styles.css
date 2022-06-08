@@ -21,6 +21,23 @@ nav ul li:hover {
 	align-self: center;
 }
 
+.logo a {
+	display: flex;
+	gap: 0.35rem;
+}
+
+.logo h1 {
+	margin-top: 0.35rem;
+}
+
+nav img {
+	margin-top: 0.35rem;
+    height: 34px;
+    cursor: pointer;
+	user-select: none;
+}
+
+
 .logo span {
 	color: var(--clr-primary);
 }
