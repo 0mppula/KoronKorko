@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv').config();
 const colors = require('colors');
@@ -17,6 +18,19 @@ const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalc
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
+
+// Serve client
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, '../', 'frontend', 'build', 'index.html'));
+	});
+} else {
+	app.get('/', (req, res) => {
+		res.send('The application in not in production');
+	});
+}
 
 app.use(errorHandler);
 
