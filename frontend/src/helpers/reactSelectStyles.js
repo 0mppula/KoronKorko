@@ -4,8 +4,8 @@ export const customStyles = {
 	control: (provided, state) => ({
 		...provided,
 		outline: state.isFocused
-			? `2px solid ${cssVar('--clr-primary') || 'red'}`
-			: `1px solid ${cssVar('--clr-text-secondary') || 'red'}`,
+			? `2px solid ${cssVar('--clr-primary')}`
+			: `1px solid ${cssVar('--clr-text-secondary')}`,
 	}),
 };
 
