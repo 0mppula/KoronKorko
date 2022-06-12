@@ -48,7 +48,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 				<Link to="/">
 					<img src={darkMode ? logo_dark : logo_light} alt="logo.jpg" />
 					<h1>
-						<span>K</span>oron<span>K</span>orko TEST
+						<span>K</span>oron<span>K</span>orko
 					</h1>
 				</Link>
 			</div>

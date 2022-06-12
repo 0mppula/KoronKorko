@@ -333,5 +333,10 @@ input:-webkit-autofill:focus {
 	.container {
 		width: 90vw;
 	}
+
+	.form {
+		padding: 1rem;
+		width: 100%;
+	}
 }
 /* End Media Queries */
