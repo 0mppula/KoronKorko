@@ -43,13 +43,14 @@ const CompoundInterestBreakdown = ({
 	useEffect(() => {
 		const reportSummary = document.querySelector('.report-container');
 
-		window.scrollTo({
-			top: reportSummary.offsetTop - 60,
-			left: 0,
-			behavior: 'smooth',
-		});
-
-	}, [calculationCount]);
+		if (loadingCalculation && reportSummary) {
+			window.scrollTo({
+				top: reportSummary.offsetTop - 60,
+				left: 0,
+				behavior: 'smooth',
+			});
+		}
+	}, [calculationCount, loadingCalculation]);
 
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
