@@ -74,16 +74,8 @@ const CompoundInterestForm = ({
 		user && dispatch(updateUserPreferences({ ...user.preferences, currency: { ...e } }));
 	};
 
-	const handleCompoundFrequencySelect = (e) => {
-		setFormData((prev) => ({ ...prev, compoundFrequency: e }));
-	};
-
-	const handleDurationSelect = (e) => {
-		setFormData((prev) => ({ ...prev, durationMultiplier: e }));
-	};
-
-	const handleContributionSelect = (e) => {
-		setFormData((prev) => ({ ...prev, contributionFrequency: e }));
+	const handleFromSelectChange = (e, inputField) => {
+		setFormData((prev) => ({ ...prev, [inputField]: e }));
 	};
 
 	const formValidated = () => {
@@ -233,10 +225,11 @@ const CompoundInterestForm = ({
 								placeholder="Your starting balance"
 								type="number"
 								min="0"
+								step=".01"
 								autoComplete="off"
 								value={startingBalance}
 								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={(e) => document.activeElement.blur()}
+								onWheel={() => document.activeElement.blur()}
 								onChange={(e) => handleChange(e)}
 							/>
 						</div>
@@ -269,11 +262,12 @@ const CompoundInterestForm = ({
 								placeholder="Your projected interest rate"
 								type="number"
 								min="0"
+								step=".01"
 								autoComplete="off"
 								value={interestRate}
 								onChange={(e) => handleChange(e)}
 								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={(e) => document.activeElement.blur()}
+								onWheel={() => document.activeElement.blur()}
 							/>
 							<div className="input-icon-wrapper">
 								<FaPercent />
@@ -291,7 +285,7 @@ const CompoundInterestForm = ({
 								value={compoundFrequency}
 								options={compoundFrequencies}
 								theme={customTheme}
-								onChange={handleCompoundFrequencySelect}
+								onChange={(e) => handleFromSelectChange(e, 'compoundFrequency')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
@@ -310,11 +304,12 @@ const CompoundInterestForm = ({
 								type="number"
 								min="0"
 								max="999"
+								step=".01"
 								autoComplete="off"
 								value={duration}
 								onChange={(e) => handleChange(e)}
 								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={(e) => document.activeElement.blur()}
+								onWheel={() => document.activeElement.blur()}
 							/>
 						</div>
 						<div className="input-group">
@@ -327,7 +322,7 @@ const CompoundInterestForm = ({
 								value={durationMultiplier}
 								options={durationMultipliers}
 								theme={customTheme}
-								onChange={handleDurationSelect}
+								onChange={(e) => handleFromSelectChange(e, 'durationMultiplier')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
@@ -346,12 +341,13 @@ const CompoundInterestForm = ({
 								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
 								type="number"
 								min="0"
+								step=".01"
 								autoComplete="off"
 								value={contribution}
 								ref={contributionRef}
 								onChange={(e) => handleChange(e)}
 								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={(e) => document.activeElement.blur()}
+								onWheel={() => document.activeElement.blur()}
 							/>
 							<div
 								tabIndex={0}
@@ -374,7 +370,7 @@ const CompoundInterestForm = ({
 								value={contributionFrequency}
 								options={contributionFrequencies}
 								theme={customTheme}
-								onChange={handleContributionSelect}
+								onChange={(e) => handleFromSelectChange(e, 'contributionFrequency')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
