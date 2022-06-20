@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSignInAlt, FaUser, FaSun, FaMoon, FaCaretDown } from 'react-icons/fa';
 
@@ -11,12 +11,33 @@ const NavLinks = ({
 	listOpen,
 	handleDarkModeChange,
 	burgerActive,
+	setBurgerActive,
+	navLinksRef,
+	listRef,
 }) => {
+	useEffect(() => {
+		let handler = (e) => {
+			if (
+				!navLinksRef.current.contains(e.target) &&
+				!listRef.current.contains(e.target) &&
+				burgerActive
+			) {
+				setBurgerActive(false);
+			}
+		};
+
+		document.addEventListener('click', handler);
+
+		return () => {
+			document.removeEventListener('click', handler);
+		};
+	});
+
 	const loginLinkRef = useRef();
 	const registerLinkRef = useRef();
 
 	return (
-		<ul className={`nav-links ${burgerActive ? 'active' : ''}`}>
+		<ul className={`nav-links ${burgerActive ? 'active' : ''}`} ref={navLinksRef}>
 			<li>
 				<a
 					tabIndex={0}

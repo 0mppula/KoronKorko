@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 
-const UserOptionsList = ({ handleLogout, listOpen, setListOpen }) => {
+const UserOptionsList = ({ handleLogout, listOpen, setListOpen, listRef }) => {
 	useEffect(() => {
 		let handler = (e) => {
 			if (!listRef.current.contains(e.target) && listOpen) {
@@ -18,7 +18,6 @@ const UserOptionsList = ({ handleLogout, listOpen, setListOpen }) => {
 		};
 	});
 
-	const listRef = useRef();
 	return (
 		<ul className={`user-options ${listOpen ? 'show' : ''}`} ref={listRef}>
 			<li tabIndex={`${listOpen ? 0 : -1}`}>Prefereces</li>

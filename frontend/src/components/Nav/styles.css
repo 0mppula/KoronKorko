@@ -37,7 +37,6 @@ nav img {
 	user-select: none;
 }
 
-
 .logo span {
 	color: var(--clr-primary);
 }
@@ -52,6 +51,10 @@ nav img {
 
 .nav-links li {
 	border-radius: 4px;
+}
+
+.nav-links li:last-child {
+	margin: 0;
 }
 
 .nav-links li a {
@@ -73,6 +76,7 @@ nav img {
 .user-options-toggler {
 	min-width: 110px;
 	position: relative;
+	margin: 0;
 }
 
 .user-options-toggler.active {
@@ -85,10 +89,10 @@ nav img {
 	position: absolute;
 	min-width: 110px;
 	top: 52px;
-	right: 16px;
+	right: 0px;
 	background-color: var(--clr-background-L1);
 	color: var(--clr-text-primary);
-	padding: 0.15rem;
+	padding: 0.5rem;
 	transition: var(--fast-transition);
 	border-radius: 0 0 2px 2px;
 	border: 2px solid var(--clr-primary);
@@ -106,10 +110,14 @@ nav img {
 	transition: var(--fast-transition);
 	cursor: pointer;
 	padding: 0.5rem;
-	margin-bottom: 0.125rem;
+	margin-bottom: 0.25rem;
 	text-transform: capitalize;
 	border-radius: 2px;
 	user-select: none;
+}
+
+.user-options li:last-child {
+	margin-bottom: 0rem;
 }
 
 li.seperator {
@@ -117,7 +125,7 @@ li.seperator {
 	background-color: var(--clr-text-secondary);
 	height: 1px;
 	padding: 0;
-	margin: 0.25rem 0;
+	margin: 0.5rem 0;
 }
 
 .user-options li:hover:not(.seperator) {
@@ -163,14 +171,16 @@ li.seperator {
 		width: min(165px, calc(100% + 2px));
 		background: var(--clr-background-L1);
 		transform: translateX(115%);
-		padding: 0.5rem 1rem;
+		padding: 0.5rem;
 		margin: 0rem;
 		border-bottom: solid 2px var(--clr-primary);
 		border-left: solid 2px var(--clr-primary);
+		gap: 0;
 	}
 
 	.nav-links li {
 		width: 100%;
+		margin-bottom: 0.25rem;
 	}
 
 	.nav-links.active {
@@ -191,9 +201,9 @@ li.seperator {
 		flex-direction: column;
 		align-items: flex-end;
 		width: min(165px, calc(100% + 2px));
-		top: 143px;
+		top: 149px;
 		right: 0px;
-		padding: 0 1rem 0.5rem;
+		padding: 0 0.5rem 0.5rem;
 		border-top: 0;
 		border-right: 0;
 	}
@@ -215,7 +225,7 @@ li.seperator {
 		height: 1px;
 		padding: 0;
 		width: 100%;
-		margin: 0.25rem 0;
+		margin-top: 0.25rem;
 	}
 
 	.nav-links li a {

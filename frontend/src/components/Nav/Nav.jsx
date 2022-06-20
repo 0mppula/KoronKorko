@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
@@ -18,7 +18,10 @@ const Nav = ({ darkMode, setDarkMode }) => {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { user } = useSelector((state) => state.auth);
+	const listRef = useRef();
+	const navLinksRef = useRef();
 
 	const handleLogout = () => {
 		setListOpen(false);
@@ -40,7 +43,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 
 	useEffect(() => {
 		setBurgerActive(false);
-	}, [darkMode]);
+	}, [darkMode, location]);
 
 	return (
 		<nav className="navbar">
@@ -59,11 +62,15 @@ const Nav = ({ darkMode, setDarkMode }) => {
 				setListOpen={setListOpen}
 				handleDarkModeChange={handleDarkModeChange}
 				burgerActive={burgerActive}
+				setBurgerActive={setBurgerActive}
+				navLinksRef={navLinksRef}
+				listRef={listRef}
 			/>
 			<UserOptionsList
 				handleLogout={handleLogout}
 				listOpen={listOpen}
 				setListOpen={setListOpen}
+				listRef={listRef}
 			/>
 			<Burger handleBurgerClick={handleBurgerClick} burgerActive={burgerActive} />
 		</nav>
