@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 
 import { reset, logout } from '../../features/auth/authSlice';
+import { setDarkMode } from '../../features/theme/themeSlice';
 import { reset as resetCompoundInterestCalculations } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import UserOptionsList from './UserOptionsList';
 import './styles.css';
@@ -12,7 +13,7 @@ import Burger from './Burger';
 import logo_dark from '../../assets/images/logo_dark.png';
 import logo_light from '../../assets/images/logo_light.png';
 
-const Nav = ({ darkMode, setDarkMode }) => {
+const Nav = () => {
 	const [listOpen, setListOpen] = useState(false);
 	const [burgerActive, setBurgerActive] = useState(false);
 
@@ -20,6 +21,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { user } = useSelector((state) => state.auth);
+	const { darkMode } = useSelector((state) => state.theme);
 	const listRef = useRef();
 	const navLinksRef = useRef();
 
@@ -34,7 +36,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
 	const handleDarkModeChange = () => {
 		const mode = !darkMode;
 		user && dispatch(updateUserPreferences({ ...user.preferences, darkMode: mode }));
-		!user && setDarkMode(mode);
+		!user && dispatch(setDarkMode(mode));
 	};
 
 	const handleBurgerClick = () => {
@@ -57,7 +59,6 @@ const Nav = ({ darkMode, setDarkMode }) => {
 			</div>
 			<NavLinks
 				user={user}
-				darkMode={darkMode}
 				listOpen={listOpen}
 				setListOpen={setListOpen}
 				handleDarkModeChange={handleDarkModeChange}

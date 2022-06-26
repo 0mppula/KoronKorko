@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSignInAlt, FaUser, FaSun, FaMoon, FaCaretDown } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 
 const NavLinks = ({
 	user,
-	darkMode,
 	setListOpen,
 	listOpen,
 	handleDarkModeChange,
@@ -15,6 +15,8 @@ const NavLinks = ({
 	navLinksRef,
 	listRef,
 }) => {
+	const { darkMode } = useSelector((state) => state.theme);
+
 	useEffect(() => {
 		let handler = (e) => {
 			if (

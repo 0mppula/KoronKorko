@@ -9,6 +9,7 @@ import {
 	Tooltip,
 	Legend,
 } from 'chart.js';
+import { useSelector } from 'react-redux';
 
 import { cssVar } from '../../helpers/getCssVariable';
 import { formatCurrency, formatCurrencyK } from '../../helpers/format';
@@ -20,13 +21,13 @@ const CompoundInterestBreakdown = ({
 	formData,
 	report,
 	setReport,
-	darkMode,
 	calculationCount,
 	loadingCalculation,
 	setLoadingCalculation,
 }) => {
 	const [chartReport, setChartReport] = useState(null);
 	const { breakdown } = report;
+	const { darkMode } = useSelector((state) => state.theme);
 
 	useEffect(() => {
 		const getChartData = () => {

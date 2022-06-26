@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { setDarkMode } from './features/theme/themeSlice';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
 import Footer from './components/Footer/Footer';
@@ -15,19 +16,17 @@ import ToTop from './components/Tools/ToTop';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
+	const { darkMode } = useSelector((state) => state.theme);
+	const dispatch = useDispatch();
 	const [updates, setUpdates] = useState(0);
-	const [darkMode, setDarkMode] = useState(
-		JSON.parse(localStorage.getItem('darkMode')) ||
-			(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-	);
 
 	useEffect(() => {
 		if (user) {
 			// When user is logged in set darkmode to value from user preferences
-			setDarkMode(user?.preferences.darkMode);
+			dispatch(setDarkMode(user?.preferences.darkMode));
 		} else {
 			// When user is not logged in set darkmode to value from local storage
-			setDarkMode(JSON.parse(localStorage.getItem('darkMode')));
+			dispatch(setDarkMode(JSON.parse(localStorage.getItem('darkMode'))));
 		}
 	}, [user]);
 
@@ -44,13 +43,13 @@ function App() {
 	return (
 		<>
 			<Router>
-				<ScrollToTop />/
-				<Nav darkMode={darkMode} setDarkMode={setDarkMode} />
+				<ScrollToTop />
+				<Nav />
 				<div className="container">
 					<Routes>
 						<Route
 							path="/compound-interest-calculator"
-							element={<CompoundInterestCalculator darkMode={darkMode} />}
+							element={<CompoundInterestCalculator />}
 						/>
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
@@ -61,7 +60,7 @@ function App() {
 						/>
 					</Routes>
 				</div>
-				<Footer darkMode={darkMode} />
+				<Footer />
 			</Router>
 			<ToTop />
 			<ToastContainer

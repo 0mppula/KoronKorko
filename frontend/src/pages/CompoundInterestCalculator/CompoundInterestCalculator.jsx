@@ -15,7 +15,7 @@ import CompoundInterestForm from '../../components/CompoundInterestCalculator/Co
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
 import './styles.css';
 
-const CompoundInterestCalculator = ({ darkMode }) => {
+const CompoundInterestCalculator = () => {
 	useTitle('Compound Interest Calculator');
 	const { user, isLoading } = useSelector((state) => state.auth);
 	const {
@@ -113,7 +113,6 @@ const CompoundInterestCalculator = ({ darkMode }) => {
 					formData={formData}
 					report={report}
 					setReport={setReport}
-					darkMode={darkMode}
 					calculationCount={calculationCount}
 					loadingCalculation={loadingCalculation}
 					setLoadingCalculation={setLoadingCalculation}
