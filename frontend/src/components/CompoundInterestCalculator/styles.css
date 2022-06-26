@@ -23,6 +23,11 @@
 	align-items: center;
 }
 
+.summary-controls {
+	display: flex;
+	gap: 1rem;
+}
+
 .chart-container {
 	height: 420px;
 }

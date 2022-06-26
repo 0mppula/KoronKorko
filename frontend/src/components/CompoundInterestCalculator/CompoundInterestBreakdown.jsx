@@ -16,6 +16,8 @@ import { formatCurrency, formatCurrencyK } from '../../helpers/format';
 import createChartData from '../../helpers/createChartData';
 import ChartBreakdownOptions from './ChartBreakdownOptions';
 import LoadingSmall from '../Loading/LoadingSmall';
+import BreakdownMethodOptions from './BreakdownMethodOptions';
+import BreakdownTable from './BreakdownTable';
 
 const CompoundInterestBreakdown = ({
 	formData,
@@ -26,6 +28,7 @@ const CompoundInterestBreakdown = ({
 	setLoadingCalculation,
 }) => {
 	const [chartReport, setChartReport] = useState(null);
+	const [breakdownMethod, setBreakdownMethod] = useState('chart');
 	const { breakdown } = report;
 	const { darkMode } = useSelector((state) => state.theme);
 
@@ -149,14 +152,30 @@ const CompoundInterestBreakdown = ({
 						<LoadingSmall />
 					) : (
 						<>
-							<ChartBreakdownOptions report={report} setReport={setReport} />
-							{chartReport && (
+							<div className="summary-controls">
+								<ChartBreakdownOptions report={report} setReport={setReport} />
+								<BreakdownMethodOptions
+									breakdownMethod={breakdownMethod}
+									setBreakdownMethod={setBreakdownMethod}
+								/>
+							</div>
+
+							{/* When chart report is calculated show breakdown either in chart of table form */}
+							{chartReport && breakdownMethod === 'chart' ? (
 								<div className="chart-container">
 									<Bar
 										className="interest-chart"
 										options={options}
 										data={chartReport}
 										plugins={plugins}
+									/>
+								</div>
+							) : (
+								<div className="table-container">
+									<BreakdownTable
+										data={chartReport}
+										breakdown={breakdown}
+										currency={currency}
 									/>
 								</div>
 							)}

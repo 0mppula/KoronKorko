@@ -4,9 +4,9 @@ const ChartBreakdownOptions = ({ report, setReport }) => {
 	const { breakdown } = report;
 
 	const handleOptionChange = (e) => {
-		const breakdownOption = e.target.dataset.value;
+		const option = e.target.dataset.value;
 		
-		setReport({ ...report, breakdown: breakdownOption });
+		setReport({ ...report, breakdown: option });
 	};
 
 	return (

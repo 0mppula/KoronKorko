@@ -33,6 +33,7 @@ const createChartData = (formData, breakdown, darkMode) => {
 
 	// Arrays for chart
 	const totalInterest = [];
+	const totalAbsInterest = [];
 	const totalAdditions = [];
 	const totalPrincipal = [];
 	const totalmonths = [];
@@ -82,6 +83,9 @@ const createChartData = (formData, breakdown, darkMode) => {
 			// Substract from interest when pricipal is depleted & skip first iteration
 			totalInterest.push(i > 0 ? interest + remainder - offsetPrincipal : 0);
 		}
+		
+		// This array is for table
+		totalAbsInterest.push(interest);
 	}
 
 	const filterChartBreakdown = (data) => {
@@ -155,7 +159,9 @@ const createChartData = (formData, breakdown, darkMode) => {
 						}`,
 					},
 			  ],
-	}
+		depositting,
+		totalAbsInterest: filterChartBreakdown(totalAbsInterest),
+	};
 
 	return chartData;
 };
