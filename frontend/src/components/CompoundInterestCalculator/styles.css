@@ -300,6 +300,7 @@ div.icon.danger:hover {
 
 /* Table styles */
 .table-container {
+	min-height: 420px;
 	overflow-x: auto;
 }
 
