@@ -339,7 +339,7 @@ tr:last-child:not(.thead-margin-bottom) {
 	opacity: 1 !important;
 	width: 100%;
 	height: 0.03125rem !important;
-	background-color: var(--clr-primary-opacity-low);
+	background-color: var(--clr-gray);
 	z-index: 10;
 }
 
