@@ -121,6 +121,14 @@ a {
 	align-items: center;
 }
 
+.danger {
+	color: var(--clr-danger);
+}
+
+.success {
+	color: var(--clr-success);
+}
+
 .heading {
 	text-align: center;
 	font-weight: 700;
