@@ -14,8 +14,8 @@ const BreakdownTable = ({ data, breakdown, currency }) => {
 				<tr>
 					<th>{`${breakdown === 'yearly' ? 'Year' : 'Month'}`}</th>
 					<th>{`${depositting ? 'Deposits' : 'Withdrawals'}`}</th>
-					<th>{`Total ${depositting ? 'Deposits' : 'Withdrawals'}`}</th>
 					<th>Interest</th>
+					<th>{`Total ${depositting ? 'Deposits' : 'Withdrawals'}`}</th>
 					<th>Total Interest</th>
 					<th>Balance</th>
 				</tr>
@@ -52,11 +52,11 @@ const BreakdownTable = ({ data, breakdown, currency }) => {
 								<td className={`${contribs < 0 ? 'danger' : ''}`}>
 									{formatCurrency(contribs, currency.locale, currency.value)}
 								</td>
-								<td className={`${totalContribs < 0 ? 'danger' : ''}`}>
-									{formatCurrency(totalContribs, currency.locale, currency.value)}
-								</td>
 								<td className={`${interest < 0 ? 'danger' : ''}`}>
 									{formatCurrency(interest, currency.locale, currency.value)}
+								</td>
+								<td className={`${totalContribs < 0 ? 'danger' : ''}`}>
+									{formatCurrency(totalContribs, currency.locale, currency.value)}
 								</td>
 								<td className={`${totalInterest < 0 ? 'danger' : ''}`}>
 									{formatCurrency(totalInterest, currency.locale, currency.value)}

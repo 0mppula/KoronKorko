@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { setDarkMode } from './features/theme/themeSlice';
+import { getUserData } from './features/auth/authSlice';
 import Login from '../src/pages/Login/Login';
 import Register from '../src/pages/Register/Register';
 import Footer from './components/Footer/Footer';
@@ -19,6 +20,15 @@ function App() {
 	const { darkMode } = useSelector((state) => state.theme);
 	const dispatch = useDispatch();
 	const [updates, setUpdates] = useState(0);
+	const [userLoaded, setUserLoaded] = useState(false);
+	
+	useEffect(() => {
+		// On app init load user data
+		if (user?.token && !userLoaded) {
+			dispatch(getUserData());
+			setUserLoaded(true)
+		}
+	}, [user, userLoaded, dispatch]);
 
 	useEffect(() => {
 		if (user) {

@@ -132,6 +132,21 @@ const CompoundInterestForm = ({
 		toast.success('Form cleared');
 	};
 
+	const closeAndResetCalculation = () => {
+		setFormData({
+			startingBalance: 0,
+			interestRate: 0,
+			compoundFrequency: compoundFrequencies[1],
+			duration: 0,
+			durationMultiplier: durationMultipliers[0],
+			contribution: 0,
+			contributionMultiplier: 1,
+			contributionFrequency: contributionFrequencies[1],
+		});
+
+		setReport(null);
+	};
+
 	const openSaveModal = () => {
 		if (user) {
 			if (formValidated()) {
@@ -213,6 +228,7 @@ const CompoundInterestForm = ({
 				openRenameModal={openRenameModal}
 				openImportModal={openImportModal}
 				resetCalculator={resetCalculator}
+				closeAndResetCalculation={closeAndResetCalculation}
 			/>
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">

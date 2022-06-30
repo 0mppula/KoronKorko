@@ -6,12 +6,19 @@ import { RiCloseLine } from 'react-icons/ri';
 import { closeCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import checkKeyDown from '../../helpers/checkKeyDown';
 
-const FormControlsTop = ({ openSaveModal, resetCalculator, openImportModal, openRenameModal }) => {
+const FormControlsTop = ({
+	openSaveModal,
+	resetCalculator,
+	openImportModal,
+	openRenameModal,
+	closeAndResetCalculation,
+}) => {
 	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
 	const dispatch = useDispatch();
 
 	const handleClose = () => {
 		dispatch(closeCalculation());
+		closeAndResetCalculation();
 	};
 
 	return (

@@ -66,19 +66,6 @@ const CompoundInterestCalculator = () => {
 			// If active calculation is present set it to state
 			setFormData({ ...activeCalculation.formData });
 		}
-
-		if (user && !activeCalculation) {
-			setFormData({
-				startingBalance: 0,
-				interestRate: 0,
-				compoundFrequency: compoundFrequencies[1],
-				duration: 0,
-				durationMultiplier: durationMultipliers[0],
-				contribution: 0,
-				contributionMultiplier: 1 /* depositting or withdrawing */,
-				contributionFrequency: contributionFrequencies[1],
-			});
-		}
 	}, [activeCalculation, user]);
 
 	return (
