@@ -17,7 +17,6 @@ const getUserData = async (user) => {
 	}
 	
 	return { ...response.data, token: user.token };
-	// return response.data;
 };
 
 // Register user
