@@ -165,8 +165,15 @@ div.icon.danger:hover {
 	align-items: center;
 	margin-bottom: 1.5rem;
 	border-radius: 4px;
-	background-color: var(--clr-hover);
-	box-shadow: var(--button-box-shadow);
+}
+
+.button-toggler-container {
+	min-width: 85px;
+	flex: 25% 1 1;
+}
+
+.button-toggler-container > button {
+	height: 100%;
 }
 
 .options-toggler-container div {
@@ -391,12 +398,17 @@ tr:last-child:not(.thead-margin-bottom) {
 		justify-content: space-between;
 	}
 
-	.summary-controls  {
+	.summary-controls {
 		flex-direction: column;
 		margin-bottom: 1rem;
 	}
 
 	.options-toggler-container {
 		margin-bottom: 0;
+	}
+
+	.button-toggler-container {
+		justify-content: flex-end;
+		width: 50%;
 	}
 }

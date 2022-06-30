@@ -18,6 +18,7 @@ import ChartBreakdownOptions from './ChartBreakdownOptions';
 import LoadingSmall from '../Loading/LoadingSmall';
 import BreakdownMethodOptions from './BreakdownMethodOptions';
 import BreakdownTable from './BreakdownTable';
+import DownloadTableButton from './DownloadTableButton';
 
 const CompoundInterestBreakdown = ({
 	formData,
@@ -34,6 +35,8 @@ const CompoundInterestBreakdown = ({
 
 	useEffect(() => {
 		const getChartData = () => {
+
+			// MAKE ASYNC
 			const chartData = createChartData(formData, breakdown, darkMode);
 
 			setChartReport(chartData);
@@ -158,6 +161,13 @@ const CompoundInterestBreakdown = ({
 									breakdownMethod={breakdownMethod}
 									setBreakdownMethod={setBreakdownMethod}
 								/>
+								{chartReport && (
+									<DownloadTableButton
+										data={chartReport}
+										breakdown={breakdown}
+										currency={currency}
+									/>
+								)}
 							</div>
 
 							{/* When chart report is calculated show breakdown either in chart of table form */}

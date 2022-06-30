@@ -121,6 +121,11 @@ a {
 	align-items: center;
 }
 
+.shadow-container {
+	background-color: var(--clr-hover);
+	box-shadow: var(--button-box-shadow);
+}
+
 .danger {
 	color: var(--clr-danger);
 }
@@ -240,6 +245,7 @@ input[type='number'] {
 
 .btn {
 	display: flex;
+	gap: 0.5rem;
 	justify-content: center;
 	text-align: center;
 	padding: 0.5rem 1rem;
@@ -252,8 +258,12 @@ input[type='number'] {
 	transition: var(--fast-transition);
 }
 
-.btn:hover {
+.btn:hover:not(.btn-static) {
 	transform: scale(0.99);
+}
+
+.btn-static {
+	height: 100%;
 }
 
 .btn-block {

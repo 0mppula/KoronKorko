@@ -1,5 +1,7 @@
 import React from 'react';
 
+import checkKeyDown from '../../helpers/checkKeyDown';
+
 const BreakdownMethodOptions = ({ breakdownMethod, setBreakdownMethod }) => {
 	const handleOptionChange = (e) => {
 		const option = e.target.dataset.value;
@@ -7,8 +9,9 @@ const BreakdownMethodOptions = ({ breakdownMethod, setBreakdownMethod }) => {
 		setBreakdownMethod(option);
 	};
 	return (
-		<div className="options-toggler-container">
+		<div className="options-toggler-container shadow-container">
 			<div
+				onKeyDown={(e) => checkKeyDown(e, () => handleOptionChange(e))}
 				className={`${breakdownMethod === 'chart' ? 'active' : ''}`}
 				onClick={(e) => handleOptionChange(e)}
 				data-value="chart"
@@ -17,6 +20,7 @@ const BreakdownMethodOptions = ({ breakdownMethod, setBreakdownMethod }) => {
 				Chart
 			</div>
 			<div
+				onKeyDown={(e) => checkKeyDown(e, () => handleOptionChange(e))}
 				className={`${breakdownMethod === 'table' ? 'active' : ''}`}
 				onClick={(e) => handleOptionChange(e)}
 				data-value="table"

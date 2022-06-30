@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatCurrency } from '../../helpers/format';
 
 const BreakdownTable = ({ data, breakdown, currency }) => {
+	const [tableData, setTableData] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const { depositting } = data;
+
+	useEffect(() => {
+		const get = async () => {
+			setLoading(true);
+
+			setLoading(false);
+		};
+
+		get();
+		// eslint-disable-next-line
+	}, [data]);
 
 	let totalContribs = 0;
 	let totalInterest = 0;
@@ -20,7 +33,7 @@ const BreakdownTable = ({ data, breakdown, currency }) => {
 					<th>Balance</th>
 				</tr>
 				<tr className="thead-margin-bottom">
-					<td></td>
+					<td />
 				</tr>
 			</thead>
 			<tbody>
@@ -46,25 +59,31 @@ const BreakdownTable = ({ data, breakdown, currency }) => {
 
 					return (
 						<>
-							<tr className="table-margin-top"></tr>
-							<tr key={`date-${i}`} className="table-item">
-								<td>{i}</td>
-								<td className={`${contribs < 0 ? 'danger' : ''}`}>
+							<tr key={`table-margin-top-${i}`} className="table-margin-top" />
+							<tr key={`table-item-${i}`} className="table-item">
+								<td key={`td-${i}-0`}>{i}</td>
+								<td key={`td-${i}-1`} className={`${contribs < 0 ? 'danger' : ''}`}>
 									{formatCurrency(contribs, currency.locale, currency.value)}
 								</td>
-								<td className={`${interest < 0 ? 'danger' : ''}`}>
+								<td key={`td-${i}-2`} className={`${interest < 0 ? 'danger' : ''}`}>
 									{formatCurrency(interest, currency.locale, currency.value)}
 								</td>
-								<td className={`${totalContribs < 0 ? 'danger' : ''}`}>
+								<td
+									key={`td-${i}-3`}
+									className={`${totalContribs < 0 ? 'danger' : ''}`}
+								>
 									{formatCurrency(totalContribs, currency.locale, currency.value)}
 								</td>
-								<td className={`${totalInterest < 0 ? 'danger' : ''}`}>
+								<td
+									key={`td-${i}-4`}
+									className={`${totalInterest < 0 ? 'danger' : ''}`}
+								>
 									{formatCurrency(totalInterest, currency.locale, currency.value)}
 								</td>
-								<td className={`${balance < 0 ? 'danger' : ''}`}>
+								<td key={`td-${i}-5`} className={`${balance < 0 ? 'danger' : ''}`}>
 									{formatCurrency(balance, currency.locale, currency.value)}
 								</td>
-								<td className="border-bottom"></td>
+								<td key={`td-${i}-6`} className="border-bottom" />
 							</tr>
 						</>
 					);
