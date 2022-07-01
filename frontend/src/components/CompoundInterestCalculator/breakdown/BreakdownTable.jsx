@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { formatCurrency } from '../../helpers/format';
 
-import LoadinSmall from '../Loading/LoadingSmall';
+import { formatCurrency } from '../../../helpers/format';
+import LoadinSmall from '../../Loading/LoadingSmall';
 
 const BreakdownTable = ({ data, breakdown, currency, tableLoading, setTableLoading }) => {
 	const [tableData, setTableData] = useState(null);
@@ -10,7 +10,7 @@ const BreakdownTable = ({ data, breakdown, currency, tableLoading, setTableLoadi
 	useEffect(() => {
 		const get = async () => {
 			setTableLoading(true);
-
+			
 			// Create data for table in a async way
 			const tableDataArray = await createData();
 			setTableData(tableDataArray);
@@ -28,7 +28,7 @@ const BreakdownTable = ({ data, breakdown, currency, tableLoading, setTableLoadi
 			let totalInterest = 0;
 			let principal = data['datasets'][0].data[0];
 
-			const rows = data.labels.map((month, i) => {
+			const rows = data.labels.map((_, i) => {
 				const first = i === 0;
 				// when depositting the deposits arrau is indexed at 2 in the data sets array
 				const contribsIndex = depositting ? 1 : 2;

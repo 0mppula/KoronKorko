@@ -12,7 +12,7 @@ import {
 import { useTitle } from '../../hooks/useTitle';
 import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
-import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/CompoundInterestBreakdown';
+import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/breakdown/CompoundInterestBreakdown';
 import './styles.css';
 
 const CompoundInterestCalculator = () => {

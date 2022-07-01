@@ -18,9 +18,9 @@ import {
 } from '../../assets/data';
 import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
-import CompoundInterestSaveModal from './CompoundInterestSaveModal';
-import CompoundInterestImportModal from './CompoundInterestImportModal';
-import CompoundInterestRenameModal from './CompoundInterestRenameModal';
+import CompoundInterestSaveModal from './modals/CompoundInterestSaveModal';
+import CompoundInterestImportModal from './modals/CompoundInterestImportModal';
+import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
 
 const CompoundInterestForm = ({
 	user,

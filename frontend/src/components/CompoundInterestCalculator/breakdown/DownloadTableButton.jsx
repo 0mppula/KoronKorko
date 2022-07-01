@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload, FaCircleNotch } from 'react-icons/fa';
 
-import { formatCurrency } from '../../helpers/format';
+import { formatCurrency } from '../../../helpers/format';
+import { useSelector } from 'react-redux';
 
 const DownloadTableButton = ({ data, breakdown, currency }) => {
 	const [CSVData, setCSVData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const { depositting } = data;
+	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
 
 	useEffect(() => {
 		const get = async () => {
@@ -76,7 +78,11 @@ const DownloadTableButton = ({ data, breakdown, currency }) => {
 			{!loading ? (
 				<CSVLink
 					className="btn btn-static btn-block"
-					filename={'my-file.csv'}
+					filename={`${
+						activeCalculation?.name
+							? `${activeCalculation.name.replaceAll(' ', '')}-${breakdown}.csv`
+							: 'calculation.csv'
+					}`}
 					data={CSVData}
 				>
 					<FaFileDownload /> .csv

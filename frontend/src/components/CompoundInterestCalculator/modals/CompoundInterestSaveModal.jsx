@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
-import checkKeyDown from '../../helpers/checkKeyDown';
+import checkKeyDown from '../../../helpers/checkKeyDown';
 
 const CompoundInterestSaveModal = ({
 	modalOpen,

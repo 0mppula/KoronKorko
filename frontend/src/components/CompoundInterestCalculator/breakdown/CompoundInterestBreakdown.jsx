@@ -11,12 +11,12 @@ import {
 } from 'chart.js';
 import { useSelector } from 'react-redux';
 
-import { cssVar } from '../../helpers/getCssVariable';
-import { formatCurrency, formatCurrencyK } from '../../helpers/format';
-import createChartData from '../../helpers/createChartData';
-import ChartBreakdownOptions from './ChartBreakdownOptions';
-import LoadingSmall from '../Loading/LoadingSmall';
-import BreakdownMethodOptions from './BreakdownMethodOptions';
+import { cssVar } from '../../../helpers/getCssVariable';
+import { formatCurrency, formatCurrencyK } from '../../../helpers/format';
+import createChartData from '../../../helpers/createChartData';
+import TimeBreakdownOptionToggler from './TimeBreakdownOptionToggler';
+import VisualBreakdownOptionToggler from './VisualBreakdownOptionToggler';
+import LoadingSmall from '../../Loading/LoadingSmall';
 import BreakdownTable from './BreakdownTable';
 import DownloadTableButton from './DownloadTableButton';
 
@@ -35,12 +35,11 @@ const CompoundInterestBreakdown = ({
 	const { darkMode } = useSelector((state) => state.theme);
 
 	useEffect(() => {
-		const getChartData = () => {
-			// MAKE ASYNC
-			const chartData = createChartData(formData, breakdown, darkMode);
-
+		const getChartData = async () => {
+			setLoadingCalculation(true);
+			const chartData = await createChartData(formData, breakdown, darkMode);
 			setChartReport(chartData);
-			setTimeout(() => setLoadingCalculation(false), 500);
+			setLoadingCalculation(false);
 		};
 
 		getChartData();
@@ -57,7 +56,7 @@ const CompoundInterestBreakdown = ({
 				behavior: 'smooth',
 			});
 		}
-	}, [calculationCount, loadingCalculation]);
+	}, [calculationCount]);
 
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -157,10 +156,15 @@ const CompoundInterestBreakdown = ({
 						<>
 							<div className="summary-controls">
 								{/* IF NOT LOADING THEN ABLE TO TOGGLEn */}
-								<ChartBreakdownOptions report={report} setReport={setReport} />
-								<BreakdownMethodOptions
+								<TimeBreakdownOptionToggler
+									report={report}
+									setReport={setReport}
+									loadingCalculation={loadingCalculation}
+								/>
+								<VisualBreakdownOptionToggler
 									breakdownMethod={breakdownMethod}
 									setBreakdownMethod={setBreakdownMethod}
+									loadingCalculation={loadingCalculation}
 								/>
 								{chartReport && (
 									<DownloadTableButton
@@ -173,7 +177,11 @@ const CompoundInterestBreakdown = ({
 
 							{/* When chart report is calculated show breakdown either in chart of table form */}
 							{chartReport && breakdownMethod === 'chart' ? (
-								<div className="chart-container">
+								<div
+									className={`chart-container ${
+										loadingCalculation ? 'loading-container' : ''
+									}`}
+								>
 									<Bar
 										className="interest-chart"
 										options={options}
@@ -184,7 +192,9 @@ const CompoundInterestBreakdown = ({
 							) : (
 								<div
 									className={`table-container ${
-										tableLoading ? 'loading-container' : ''
+										tableLoading || loadingCalculation
+											? 'loading-container'
+											: ''
 									}`}
 								>
 									<BreakdownTable

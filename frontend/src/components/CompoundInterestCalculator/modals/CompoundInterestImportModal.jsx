@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 
-import checkKeyDown from '../../helpers/checkKeyDown';
+import checkKeyDown from '../../../helpers/checkKeyDown';
+
 
 import {
 	getCalculations,
 	getCalculation,
 	deleteCalculation,
-} from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
+} from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
 const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 	const { calculations } = useSelector((state) => state.compoundInterestCalculations);
@@ -23,12 +24,14 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 			document.removeEventListener('click', closeOnOutsideClick);
 			document.removeEventListener('keydown', closeWithEsc);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (modalOpen) {
 			dispatch(getCalculations());
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalOpen]);
 
 	const closeModal = () => {

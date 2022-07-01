@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-import { renameCalculation } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import checkKeyDown from '../../helpers/checkKeyDown';
+import { renameCalculation } from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
+import checkKeyDown from '../../../helpers/checkKeyDown';
 
 const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	const [calculationName, setCalculationName] = useState('');
