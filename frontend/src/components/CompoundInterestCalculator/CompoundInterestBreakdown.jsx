@@ -30,12 +30,12 @@ const CompoundInterestBreakdown = ({
 }) => {
 	const [chartReport, setChartReport] = useState(null);
 	const [breakdownMethod, setBreakdownMethod] = useState('chart');
+	const [tableLoading, setTableLoading] = useState(true);
 	const { breakdown } = report;
 	const { darkMode } = useSelector((state) => state.theme);
 
 	useEffect(() => {
 		const getChartData = () => {
-
 			// MAKE ASYNC
 			const chartData = createChartData(formData, breakdown, darkMode);
 
@@ -156,6 +156,7 @@ const CompoundInterestBreakdown = ({
 					) : (
 						<>
 							<div className="summary-controls">
+								{/* IF NOT LOADING THEN ABLE TO TOGGLEn */}
 								<ChartBreakdownOptions report={report} setReport={setReport} />
 								<BreakdownMethodOptions
 									breakdownMethod={breakdownMethod}
@@ -181,11 +182,17 @@ const CompoundInterestBreakdown = ({
 									/>
 								</div>
 							) : (
-								<div className="table-container">
+								<div
+									className={`table-container ${
+										tableLoading ? 'loading-container' : ''
+									}`}
+								>
 									<BreakdownTable
 										data={chartReport}
 										breakdown={breakdown}
 										currency={currency}
+										tableLoading={tableLoading}
+										setTableLoading={setTableLoading}
 									/>
 								</div>
 							)}

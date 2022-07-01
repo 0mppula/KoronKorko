@@ -311,6 +311,13 @@ div.icon.danger:hover {
 	overflow-x: auto;
 }
 
+.loading-container {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 table {
 	width: 100%;
 	text-align: center;
