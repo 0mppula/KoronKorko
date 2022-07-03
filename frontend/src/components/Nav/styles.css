@@ -87,7 +87,7 @@ nav img {
 	opacity: 0;
 	pointer-events: none;
 	position: absolute;
-	min-width: 110px;
+	min-width: 128px;
 	top: 52px;
 	right: 0px;
 	background-color: var(--clr-background-L1);

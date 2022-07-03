@@ -41,6 +41,7 @@ const Nav = () => {
 
 	const handleBurgerClick = () => {
 		setBurgerActive(!burgerActive);
+		listOpen && setListOpen(false);
 	};
 
 	useEffect(() => {
