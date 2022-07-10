@@ -21,7 +21,7 @@ const Home = () => {
 			name: 'Annualized Return Calculator',
 			url: 'annualized-return-calculator',
 			description:
-				'Calculate the annualized return (GAGR) and the the total percent return of your investment with this calculator.',
+				'Calculate the annualized return (CAGR) and the the total percent return of your investment with this calculator.',
 		},
 	];
 
