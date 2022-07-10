@@ -13,8 +13,11 @@
 .summary-container {
 	border-top: solid 2px var(--clr-primary);
 	border-bottom: solid 2px var(--clr-primary);
-	min-height: 300px;
 	padding: 1rem 0;
+}
+
+.summary-container:not(.auto-height) {
+	min-height: 300px;
 }
 
 .summary-container.loading {

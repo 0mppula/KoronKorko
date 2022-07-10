@@ -14,6 +14,8 @@ import ScrollToTop from './components/Tools/ScrollToTop';
 import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 import ToastCloseButton from './components/Tools/ToastCloseButton';
 import ToTop from './components/Tools/ToTop';
+import Home from './pages/Home/Home';
+import AnnualizedReturnCalculator from './pages/AnnualizedReturnCalculator/AnnualizedReturnCalculator';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -21,12 +23,12 @@ function App() {
 	const dispatch = useDispatch();
 	const [updates, setUpdates] = useState(0);
 	const [userLoaded, setUserLoaded] = useState(false);
-	
+
 	useEffect(() => {
 		// On app init load user data
 		if (user?.token && !userLoaded) {
 			dispatch(getUserData());
-			setUserLoaded(true)
+			setUserLoaded(true);
 		}
 	}, [user, userLoaded, dispatch]);
 
@@ -61,19 +63,22 @@ function App() {
 							path="/compound-interest-calculator"
 							element={<CompoundInterestCalculator />}
 						/>
+						<Route
+							path="/annualized-return-calculator"
+							element={<AnnualizedReturnCalculator />}
+						/>
+						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 						{/* Fall back url is the compound interest calculator page */}
-						<Route
-							path="*"
-							element={<Navigate replace to="/compound-interest-calculator" />}
-						/>
+						<Route path="*" element={<Navigate replace to="/" />} />
 					</Routes>
 				</div>
 				<Footer />
 			</Router>
 			<ToTop />
 			<ToastContainer
+				limit={5}
 				autoClose={3000}
 				pauseOnFocusLoss={false}
 				closeButton={<ToastCloseButton />}

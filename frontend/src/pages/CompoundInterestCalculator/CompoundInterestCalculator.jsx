@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
 import {
@@ -10,6 +10,7 @@ import {
 	compoundFrequencies,
 } from '../../assets/data';
 import { useTitle } from '../../hooks/useTitle';
+import { reset } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/breakdown/CompoundInterestBreakdown';
@@ -43,6 +44,8 @@ const CompoundInterestCalculator = () => {
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [loadingCalculation, setLoadingCalculation] = useState(false);
 
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		if (isError && message) {
 			toast.error(message);
@@ -57,6 +60,7 @@ const CompoundInterestCalculator = () => {
 
 	useEffect(() => {
 		if (user) {
+			// Update the currency if user is logged in
 			setCurrency(user?.preferences.currency);
 		}
 	}, [user]);
@@ -67,6 +71,11 @@ const CompoundInterestCalculator = () => {
 			setFormData({ ...activeCalculation.formData });
 		}
 	}, [activeCalculation, user]);
+
+	useEffect(() => {
+		// Close active calculation when navigating out of page
+		return () => dispatch(reset());
+	}, []);
 
 	return (
 		<>
@@ -88,11 +97,7 @@ const CompoundInterestCalculator = () => {
 				setLoadingCalculation={setLoadingCalculation}
 			/>
 			{report && (
-				<CompoundInterestReport
-					report={report}
-					setLoadingCalculation={setLoadingCalculation}
-					loadingCalculation={loadingCalculation}
-				/>
+				<CompoundInterestReport report={report} loadingCalculation={loadingCalculation} />
 			)}
 			{report && (
 				<CompoundInterestBreakdown

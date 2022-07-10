@@ -152,7 +152,6 @@ a {
 	align-items: center;
 	justify-content: center;
 	font-size: clamp(1.25rem, 5vw, 2.25rem);
-	margin-bottom: 0.75rem;
 }
 
 .heading.authentication h1 {
@@ -182,7 +181,7 @@ a {
 	border-radius: 4px;
 	background-color: var(--clr-background-L1);
 	border: solid 2px var(--clr-primary);
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 }
 
 .form-group {

@@ -4,7 +4,7 @@ import { formatCurrency, formatPercentage } from '../../helpers/format';
 import LoadingSmall from '../Loading/LoadingSmall';
 import './styles.css';
 
-const CompoundInterestReport = ({ report, setLoadingCalculation, loadingCalculation }) => {
+const CompoundInterestReport = ({ report, loadingCalculation }) => {
 	const {
 		futureValue,
 		totalProfit,

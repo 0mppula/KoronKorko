@@ -9,7 +9,7 @@ const ToTop = () => {
 
 	window.addEventListener('scroll', () => {
 		// Limit in y-axis pixels when to show scroll to top element
-		const SCROLL_LIMIT = 450;
+		const SCROLL_LIMIT = 200;
 
 		let pageY = window.pageYOffset;
 		pageY > SCROLL_LIMIT && setActive(true);

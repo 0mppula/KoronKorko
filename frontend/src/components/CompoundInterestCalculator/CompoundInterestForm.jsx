@@ -12,15 +12,16 @@ import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
 import {
 	durationMultipliers,
-	currencies,
 	contributionFrequencies,
 	compoundFrequencies,
 } from '../../assets/data';
-import { updateUserPreferences } from '../../features/auth/authSlice';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
 import CompoundInterestSaveModal from './modals/CompoundInterestSaveModal';
 import CompoundInterestImportModal from './modals/CompoundInterestImportModal';
 import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
+import disableArrowKeys from '../../helpers/disableArrowKeys';
+import BalanceInput from '../FormComponents/BalanceInput';
+import CalculateButton from '../FormComponents/CalculateButton';
 
 const CompoundInterestForm = ({
 	user,
@@ -52,7 +53,6 @@ const CompoundInterestForm = ({
 		contributionFrequency,
 	} = formData || {};
 
-	const currencyRef = useRef();
 	const interestIntervalRef = useRef();
 	const durationRef = useRef();
 	const contributionRef = useRef();
@@ -62,19 +62,7 @@ const CompoundInterestForm = ({
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
-	const disableArrowKeys = (e) => {
-		if (e.which === 38 || e.which === 40) {
-			e.preventDefault();
-		}
-	};
-
-	const handleCurrencySelect = (e) => {
-		setCurrency(e);
-		!user && localStorage.setItem('currency', JSON.stringify(e));
-		user && dispatch(updateUserPreferences({ ...user.preferences, currency: { ...e } }));
-	};
-
-	const handleFromSelectChange = (e, inputField) => {
+	const handleFormSelectChange = (e, inputField) => {
 		setFormData((prev) => ({ ...prev, [inputField]: e }));
 	};
 
@@ -232,39 +220,12 @@ const CompoundInterestForm = ({
 			/>
 			<form onSubmit={handleCalculation}>
 				<div className="form-group">
-					<div className="input-group-container">
-						<div className="input-group">
-							<label htmlFor="startingBalance">Starting Balance</label>
-							<input
-								id="startingBalance"
-								name="startingBalance"
-								placeholder="Your starting balance"
-								type="number"
-								min="0"
-								step=".01"
-								autoComplete="off"
-								value={startingBalance}
-								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={() => document.activeElement.blur()}
-								onChange={(e) => handleChange(e)}
-							/>
-						</div>
-						{/* Currency selector */}
-						<div className="input-group">
-							<label onClick={() => currencyRef.current.focus()}>Currency</label>
-							<Select
-								ref={currencyRef}
-								className="react-select-container"
-								classNamePrefix="react-select"
-								theme={customTheme}
-								styles={customStyles}
-								options={currencies}
-								value={currency}
-								isSearchable={false}
-								onChange={handleCurrencySelect}
-							/>
-						</div>
-					</div>
+					<BalanceInput
+						balance={startingBalance}
+						handleChange={handleChange}
+						currency={currency}
+						setCurrency={setCurrency}
+					/>
 				</div>
 
 				<div className="form-group split">
@@ -301,7 +262,7 @@ const CompoundInterestForm = ({
 								value={compoundFrequency}
 								options={compoundFrequencies}
 								theme={customTheme}
-								onChange={(e) => handleFromSelectChange(e, 'compoundFrequency')}
+								onChange={(e) => handleFormSelectChange(e, 'compoundFrequency')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
@@ -338,7 +299,7 @@ const CompoundInterestForm = ({
 								value={durationMultiplier}
 								options={durationMultipliers}
 								theme={customTheme}
-								onChange={(e) => handleFromSelectChange(e, 'durationMultiplier')}
+								onChange={(e) => handleFormSelectChange(e, 'durationMultiplier')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
@@ -386,7 +347,7 @@ const CompoundInterestForm = ({
 								value={contributionFrequency}
 								options={contributionFrequencies}
 								theme={customTheme}
-								onChange={(e) => handleFromSelectChange(e, 'contributionFrequency')}
+								onChange={(e) => handleFormSelectChange(e, 'contributionFrequency')}
 								styles={customStyles}
 								isSearchable={false}
 							/>
@@ -394,9 +355,7 @@ const CompoundInterestForm = ({
 					</div>
 				</div>
 
-				<div className="form-group btn-group">
-					<button className="btn btn-block">Calculate</button>
-				</div>
+				<CalculateButton />
 			</form>
 		</div>
 	);
