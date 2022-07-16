@@ -22,4 +22,4 @@ In Addition to calculating interest reates, authenticated users can create, save
 
 Calculates the annualized return (CAGR) and the the total percent return of your investment.
 
-[1]: https://koronkorko.herokuapp.com/compound-interest-calculator
+[1]: https://koronkorko.herokuapp.com/
