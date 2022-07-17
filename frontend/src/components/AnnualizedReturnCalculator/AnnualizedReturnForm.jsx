@@ -70,6 +70,8 @@ const AnnualizedReturnForm = ({
 	};
 
 	const resetCalculator = () => {
+		const errors = { ...formErrors };
+
 		setFormData({
 			startingBalance: 0,
 			endingBalance: 0,
@@ -77,6 +79,12 @@ const AnnualizedReturnForm = ({
 			durationMultiplier: durationMultipliers[0],
 		});
 
+		// Reset all form errors
+		for (const field in errors) {
+			errors[field] = false;
+		}
+
+		setFormErrors(errors)
 		setReport(null);
 
 		toast.success('Form cleared');

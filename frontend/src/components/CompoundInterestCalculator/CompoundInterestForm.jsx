@@ -115,6 +115,8 @@ const CompoundInterestForm = ({
 	};
 
 	const resetCalculator = () => {
+		const errors = { ...formErrors };
+
 		setFormData({
 			startingBalance: 0,
 			interestRate: 0,
@@ -126,6 +128,12 @@ const CompoundInterestForm = ({
 			contributionFrequency: contributionFrequencies[1],
 		});
 
+		// Reset all form errors
+		for (const field in errors) {
+			errors[field] = false;
+		}
+
+		setFormErrors(errors)
 		setReport(null);
 
 		toast.success('Form cleared');

@@ -3,20 +3,20 @@
 	align-items: center;
 	width: min(90%, 650px);
 	margin-bottom: 0.25rem;
-	color: var(--clr-text-secondary);
 	transition: var(--fast-transition);
 }
 
-.back-button:hover {
+.back-button:hover a {
 	color: var(--clr-primary);
 }
 
-.back-button div {
+.back-button a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
 	padding: 0.25rem;
+	color: var(--clr-text-secondary);
 }
 
 /* Media Queries */

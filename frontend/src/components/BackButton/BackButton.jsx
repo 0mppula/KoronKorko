@@ -6,11 +6,11 @@ import './styles.css';
 
 const BackButton = ({ url }) => {
 	return (
-		<Link to={url} className="back-button">
-			<div>
+		<div className="back-button">
+			<Link to={url}>
 				<FaArrowLeft /> Calculators
-			</div>
-		</Link>
+			</Link>
+		</div>
 	);
 };
 
