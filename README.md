@@ -2,7 +2,7 @@
 
 ## What is KoronKorko?
 
-[KoronKorko][1] is a financial web-application with different types of finance calulators such as a compound interest calculator and a annualized return calculator. 
+[KoronKorko][1] is a financial web-application with different types of finance caclulators such as a compound interest calculator and a annualized return calculator. 
 
 The users of KoronKorko can select a currency in which the monetary results of the calculators are printed. The selected currency will be saved either in local storage or in the authenticated users preferences.
 
