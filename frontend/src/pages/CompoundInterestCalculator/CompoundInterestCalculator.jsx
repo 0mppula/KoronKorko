@@ -14,7 +14,6 @@ import { reset } from '../../features/compoundInterestCalculator/compoundInteres
 import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/breakdown/CompoundInterestBreakdown';
-import './styles.css';
 import BackButton from '../../components/BackButton/BackButton';
 
 const CompoundInterestCalculator = () => {

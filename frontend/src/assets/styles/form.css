@@ -1,0 +1,146 @@
+.form {
+	width: min(90%, 650px);
+	margin: 0 auto;
+	padding: 1rem 2rem 2rem;
+	border-radius: 4px;
+	background-color: var(--clr-background-L1);
+	border: solid 2px var(--clr-primary);
+	margin-bottom: 2rem;
+}
+
+.form-group {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.form-group:last-child {
+	margin-bottom: 0px;
+}
+
+.form-group label {
+	width: 100%;
+	user-select: none;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	outline: 1px solid var(--clr-text-secondary);
+	border-radius: 4px;
+	font-family: var(--font-main);
+	color: var(--clr-text-primary);
+	background-color: var(--clr-background-L2);
+	font-size: 1rem;
+}
+
+.form-group.btn-group {
+	margin-top: 1rem;
+}
+
+.input-group-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+}
+.input-group {
+    position: relative;
+    flex: 1 1 calc(50% - 1rem);
+}
+
+input:focus,
+textarea:focus {
+	background-color: var(--clr-background-L3);
+	outline: solid 2px var(--clr-primary);
+}
+input::placeholder,
+textarea::placeholder {
+	user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input.icon-input {
+	padding-right: 34px;
+}
+
+input.error:not(:focus) {
+	outline: 2px solid var(--clr-danger);
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+/* React Select Styles */
+.react-select__value-container {
+	height: 44px !important;
+	padding: 0 !important;
+}
+.react-select__single-value {
+	color: var(--clr-text-primary) !important;
+	height: 44px !important;
+	padding: 10px !important;
+	margin: 0 !important;
+	margin-bottom: 9px !important;
+}
+.react-select__indicators {
+	height: 44px !important;
+}
+
+.react-select__control {
+	height: 44px !important;
+	font-size: 1rem !important;
+	background-color: var(--clr-background-L2) !important;
+	border: none !important;
+	outline: solid 1px var(--clr-text-secondary);
+}
+.react-select__control--is-focused {
+	background-color: var(--clr-background-L3) !important;
+	border: none !important;
+}
+.react-select__menu {
+	background-color: var(--clr-background-L2) !important;
+}
+.react-select__option {
+	font-size: 1rem !important;
+	color: var(--clr-text-primary) !important;
+}
+.react-select__option--is-focused:active {
+	color: var(--clr-white) !important;
+}
+.react-select__option--is-selected {
+	color: var(--clr-white) !important;
+}
+.react-select__indicator-separator {
+	display: none;
+}
+/* End React Select Styles */
+
+/* Override autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active,
+input:-webkit-autofill:focus {
+	background-color: var(--clr-background-L3);
+	color: var(--clr-text-primary) !important;
+	-webkit-box-shadow: 0 0 0 1000px var(--clr-background-L3) inset !important;
+	-webkit-text-fill-color: var(--clr-text-primary) !important;
+}
+/* Media Queries */
+@media only screen and (max-width: 480px) {
+	.form {
+		padding: 1rem;
+		width: 100%;
+	}
+}
+/* End Media Queries */
