@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset, login } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +12,10 @@ const Login = () => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
+	});
+	const [formErrors, setFormErrors] = useState({
+		email: false,
+		password: false,
 	});
 
 	const navigate = useNavigate();
@@ -48,7 +51,29 @@ const Login = () => {
 			password,
 		};
 
-		dispatch(login(userData));
+		if (formValidated()) {
+			dispatch(login(userData));
+		} else {
+			toast.error('Incorrect field values');
+		}
+	};
+
+	const formValidated = () => {
+		const requiredFields = [email, password];
+		const requiredFieldLabels = ['email', 'password'];
+		const errors = { ...formErrors };
+
+		requiredFields.forEach((rf, i) => {
+			const empty = rf === '';
+			errors[requiredFieldLabels[i]] = empty;
+			setFormErrors(errors);
+		});
+
+		// Check that all the required fields are not empty values
+		return requiredFields.every((rf) => {
+			const notEmpty = rf !== '';
+			return notEmpty;
+		});
 	};
 
 	if (isLoading) {
@@ -70,7 +95,7 @@ const Login = () => {
 						<label htmlFor="email">Email</label>
 						<input
 							id="email"
-							className="form-control"
+							className={`form-control ${formErrors.email ? 'error' : ''}`}
 							placeholder="Enter your email"
 							autoComplete="false"
 							type="text"
@@ -83,7 +108,7 @@ const Login = () => {
 						<label htmlFor="password">Password</label>
 						<input
 							id="password"
-							className="form-control"
+							className={`form-control ${formErrors.password ? 'error' : ''}`}
 							placeholder="Enter password"
 							type="password"
 							name="password"

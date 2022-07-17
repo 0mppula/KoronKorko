@@ -27,6 +27,8 @@ const CompoundInterestForm = ({
 	user,
 	formData,
 	setFormData,
+	formErrors,
+	setFormErrors,
 	setReport,
 	currency,
 	setCurrency,
@@ -68,6 +70,15 @@ const CompoundInterestForm = ({
 
 	const formValidated = () => {
 		const requiredFields = [startingBalance, interestRate, duration];
+		const requiredFieldLabels = ['startingBalance', 'interestRate', 'duration'];
+		const errors = { ...formErrors };
+
+		requiredFields.forEach((rf, i) => {
+			const notNumberAndEmpty = !(!isNaN(rf) && rf !== '');
+			errors[requiredFieldLabels[i]] = notNumberAndEmpty;
+			setFormErrors(errors);
+		});
+
 		const optionalFields = [contribution];
 		const optionalFieldsValidated = optionalFields.every(
 			(of) => of === '' || (!isNaN(of) && of !== '')
@@ -222,6 +233,7 @@ const CompoundInterestForm = ({
 				<div className="form-group">
 					<BalanceInput
 						balance={startingBalance}
+						error={formErrors.startingBalance}
 						handleChange={handleChange}
 						currency={currency}
 						setCurrency={setCurrency}
@@ -234,7 +246,7 @@ const CompoundInterestForm = ({
 							<label htmlFor="interestRate">Annual Interest Rate</label>
 							<input
 								id="interestRate"
-								className="icon-input"
+								className={`icon-input ${formErrors.interestRate ? 'error' : ''}`}
 								name="interestRate"
 								placeholder="Your projected interest rate"
 								type="number"
@@ -276,6 +288,7 @@ const CompoundInterestForm = ({
 							<label htmlFor="duration">Duration</label>
 							<input
 								id="duration"
+								className={`icon-input ${formErrors.duration ? 'error' : ''}`}
 								name="duration"
 								placeholder="Duration of your investment"
 								type="number"

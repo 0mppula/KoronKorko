@@ -14,6 +14,7 @@ const BalanceInput = ({
 	setCurrency,
 	balanceTitle,
 	balanceFieldName,
+	error,
 }) => {
 	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const BalanceInput = ({
 				<div className="input-group">
 					<label htmlFor={balanceFieldName}>{balanceTitle}</label>
 					<input
+						className={`${error ? 'error' : ''}`}
 						id={balanceFieldName}
 						name={balanceFieldName}
 						placeholder="Your starting balance"

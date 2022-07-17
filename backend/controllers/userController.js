@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
 	// Check fields
 	if (!username || !email || !password) {
 		res.status(400);
-		throw new Error('Please add all fields');
+		throw new Error('Please fill in all fields');
 	}
 
 	// Check if the user exists

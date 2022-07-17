@@ -11,6 +11,8 @@ import { durationMultipliers } from '../../assets/data';
 const AnnualizedReturnForm = ({
 	formData,
 	setFormData,
+	formErrors,
+	setFormErrors,
 	currency,
 	setCurrency,
 	setReport,
@@ -43,9 +45,20 @@ const AnnualizedReturnForm = ({
 
 	const formValidated = () => {
 		const requiredFields = [startingBalance, endingBalance, duration];
+		const requiredFieldLabels = ['startingBalance', 'endingBalance', 'duration'];
+		const errors = { ...formErrors };
+
+		requiredFields.forEach((rf, i) => {
+			const notNumberAndEmpty = !(!isNaN(rf) && rf !== '');
+			errors[requiredFieldLabels[i]] = notNumberAndEmpty;
+			setFormErrors(errors);
+		});
 
 		// Check that all the required fields are numbers and not empty values
-		return requiredFields.every((rf) => !isNaN(rf) && rf !== '');
+		return requiredFields.every((rf) => {
+			const numberAndNotEmpty = !isNaN(rf) && rf !== '';
+			return numberAndNotEmpty;
+		});
 	};
 
 	const handleChange = (e) => {
@@ -91,6 +104,7 @@ const AnnualizedReturnForm = ({
 				<BalanceInput
 					key="starting-balance-input"
 					balance={startingBalance}
+					error={formErrors.startingBalance}
 					handleChange={handleChange}
 					currency={currency}
 					setCurrency={setCurrency}
@@ -100,6 +114,7 @@ const AnnualizedReturnForm = ({
 				<BalanceInput
 					key="ending-balance-input"
 					balance={endingBalance}
+					error={formErrors.endingBalance}
 					handleChange={handleChange}
 					currency={currency}
 					setCurrency={setCurrency}
@@ -109,6 +124,7 @@ const AnnualizedReturnForm = ({
 
 				<DurationInput
 					duration={duration}
+					error={formErrors.duration}
 					handleChange={handleChange}
 					durationMultiplier={durationMultiplier}
 					handleFormSelectChange={handleFormSelectChange}

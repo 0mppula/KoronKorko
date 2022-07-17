@@ -7,6 +7,7 @@ import Spinner from '../../components/Loading/Loading';
 import { currencies } from '../../assets/data';
 import AnnualizedReturnForm from '../../components/AnnualizedReturnCalculator/AnnualizedReturnForm';
 import AnnualizedReturnReport from '../../components/AnnualizedReturnCalculator/AnnualizedReturnReport';
+import BackButton from '../../components/BackButton/BackButton';
 
 const AnnualizedReturnCalculator = () => {
 	useTitle('Annualized Return Calculator');
@@ -19,6 +20,11 @@ const AnnualizedReturnCalculator = () => {
 		endingBalance: 0,
 		duration: 0,
 		durationMultiplier: durationMultipliers[0],
+	});
+	const [formErrors, setFormErrors] = useState({
+		startingBalance: false,
+		endingBalance: false,
+		duration: false,
 	});
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
@@ -40,9 +46,13 @@ const AnnualizedReturnCalculator = () => {
 				</h1>
 			</section>
 
+			<BackButton url="/home" />
+
 			<AnnualizedReturnForm
 				formData={formData}
 				setFormData={setFormData}
+				formErrors={formErrors}
+				setFormErrors={setFormErrors}
 				currency={currency}
 				setCurrency={setCurrency}
 				setReport={setReport}

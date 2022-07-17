@@ -15,7 +15,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 				behavior: 'smooth',
 			});
 		}
-	}, [calculationCount]);
+	}, [calculationCount, windowWidth]);
 
 	useEffect(() => {
 		function handleResize() {

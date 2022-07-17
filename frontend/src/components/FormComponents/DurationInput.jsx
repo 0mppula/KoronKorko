@@ -5,7 +5,13 @@ import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 import { durationMultipliers } from '../../assets/data';
 
-const DurationInput = ({ duration, handleChange, durationMultiplier, handleFormSelectChange }) => {
+const DurationInput = ({
+	duration,
+	handleChange,
+	durationMultiplier,
+	handleFormSelectChange,
+	error,
+}) => {
 	const durationRef = useRef();
 	return (
 		<div className="form-group">
@@ -14,6 +20,7 @@ const DurationInput = ({ duration, handleChange, durationMultiplier, handleFormS
 					<label htmlFor="duration">Duration</label>
 					<input
 						id="duration"
+						className={`${error ? 'error' : ''}`}
 						name="duration"
 						placeholder="Duration of your investment"
 						type="number"

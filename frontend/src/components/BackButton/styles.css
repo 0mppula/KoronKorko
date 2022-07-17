@@ -1,0 +1,28 @@
+.back-button {
+	display: flex;
+	align-items: center;
+	width: min(90%, 650px);
+	margin-bottom: 0.25rem;
+	color: var(--clr-text-secondary);
+	transition: var(--fast-transition);
+}
+
+.back-button:hover {
+	color: var(--clr-primary);
+}
+
+.back-button div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.25rem;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 480px) {
+	.back-button {
+		width: 100%;
+	}
+}
+/* End Media Queries */

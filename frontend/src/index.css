@@ -237,6 +237,10 @@ input.icon-input {
 	padding-right: 34px;
 }
 
+input.error:not(:focus) {
+	outline: 2px solid var(--clr-danger);
+}
+
 /* Firefox */
 input[type='number'] {
 	-moz-appearance: textfield;

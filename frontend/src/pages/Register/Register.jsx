@@ -3,7 +3,6 @@ import { reset, register } from '../../features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FaUser } from 'react-icons/fa';
 
 import Spinner from '../../components/Loading/Loading';
 import { useTitle } from '../../hooks/useTitle';
@@ -15,6 +14,12 @@ const Register = () => {
 		email: '',
 		password: '',
 		password2: '',
+	});
+	const [formErrors, setFormErrors] = useState({
+		username: false,
+		email: false,
+		password: false,
+		password2: false,
 	});
 
 	const dispatch = useDispatch();
@@ -49,18 +54,41 @@ const Register = () => {
 			JSON.parse(localStorage.getItem('darkMode')) ||
 			(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-		if (password !== password2) {
-			toast.error("The passwords don't match");
-		} else {
-			const userData = {
-				username,
-				email,
-				password,
-				darkMode,
-			};
+		if (formValidated()) {
+			if (password !== password2) {
+				setFormErrors({ ...formErrors, password: true, password2: true });
+				toast.error("The passwords don't match");
+			} else {
+				const userData = {
+					username,
+					email,
+					password,
+					darkMode,
+				};
 
-			dispatch(register(userData));
+				dispatch(register(userData));
+			}
+		} else {
+			toast.error('Incorrect field values');
 		}
+	};
+
+	const formValidated = () => {
+		const requiredFields = [username, email, password, password2];
+		const requiredFieldLabels = ['username', 'email', 'password', 'password2'];
+		const errors = { ...formErrors };
+
+		requiredFields.forEach((rf, i) => {
+			const empty = rf === '';
+			errors[requiredFieldLabels[i]] = empty;
+			setFormErrors(errors);
+		});
+
+		// Check that all the required fields are not empty values
+		return requiredFields.every((rf) => {
+			const notEmpty = rf !== '';
+			return notEmpty;
+		});
 	};
 
 	if (isLoading) {
@@ -82,7 +110,7 @@ const Register = () => {
 						<label htmlFor="username">Username</label>
 						<input
 							id="username"
-							className="form-control"
+							className={`form-control ${formErrors.username ? 'error' : ''}`}
 							placeholder="Enter your username"
 							type="text"
 							name="username"
@@ -94,7 +122,7 @@ const Register = () => {
 						<label htmlFor="email">Email</label>
 						<input
 							id="email"
-							className="form-control"
+							className={`form-control ${formErrors.email ? 'error' : ''}`}
 							placeholder="Enter your email"
 							type="text"
 							name="email"
@@ -106,7 +134,7 @@ const Register = () => {
 						<label htmlFor="password">Password</label>
 						<input
 							id="password"
-							className="form-control"
+							className={`form-control ${formErrors.password ? 'error' : ''}`}
 							placeholder="Enter password"
 							type="password"
 							name="password"
@@ -118,7 +146,7 @@ const Register = () => {
 						<label htmlFor="password2">Confirm Password</label>
 						<input
 							id="password2"
-							className="form-control"
+							className={`form-control ${formErrors.password2 ? 'error' : ''}`}
 							placeholder="Confirm password"
 							type="password"
 							name="password2"

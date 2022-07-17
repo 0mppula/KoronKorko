@@ -15,6 +15,7 @@ import Spinner from '../../components/Loading/Loading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/breakdown/CompoundInterestBreakdown';
 import './styles.css';
+import BackButton from '../../components/BackButton/BackButton';
 
 const CompoundInterestCalculator = () => {
 	useTitle('Compound Interest Calculator');
@@ -36,6 +37,11 @@ const CompoundInterestCalculator = () => {
 		contribution: 0,
 		contributionMultiplier: 1 /* depositting or withdrawing */,
 		contributionFrequency: contributionFrequencies[1],
+	});
+	const [formErrors, setFormErrors] = useState({
+		startingBalance: false,
+		interestRate: false,
+		duration: false,
 	});
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
@@ -86,10 +92,14 @@ const CompoundInterestCalculator = () => {
 				</h1>
 			</section>
 
+			<BackButton url="/home" />
+
 			<CompoundInterestForm
 				user={user}
 				formData={formData}
 				setFormData={setFormData}
+				formErrors={formErrors}
+				setFormErrors={setFormErrors}
 				setReport={setReport}
 				currency={currency}
 				setCurrency={setCurrency}
