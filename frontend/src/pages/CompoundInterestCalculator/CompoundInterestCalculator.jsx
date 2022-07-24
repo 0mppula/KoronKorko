@@ -29,12 +29,12 @@ const CompoundInterestCalculator = () => {
 	} = useSelector((state) => state.compoundInterestCalculations);
 
 	const [formData, setFormData] = useState({
-		startingBalance: 0,
-		interestRate: 0,
+		startingBalance: '',
+		interestRate: '',
 		compoundFrequency: compoundFrequencies[1],
-		duration: 0,
+		duration: '',
 		durationMultiplier: durationMultipliers[0],
-		contribution: 0,
+		contribution: '',
 		contributionMultiplier: 1 /* depositting or withdrawing */,
 		contributionFrequency: contributionFrequencies[1],
 	});
@@ -47,6 +47,7 @@ const CompoundInterestCalculator = () => {
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
 	);
 	const [report, setReport] = useState(null);
+	const [activeCalculationId, setActiveCalculationId] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [loadingCalculation, setLoadingCalculation] = useState(false);
 
@@ -72,8 +73,10 @@ const CompoundInterestCalculator = () => {
 	}, [user]);
 
 	useEffect(() => {
-		if (user && activeCalculation) {
+		// Dont reload active calculation on currency change
+		if (user && activeCalculation && activeCalculationId !== activeCalculation?._id) {
 			// If active calculation is present set it to state
+			setActiveCalculationId(activeCalculation._id);
 			setFormData({ ...activeCalculation.formData });
 		}
 	}, [activeCalculation, user]);
@@ -100,6 +103,7 @@ const CompoundInterestCalculator = () => {
 				setCurrency={setCurrency}
 				setCalculationCount={setCalculationCount}
 				setLoadingCalculation={setLoadingCalculation}
+				setActiveCalculationId={setActiveCalculationId}
 			/>
 			{report && (
 				<CompoundInterestReport report={report} loadingCalculation={loadingCalculation} />

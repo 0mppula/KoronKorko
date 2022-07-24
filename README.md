@@ -8,7 +8,7 @@ The users of KoronKorko can select a currency in which the monetary results of t
 
 KoronKorko is created using the the MERN stack.,
 
-## Calculators
+## Calculators of KoronKorko
 
 ### Compound Interest Calculator
 
@@ -21,5 +21,9 @@ In Addition to calculating interest reates, authenticated users can create, save
 ### Annualized Return Calculator
 
 Calculates the annualized return (CAGR) and the the total percent return of your investment.
+
+### Present Value Calculator
+
+Calculate the present value of your future investment with a specified discount rate with this calculator.
 
 [1]: https://koronkorko.herokuapp.com/

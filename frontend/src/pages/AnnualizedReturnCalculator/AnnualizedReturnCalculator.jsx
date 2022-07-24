@@ -17,9 +17,9 @@ const AnnualizedReturnCalculator = () => {
 	const [report, setReport] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [formData, setFormData] = useState({
-		startingBalance: 0,
-		endingBalance: 0,
-		duration: 0,
+		startingBalance: "",
+		endingBalance: "",
+		duration: "",
 		durationMultiplier: durationMultipliers[0],
 	});
 	const [formErrors, setFormErrors] = useState({

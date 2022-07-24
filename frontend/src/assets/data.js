@@ -3,6 +3,7 @@ export const currencies = [
 	{ name: 'euro', value: 'eur', label: '€', locale: 'fi-FI' },
 	{ name: 'pound ', value: 'gbp', label: '£', locale: 'en-US' },
 	{ name: 'yen', value: 'jpy', label: '¥', locale: 'en-US' },
+	{ name: 'yen', value: 'inr', label: '₹', locale: 'en-US' },
 ];
 
 export const durationMultipliers = [

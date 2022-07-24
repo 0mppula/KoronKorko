@@ -57,7 +57,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 			toast.error('Please provide a name for your calculation');
 			return;
 		}
-		// Update excisting active calculation only if name has changed
+		// Update existing active calculation only if name has changed
 		if (calculationName.trim() !== activeCalculation.name) {
 			dispatch(renameCalculation(data));
 		}

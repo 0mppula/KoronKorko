@@ -17,10 +17,10 @@ const PresentValueCalculator = () => {
 	const [report, setReport] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
 	const [formData, setFormData] = useState({
-		startingBalance: 0,
-		duration: 0,
+		startingBalance: "",
+		duration: "",
 		durationMultiplier: durationMultipliers[0],
-		discountRate: 0,
+		discountRate: "",
 	});
 	const [formErrors, setFormErrors] = useState({
 		startingBalance: false,

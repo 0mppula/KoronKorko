@@ -72,10 +72,10 @@ const PresentValueCalculator = ({
 		const errors = { ...formErrors };
 
 		setFormData({
-			startingBalance: 0,
-			duration: 0,
+			startingBalance: "",
+			duration: "",
 			durationMultiplier: durationMultipliers[0],
-			discountRate: 0,
+			discountRate: "",
 		});
 
 		// Reset all form errors

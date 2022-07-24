@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaSignOutAlt, FaSignInAlt, FaPercent } from 'react-icons/fa';
+import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
 import {
 	createCalculation,
@@ -35,6 +35,7 @@ const CompoundInterestForm = ({
 	setCurrency,
 	setCalculationCount,
 	setLoadingCalculation,
+	setActiveCalculationId,
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
@@ -56,7 +57,6 @@ const CompoundInterestForm = ({
 		contributionFrequency,
 	} = formData || {};
 
-	const interestIntervalRef = useRef();
 	const durationRef = useRef();
 	const contributionRef = useRef();
 	const contributionFrequencyRef = useRef();
@@ -91,6 +91,9 @@ const CompoundInterestForm = ({
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
+		// Default value for contributions is 0
+		contribution === '' && setFormData({ ...formData, contribution: 0 });
+
 		if (formValidated()) {
 			const compoundInterest = calculateCompoundInterest(formData);
 			let breakdown;
@@ -119,12 +122,12 @@ const CompoundInterestForm = ({
 		const errors = { ...formErrors };
 
 		setFormData({
-			startingBalance: 0,
-			interestRate: 0,
+			startingBalance: '',
+			interestRate: '',
 			compoundFrequency: compoundFrequencies[1],
-			duration: 0,
+			duration: '',
 			durationMultiplier: durationMultipliers[0],
-			contribution: 0,
+			contribution: '',
 			contributionMultiplier: 1,
 			contributionFrequency: contributionFrequencies[1],
 		});
@@ -142,17 +145,18 @@ const CompoundInterestForm = ({
 
 	const closeAndResetCalculation = () => {
 		setFormData({
-			startingBalance: 0,
-			interestRate: 0,
+			startingBalance: '',
+			interestRate: '',
 			compoundFrequency: compoundFrequencies[1],
-			duration: 0,
+			duration: '',
 			durationMultiplier: durationMultipliers[0],
-			contribution: 0,
+			contribution: '',
 			contributionMultiplier: 1,
 			contributionFrequency: contributionFrequencies[1],
 		});
 
 		setReport(null);
+		setActiveCalculationId(null);
 	};
 
 	const openSaveModal = () => {
@@ -226,6 +230,7 @@ const CompoundInterestForm = ({
 			<CompoundInterestImportModal
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
+				setActiveCalculationId={setActiveCalculationId}
 			/>
 			<CompoundInterestRenameModal
 				modalOpen={renameModalOpen}

@@ -22,13 +22,13 @@ const Home = () => {
 			name: 'Annualized Return Calculator',
 			url: 'annualized-return-calculator',
 			description:
-				'Calculate the annualized return (CAGR) and the the total percent return of your investment with this calculator.',
+				'Calculate the annualized return (CAGR) and or the the total percent return of your investment with this calculator.',
 		},
 		{
 			name: 'Present Value Calculator',
 			url: 'present-value-calculator',
 			description:
-				'Calculate the present value of your future investment with this calculator.',
+				'Calculate the present value of your future investment with a specified discount rate with this calculator.',
 		},
 	];
 

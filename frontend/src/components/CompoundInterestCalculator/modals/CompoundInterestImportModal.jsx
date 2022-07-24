@@ -5,14 +5,13 @@ import { FaFileImport, FaTrash } from 'react-icons/fa';
 
 import checkKeyDown from '../../../helpers/checkKeyDown';
 
-
 import {
 	getCalculations,
 	getCalculation,
 	deleteCalculation,
 } from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 
-const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
+const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalculationId }) => {
 	const { calculations } = useSelector((state) => state.compoundInterestCalculations);
 	const dispatch = useDispatch();
 
@@ -51,6 +50,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen }) => {
 	};
 
 	const importCalculation = (calculationId) => {
+		setActiveCalculationId(null);
 		dispatch(getCalculation(calculationId));
 		closeModal();
 	};
