@@ -4,11 +4,12 @@ import { toast } from 'react-toastify';
 import { FaSyncAlt } from 'react-icons/fa';
 import checkKeyDown from '../../helpers/checkKeyDown';
 import BalanceInput from '../FormComponents/BalanceInput';
+import RateInput from '../FormComponents/RateInput';
 import DurationInput from '../FormComponents/DurationInput';
 import CalculateButton from '../FormComponents/CalculateButton';
 import { durationMultipliers } from '../../assets/data';
 
-const AnnualizedReturnForm = ({
+const PresentValueCalculator = ({
 	formData,
 	setFormData,
 	formErrors,
@@ -18,22 +19,20 @@ const AnnualizedReturnForm = ({
 	setReport,
 	setCalculationCount,
 }) => {
-	const { startingBalance, endingBalance, duration, durationMultiplier } = formData;
+	const { startingBalance, duration, discountRate, durationMultiplier } = formData;
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
 
 		if (formValidated()) {
-			// Time in years
-			const t = (duration * durationMultiplier.value) / 12;
-			const annualizedReturn = ((endingBalance / startingBalance) ** (1 / t) - 1) * 100;
-			const percentReturn = ((endingBalance - startingBalance) / startingBalance) * 100;
+			// PV = FV * (1 / (1 + r) ^ n)
+			const FV = startingBalance;
+			const r = discountRate / 100;
+			const n = duration;
+			const PV = FV * (1 / (1 + r) ** n);
 
 			setReport({
-				startingBalance,
-				endingBalance,
-				annualizedReturn,
-				percentReturn,
+				presentValue: PV,
 				currency,
 			});
 
@@ -44,8 +43,8 @@ const AnnualizedReturnForm = ({
 	};
 
 	const formValidated = () => {
-		const requiredFields = [startingBalance, endingBalance, duration];
-		const requiredFieldLabels = ['startingBalance', 'endingBalance', 'duration'];
+		const requiredFields = [startingBalance, duration, discountRate];
+		const requiredFieldLabels = ['startingBalance', 'duration', 'discountRate'];
 		const errors = { ...formErrors };
 
 		requiredFields.forEach((rf, i) => {
@@ -74,9 +73,9 @@ const AnnualizedReturnForm = ({
 
 		setFormData({
 			startingBalance: 0,
-			endingBalance: 0,
 			duration: 0,
 			durationMultiplier: durationMultipliers[0],
+			discountRate: 0,
 		});
 
 		// Reset all form errors
@@ -84,7 +83,7 @@ const AnnualizedReturnForm = ({
 			errors[field] = false;
 		}
 
-		setFormErrors(errors)
+		setFormErrors(errors);
 		setReport(null);
 
 		toast.success('Form cleared');
@@ -94,16 +93,14 @@ const AnnualizedReturnForm = ({
 		<div className="form">
 			<div className="form-controls-top">
 				<div />
-				<div className="form-controls-icons">
-					<div
-						tabIndex={0}
-						className="icon danger"
-						title="Reset calculator"
-						onClick={resetCalculator}
-						onKeyDown={(e) => checkKeyDown(e, resetCalculator)}
-					>
-						<FaSyncAlt />
-					</div>
+				<div
+					tabIndex={0}
+					className="icon danger"
+					title="Reset calculator"
+					onClick={resetCalculator}
+					onKeyDown={(e) => checkKeyDown(e, resetCalculator)}
+				>
+					<FaSyncAlt />
 				</div>
 			</div>
 
@@ -116,18 +113,8 @@ const AnnualizedReturnForm = ({
 					handleChange={handleChange}
 					currency={currency}
 					setCurrency={setCurrency}
-				/>
-
-				{/* Ending */}
-				<BalanceInput
-					key="ending-balance-input"
-					balance={endingBalance}
-					error={formErrors.endingBalance}
-					handleChange={handleChange}
-					currency={currency}
-					setCurrency={setCurrency}
-					balanceLabel="Ending Balance"
-					balanceFieldName="endingBalance"
+					balanceLabel="Future Value"
+					balanceFieldPlaceholder="Your Future Value"
 				/>
 
 				<DurationInput
@@ -138,10 +125,21 @@ const AnnualizedReturnForm = ({
 					handleFormSelectChange={handleFormSelectChange}
 				/>
 
+				<RateInput
+					rate={discountRate}
+					handleChange={handleChange}
+					handleFormSelectChange={handleFormSelectChange}
+					error={formErrors.discountRate}
+					rateLabel="Discount Rate"
+					rateFieldName="discountRate"
+					rateFieldPlaceholder="Your projected discount rate"
+					showInterval={false}
+				/>
+
 				<CalculateButton />
 			</form>
 		</div>
 	);
 };
 
-export default AnnualizedReturnForm;
+export default PresentValueCalculator;

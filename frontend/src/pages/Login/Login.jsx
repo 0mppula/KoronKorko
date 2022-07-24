@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import Spinner from '../../components/Loading/Loading';
 import { useTitle } from '../../hooks/useTitle';
+import PageHeading from '../../components/PageHeading/PageHeading';
 
 const Login = () => {
 	useTitle('Login');
@@ -82,12 +83,7 @@ const Login = () => {
 
 	return (
 		<>
-			<section className="heading authentication">
-				<h1>
-					<span>L</span>ogin
-				</h1>
-				<p>Login to KoronKorko</p>
-			</section>
+			<PageHeading heading="Login" secondaryHeading="Login to KoronKorko" clamp={false} />
 
 			<section className="form">
 				<form onSubmit={(e) => onSubmit(e)}>

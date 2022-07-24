@@ -22,6 +22,7 @@ import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 import BalanceInput from '../FormComponents/BalanceInput';
 import CalculateButton from '../FormComponents/CalculateButton';
+import RateInput from '../FormComponents/RateInput';
 
 const CompoundInterestForm = ({
 	user,
@@ -133,7 +134,7 @@ const CompoundInterestForm = ({
 			errors[field] = false;
 		}
 
-		setFormErrors(errors)
+		setFormErrors(errors);
 		setReport(null);
 
 		toast.success('Form cleared');
@@ -248,47 +249,13 @@ const CompoundInterestForm = ({
 					/>
 				</div>
 
-				<div className="form-group split">
-					<div className="input-group-container">
-						<div className="input-group">
-							<label htmlFor="interestRate">Annual Interest Rate</label>
-							<input
-								id="interestRate"
-								className={`icon-input ${formErrors.interestRate ? 'error' : ''}`}
-								name="interestRate"
-								placeholder="Your projected interest rate"
-								type="number"
-								min="0"
-								step=".01"
-								autoComplete="off"
-								value={interestRate}
-								onChange={(e) => handleChange(e)}
-								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={() => document.activeElement.blur()}
-							/>
-							<div className="input-icon-wrapper">
-								<FaPercent />
-							</div>
-						</div>
-						<div className="input-group">
-							{/* Compound frequency selector */}
-							<label onClick={() => interestIntervalRef.current.focus()}>
-								Compound Interval
-							</label>
-							<Select
-								ref={interestIntervalRef}
-								className="react-select-container"
-								classNamePrefix="react-select"
-								value={compoundFrequency}
-								options={compoundFrequencies}
-								theme={customTheme}
-								onChange={(e) => handleFormSelectChange(e, 'compoundFrequency')}
-								styles={customStyles}
-								isSearchable={false}
-							/>
-						</div>
-					</div>
-				</div>
+				<RateInput
+					rate={interestRate}
+					handleChange={handleChange}
+					compoundFrequency={compoundFrequency}
+					handleFormSelectChange={handleFormSelectChange}
+					error={formErrors.interestRate}
+				/>
 
 				<div className="form-group split">
 					<div className="input-group-container">

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import { FaFileDownload, FaCircleNotch } from 'react-icons/fa';
 
-import { formatCurrency } from '../../../helpers/format';
 import { useSelector } from 'react-redux';
 
 const DownloadTableButton = ({ data, breakdown, currency }) => {
@@ -31,11 +30,11 @@ const DownloadTableButton = ({ data, breakdown, currency }) => {
 
 			const headers = [
 				`${breakdown === 'yearly' ? 'Year' : 'Month'}`,
-				`${depositting ? 'Deposits' : 'Withdrawals'}`,
-				'Interest',
-				`Total ${depositting ? 'Deposits' : 'Withdrawals'}`,
-				'Total Interest',
-				'Balance',
+				`${depositting ? 'Deposits' : 'Withdrawals'} (${currency.label})`,
+				`Interest (${currency.label})`,
+				`Total ${depositting ? 'Deposits' : 'Withdrawals'} (${currency.label})`,
+				`Total Interest (${currency.label})`,
+				`Balance (${currency.label})`,
 			];
 
 			const rows = data.labels.map((month, i) => {
@@ -61,11 +60,11 @@ const DownloadTableButton = ({ data, breakdown, currency }) => {
 
 				return [
 					rowIndex,
-					formatCurrency(contribs, currency.locale, currency.value),
-					formatCurrency(interest, currency.locale, currency.value),
-					formatCurrency(totalContribs, currency.locale, currency.value),
-					formatCurrency(totalInterest, currency.locale, currency.value),
-					formatCurrency(balance, currency.locale, currency.value),
+					Number(contribs).toFixed(2),
+					Number(interest).toFixed(2),
+					Number(totalContribs).toFixed(2),
+					Number(totalInterest).toFixed(2),
+					Number(balance).toFixed(2),
 				];
 			});
 

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import Spinner from '../../components/Loading/Loading';
 import { useTitle } from '../../hooks/useTitle';
+import PageHeading from '../../components/PageHeading/PageHeading';
 
 const Register = () => {
 	useTitle('Register');
@@ -97,12 +98,11 @@ const Register = () => {
 
 	return (
 		<>
-			<section className="heading authentication">
-				<h1>
-					<span>R</span>egister
-				</h1>
-				<p>Create a KoronKorko account</p>
-			</section>
+			<PageHeading
+				heading="Register"
+				secondaryHeading="Create a KoronKorko account"
+				clamp={false}
+			/>
 
 			<section className="form">
 				<form onSubmit={(e) => onSubmit(e)}>

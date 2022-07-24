@@ -12,8 +12,9 @@ const BalanceInput = ({
 	handleChange,
 	currency,
 	setCurrency,
-	balanceTitle,
+	balanceLabel,
 	balanceFieldName,
+	balanceFieldPlaceholder,
 	error,
 }) => {
 	const { user } = useSelector((state) => state.auth);
@@ -30,12 +31,12 @@ const BalanceInput = ({
 		<div className="form-group">
 			<div className="input-group-container">
 				<div className="input-group">
-					<label htmlFor={balanceFieldName}>{balanceTitle}</label>
+					<label htmlFor={balanceFieldName}>{balanceLabel}</label>
 					<input
 						className={`${error ? 'error' : ''}`}
 						id={balanceFieldName}
 						name={balanceFieldName}
-						placeholder="Your starting balance"
+						placeholder={balanceFieldPlaceholder}
 						type="number"
 						min="0"
 						step=".01"
@@ -67,8 +68,9 @@ const BalanceInput = ({
 };
 
 BalanceInput.defaultProps = {
-	balanceTitle: 'Starting Balance',
+	balanceLabel: 'Starting Balance',
 	balanceFieldName: 'startingBalance',
+	balanceFieldPlaceholder: 'Your starting balance',
 };
 
 export default BalanceInput;

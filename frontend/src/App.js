@@ -11,11 +11,12 @@ import Register from '../src/pages/Register/Register';
 import Footer from './components/Footer/Footer';
 import Nav from './components/Nav/Nav';
 import ScrollToTop from './components/Tools/ScrollToTop';
-import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 import ToastCloseButton from './components/Tools/ToastCloseButton';
 import ToTop from './components/Tools/ToTop';
 import Home from './pages/Home/Home';
+import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 import AnnualizedReturnCalculator from './pages/AnnualizedReturnCalculator/AnnualizedReturnCalculator';
+import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueCalculator';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -66,6 +67,10 @@ function App() {
 						<Route
 							path="/annualized-return-calculator"
 							element={<AnnualizedReturnCalculator />}
+						/>
+						<Route
+							path="/present-value-calculator"
+							element={<PresentValueCalculator />}
 						/>
 						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />

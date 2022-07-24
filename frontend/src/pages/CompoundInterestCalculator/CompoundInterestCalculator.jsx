@@ -12,6 +12,7 @@ import {
 import { useTitle } from '../../hooks/useTitle';
 import { reset } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import Spinner from '../../components/Loading/Loading';
+import PageHeading from '../../components/PageHeading/PageHeading';
 import CompoundInterestForm from '../../components/CompoundInterestCalculator/CompoundInterestForm';
 import CompoundInterestBreakdown from '../../components/CompoundInterestCalculator/breakdown/CompoundInterestBreakdown';
 import BackButton from '../../components/BackButton/BackButton';
@@ -85,14 +86,9 @@ const CompoundInterestCalculator = () => {
 	return (
 		<>
 			{(isLoading || calculationLoading) && <Spinner />}
-			<section className="heading">
-				<h1>
-					<span>C</span>ompound&nbsp;<span>I</span>nterest&nbsp;<span>C</span>alculator
-				</h1>
-			</section>
+			<PageHeading heading="Compound Interest Calculator" />
 
 			<BackButton url="/home" />
-
 			<CompoundInterestForm
 				user={user}
 				formData={formData}

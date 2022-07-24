@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useTitle } from '../../hooks/useTitle';
 import Spinner from '../../components/Loading/Loading';
 import './styles.css';
+import PageHeading from '../../components/PageHeading/PageHeading';
 
 const Home = () => {
 	useTitle('Home');
@@ -23,21 +24,31 @@ const Home = () => {
 			description:
 				'Calculate the annualized return (CAGR) and the the total percent return of your investment with this calculator.',
 		},
+		{
+			name: 'Present Value Calculator',
+			url: 'present-value-calculator',
+			description:
+				'Calculate the present value of your future investment with this calculator.',
+		},
 	];
 
 	return (
 		<>
 			{isLoading && <Spinner />}
-			<section className="heading authentication">
-				<h1>
-					<span>H</span>ome
-				</h1>
-				<p>Choose a Financial Calculator</p>
-			</section>
+
+			<PageHeading
+				heading="Home"
+				secondaryHeading="Choose a Financial Calculator"
+				clamp={false}
+			/>
 
 			<div className="calculator-container">
 				{calculators.map((calculator, i) => (
-					<Link key={`calculator-${i}`} className="calculator-card" to={`/${calculator.url}`}>
+					<Link
+						key={`calculator-${i}`}
+						className="calculator-card"
+						to={`/${calculator.url}`}
+					>
 						<div>
 							<h2>{calculator.name}</h2>
 							<hr />
