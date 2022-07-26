@@ -10,6 +10,7 @@ const compoundInterestCalculationSchema = mongoose.Schema(
 		name: {
 			type: String,
 			required: [true, 'Please name your calculation'],
+			maxlength: [30, 'The maximum character length for names is 30']
 		},
 		formData: {
 			compoundFrequency: { value: { type: Number }, label: { type: String } },
