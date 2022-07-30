@@ -30,6 +30,12 @@ const Home = () => {
 			description:
 				'Calculate the present value of your future investment with a specified discount rate with this calculator.',
 		},
+		{
+			name: 'Investment Time Calculator',
+			url: 'investment-time-calculator',
+			description:
+				'Calculate the amount of years needed to grow an investment to a certain future value given an annual interest rate.',
+		},
 	];
 
 	return (

@@ -17,6 +17,7 @@ import Home from './pages/Home/Home';
 import CompoundInterestCalculator from './pages/CompoundInterestCalculator/CompoundInterestCalculator';
 import AnnualizedReturnCalculator from './pages/AnnualizedReturnCalculator/AnnualizedReturnCalculator';
 import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueCalculator';
+import InvestmentTimeCalculator from './pages/InvestmentTimeCalculator/InvestmentTimeCalculator';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -71,6 +72,10 @@ function App() {
 						<Route
 							path="/present-value-calculator"
 							element={<PresentValueCalculator />}
+						/>
+						<Route
+							path="/investment-time-calculator"
+							element={<InvestmentTimeCalculator />}
 						/>
 						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />

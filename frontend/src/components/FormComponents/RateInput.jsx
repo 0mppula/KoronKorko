@@ -70,7 +70,7 @@ RateInput.defaultProps = {
 	showInterval: true,
 	rateLabel: 'Annual Interest Rate',
 	rateFieldName: 'interestRate',
-	rateFieldPlaceholder: 'Your projected interest rate',
+	rateFieldPlaceholder: 'Annual interest rate',
 };
 
 export default RateInput;

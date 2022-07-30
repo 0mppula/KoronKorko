@@ -16,6 +16,7 @@ const BalanceInput = ({
 	balanceFieldName,
 	balanceFieldPlaceholder,
 	error,
+	showCurrency,
 }) => {
 	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
@@ -47,27 +48,31 @@ const BalanceInput = ({
 						onChange={(e) => handleChange(e)}
 					/>
 				</div>
+
 				{/* Currency selector */}
-				<div className="input-group">
-					<label onClick={() => currencyRef.current.focus()}>Currency</label>
-					<Select
-						ref={currencyRef}
-						className="react-select-container"
-						classNamePrefix="react-select"
-						theme={customTheme}
-						styles={customStyles}
-						options={currencies}
-						value={currency}
-						isSearchable={false}
-						onChange={handleCurrencySelect}
-					/>
-				</div>
+				{showCurrency && (
+					<div className="input-group">
+						<label onClick={() => currencyRef.current.focus()}>Currency</label>
+						<Select
+							ref={currencyRef}
+							className="react-select-container"
+							classNamePrefix="react-select"
+							theme={customTheme}
+							styles={customStyles}
+							options={currencies}
+							value={currency}
+							isSearchable={false}
+							onChange={handleCurrencySelect}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
 };
 
 BalanceInput.defaultProps = {
+	showCurrency: true,
 	balanceLabel: 'Starting Balance',
 	balanceFieldName: 'startingBalance',
 	balanceFieldPlaceholder: 'Your starting balance',
