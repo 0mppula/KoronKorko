@@ -34,7 +34,7 @@ const Home = () => {
 			name: 'Investment Time Calculator',
 			url: 'investment-time-calculator',
 			description:
-				'Calculate the amount of years needed to grow an investment to a certain future value given an annual interest rate.',
+				'Calculate the amount of time needed to grow an investment to a certain future value given an annual interest rate.',
 		},
 	];
 

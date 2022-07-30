@@ -26,4 +26,8 @@ KoronKorko is created using the the MERN stack.,
 
     Calculate the present value of your future investment with a specified discount rate with this calculator.
 
+- ### Investment Time Calculator
+
+    Calculate the amount of time needed to grow an investment to a certain future value given an annual interest rate.
+
 [1]: https://koronkorko.herokuapp.com/
