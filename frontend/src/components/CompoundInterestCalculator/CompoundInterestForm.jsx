@@ -23,6 +23,8 @@ import disableArrowKeys from '../../helpers/disableArrowKeys';
 import BalanceInput from '../FormComponents/BalanceInput';
 import CalculateButton from '../FormComponents/CalculateButton';
 import RateInput from '../FormComponents/RateInput';
+import FormGroup from '../FormComponents/FormGroup';
+import CurrencySelector from '../FormComponents/CurrencySelector';
 
 const CompoundInterestForm = ({
 	user,
@@ -244,7 +246,7 @@ const CompoundInterestForm = ({
 				closeAndResetCalculation={closeAndResetCalculation}
 			/>
 			<form onSubmit={handleCalculation}>
-				<div className="form-group">
+				<FormGroup>
 					<BalanceInput
 						balance={startingBalance}
 						error={formErrors.startingBalance}
@@ -252,101 +254,101 @@ const CompoundInterestForm = ({
 						currency={currency}
 						setCurrency={setCurrency}
 					/>
-				</div>
 
-				<RateInput
-					rate={interestRate}
-					handleChange={handleChange}
-					compoundFrequency={compoundFrequency}
-					handleFormSelectChange={handleFormSelectChange}
-					error={formErrors.interestRate}
-				/>
+					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+				</FormGroup>
 
-				<div className="form-group split">
-					<div className="input-group-container">
-						<div className="input-group">
-							<label htmlFor="duration">Duration</label>
-							<input
-								id="duration"
-								className={`icon-input ${formErrors.duration ? 'error' : ''}`}
-								name="duration"
-								placeholder="Duration of your investment"
-								type="number"
-								min="0"
-								max="200"
-								step=".01"
-								autoComplete="off"
-								value={duration}
-								onChange={(e) => handleChange(e)}
-								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={() => document.activeElement.blur()}
-							/>
-						</div>
-						<div className="input-group">
-							{/* Duration selector */}
-							<label onClick={() => durationRef.current.focus()}>Duration Type</label>
-							<Select
-								ref={durationRef}
-								className="react-select-container"
-								classNamePrefix="react-select"
-								value={durationMultiplier}
-								options={durationMultipliers}
-								theme={customTheme}
-								onChange={(e) => handleFormSelectChange(e, 'durationMultiplier')}
-								styles={customStyles}
-								isSearchable={false}
-							/>
-						</div>
+				<FormGroup>
+					<RateInput
+						rate={interestRate}
+						handleChange={handleChange}
+						compoundFrequency={compoundFrequency}
+						handleFormSelectChange={handleFormSelectChange}
+						error={formErrors.interestRate}
+					/>
+				</FormGroup>
+
+				<FormGroup>
+					<div className="input-group">
+						<label htmlFor="duration">Duration</label>
+						<input
+							id="duration"
+							className={`icon-input ${formErrors.duration ? 'error' : ''}`}
+							name="duration"
+							placeholder="Duration of your investment"
+							type="number"
+							min="0"
+							max="200"
+							step=".01"
+							autoComplete="off"
+							value={duration}
+							onChange={(e) => handleChange(e)}
+							onKeyDown={(e) => disableArrowKeys(e)}
+							onWheel={() => document.activeElement.blur()}
+						/>
 					</div>
-				</div>
+					<div className="input-group">
+						{/* Duration selector */}
+						<label onClick={() => durationRef.current.focus()}>Duration Type</label>
+						<Select
+							ref={durationRef}
+							className="react-select-container"
+							classNamePrefix="react-select"
+							value={durationMultiplier}
+							options={durationMultipliers}
+							theme={customTheme}
+							onChange={(e) => handleFormSelectChange(e, 'durationMultiplier')}
+							styles={customStyles}
+							isSearchable={false}
+						/>
+					</div>
+				</FormGroup>
 
-				<div className="form-group split">
-					<div className="input-group-container">
-						<div className="input-group">
-							<label htmlFor="contribution">Contributions (optional)</label>
-							<input
-								id="contribution"
-								className="icon-input"
-								name="contribution"
-								placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
-								type="number"
-								min="0"
-								step=".01"
-								autoComplete="off"
-								value={contribution}
-								ref={contributionRef}
-								onChange={(e) => handleChange(e)}
-								onKeyDown={(e) => disableArrowKeys(e)}
-								onWheel={() => document.activeElement.blur()}
-							/>
-							<div
-								tabIndex={0}
-								className={`contribution-multiplier-icon-container 
+				<FormGroup>
+					<div className="input-group">
+						<label htmlFor="contribution">Contributions (optional)</label>
+						<input
+							id="contribution"
+							className="icon-input"
+							name="contribution"
+							placeholder={depositting() ? 'Your deposits' : 'Your withdrawals'}
+							type="number"
+							min="0"
+							step=".01"
+							autoComplete="off"
+							value={contribution}
+							ref={contributionRef}
+							onChange={(e) => handleChange(e)}
+							onKeyDown={(e) => disableArrowKeys(e)}
+							onWheel={() => document.activeElement.blur()}
+						/>
+						<div
+							tabIndex={0}
+							className={`contribution-multiplier-icon-container 
 								${depositting() ? 'deposit' : 'withdraw'} `}
-								onClick={toggleContributionMultiplier}
-							>
-								{depositting() ? <FaSignInAlt /> : <FaSignOutAlt />}
-							</div>
-						</div>
-						<div className="input-group">
-							{/* Contribution selector */}
-							<label onClick={() => contributionFrequencyRef.current.focus()}>
-								Contribution Frequency
-							</label>
-							<Select
-								className="react-select-container"
-								classNamePrefix="react-select"
-								ref={contributionFrequencyRef}
-								value={contributionFrequency}
-								options={contributionFrequencies}
-								theme={customTheme}
-								onChange={(e) => handleFormSelectChange(e, 'contributionFrequency')}
-								styles={customStyles}
-								isSearchable={false}
-							/>
+							onClick={toggleContributionMultiplier}
+						>
+							{depositting() ? <FaSignInAlt /> : <FaSignOutAlt />}
 						</div>
 					</div>
-				</div>
+					<div className="input-group">
+						{/* Contribution selector */}
+						<label onClick={() => contributionFrequencyRef.current.focus()}>
+							Contribution Frequency
+						</label>
+						<Select
+							className="react-select-container"
+							classNamePrefix="react-select"
+							ref={contributionFrequencyRef}
+							value={contributionFrequency}
+							options={contributionFrequencies}
+							theme={customTheme}
+							onChange={(e) => handleFormSelectChange(e, 'contributionFrequency')}
+							styles={customStyles}
+							isSearchable={false}
+						/>
+					</div>
+				</FormGroup>
 
 				<CalculateButton />
 			</form>

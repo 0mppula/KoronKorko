@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTitle } from '../../hooks/useTitle';
 import BackButton from '../../components/BackButton/BackButton';
 import Spinner from '../../components/Loading/Loading';
+import { currencies } from '../../assets/data';
 import PageHeading from '../../components/PageHeading/PageHeading';
 import InvestmentTimeForm from '../../components/InvestmentTimeCalculator/InvestmentTimeForm';
 import InvestmentTimeReport from '../../components/InvestmentTimeCalculator/InvestmentTimeReport';
@@ -24,6 +25,9 @@ const InvestmentTimeCalculator = () => {
 		endingBalance: false,
 		interestRate: false,
 	});
+	const [currency, setCurrency] = useState(
+		JSON.parse(localStorage.getItem('currency')) || currencies[0]
+	);
 
 	return (
 		<>
@@ -40,6 +44,8 @@ const InvestmentTimeCalculator = () => {
 				setFormErrors={setFormErrors}
 				setReport={setReport}
 				setCalculationCount={setCalculationCount}
+				currency={currency}
+				setCurrency={setCurrency}
 			/>
 
 			{report && <InvestmentTimeReport report={report} calculationCount={calculationCount} />}

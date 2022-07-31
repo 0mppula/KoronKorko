@@ -1,81 +1,62 @@
-import React, { useRef } from 'react';
-import Select from 'react-select';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { FaEuroSign, FaDollarSign, FaYenSign, FaPoundSign, FaRupeeSign } from 'react-icons/fa';
 
-import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
-import { updateUserPreferences } from '../../features/auth/authSlice';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
-import { currencies } from '../../assets/data';
 
-const BalanceInput = ({
-	balance,
-	handleChange,
-	currency,
-	setCurrency,
-	balanceLabel,
-	balanceFieldName,
-	balanceFieldPlaceholder,
-	error,
-	showCurrency,
-}) => {
-	const { user } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
-	const currencyRef = useRef();
+const BalanceInput = ({ balance, currency, handleChange, label, name, placeholder, error }) => {
+	const printCurrencySign = () => {
+		const expr = currency?.value;
+		let icon;
 
-	const handleCurrencySelect = (e) => {
-		setCurrency(e);
-		!user && localStorage.setItem('currency', JSON.stringify(e));
-		user && dispatch(updateUserPreferences({ ...user.preferences, currency: { ...e } }));
+		switch (expr) {
+			case 'eur':
+				icon = <FaEuroSign />;
+				break;
+			case 'gbp':
+				return <FaPoundSign />;
+			case 'jpy':
+				icon = <FaYenSign />;
+				break;
+			case 'inr':
+				icon = <FaRupeeSign />;
+				break;
+			default:
+				icon = <FaDollarSign />;
+				break;
+		}
+
+		return icon;
 	};
 
 	return (
-		<div className="form-group">
-			<div className="input-group-container">
-				<div className="input-group">
-					<label htmlFor={balanceFieldName}>{balanceLabel}</label>
-					<input
-						className={`${error ? 'error' : ''}`}
-						id={balanceFieldName}
-						name={balanceFieldName}
-						placeholder={balanceFieldPlaceholder}
-						type="number"
-						min="0"
-						step=".01"
-						autoComplete="off"
-						value={balance}
-						onKeyDown={(e) => disableArrowKeys(e)}
-						onWheel={() => document.activeElement.blur()}
-						onChange={(e) => handleChange(e)}
-					/>
-				</div>
+		<div className="input-group">
+			<label htmlFor={name}>{label}</label>
+			<input
+				className={`${error ? 'error' : ''}`}
+				id={name}
+				name={name}
+				placeholder={placeholder}
+				type="number"
+				min="0"
+				step=".01"
+				autoComplete="off"
+				value={balance}
+				onKeyDown={(e) => disableArrowKeys(e)}
+				onWheel={() => document.activeElement.blur()}
+				onChange={(e) => handleChange(e)}
+			/>
 
-				{/* Currency selector */}
-				{showCurrency && (
-					<div className="input-group">
-						<label onClick={() => currencyRef.current.focus()}>Currency</label>
-						<Select
-							ref={currencyRef}
-							className="react-select-container"
-							classNamePrefix="react-select"
-							theme={customTheme}
-							styles={customStyles}
-							options={currencies}
-							value={currency}
-							isSearchable={false}
-							onChange={handleCurrencySelect}
-						/>
-					</div>
-				)}
+			<div className="input-icon-wrapper currency">
+				{printCurrencySign()}
 			</div>
 		</div>
 	);
 };
 
 BalanceInput.defaultProps = {
-	showCurrency: true,
-	balanceLabel: 'Starting Balance',
-	balanceFieldName: 'startingBalance',
-	balanceFieldPlaceholder: 'Your starting balance',
+	label: 'Starting Balance',
+	name: 'startingBalance',
+	placeholder: 'Your starting balance',
 };
 
 export default BalanceInput;

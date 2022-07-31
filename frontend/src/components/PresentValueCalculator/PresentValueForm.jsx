@@ -8,6 +8,8 @@ import RateInput from '../FormComponents/RateInput';
 import DurationInput from '../FormComponents/DurationInput';
 import CalculateButton from '../FormComponents/CalculateButton';
 import { durationMultipliers } from '../../assets/data';
+import FormGroup from '../FormComponents/FormGroup';
+import CurrencySelector from '../FormComponents/CurrencySelector';
 
 const PresentValueCalculator = ({
 	formData,
@@ -72,10 +74,10 @@ const PresentValueCalculator = ({
 		const errors = { ...formErrors };
 
 		setFormData({
-			startingBalance: "",
-			duration: "",
+			startingBalance: '',
+			duration: '',
 			durationMultiplier: durationMultipliers[0],
-			discountRate: "",
+			discountRate: '',
 		});
 
 		// Reset all form errors
@@ -105,36 +107,42 @@ const PresentValueCalculator = ({
 			</div>
 
 			<form onSubmit={handleCalculation}>
-				{/* Starting */}
-				<BalanceInput
-					key="starting-balance-input"
-					balance={startingBalance}
-					error={formErrors.startingBalance}
-					handleChange={handleChange}
-					currency={currency}
-					setCurrency={setCurrency}
-					balanceLabel="Future Value"
-					balanceFieldPlaceholder="Your Future Value"
-				/>
+				<FormGroup>
+					{/* Starting */}
+					<BalanceInput
+						balance={startingBalance}
+						currency={currency}
+						error={formErrors.startingBalance}
+						handleChange={handleChange}
+						label="Future Value"
+						placeholder="Your Future Value"
+					/>
 
-				<DurationInput
-					duration={duration}
-					error={formErrors.duration}
-					handleChange={handleChange}
-					durationMultiplier={durationMultiplier}
-					handleFormSelectChange={handleFormSelectChange}
-				/>
+					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+				</FormGroup>
 
-				<RateInput
-					rate={discountRate}
-					handleChange={handleChange}
-					handleFormSelectChange={handleFormSelectChange}
-					error={formErrors.discountRate}
-					rateLabel="Discount Rate"
-					rateFieldName="discountRate"
-					rateFieldPlaceholder="Your projected discount rate"
-					showInterval={false}
-				/>
+				<FormGroup>
+					<DurationInput
+						duration={duration}
+						error={formErrors.duration}
+						handleChange={handleChange}
+						durationMultiplier={durationMultiplier}
+						handleFormSelectChange={handleFormSelectChange}
+					/>
+				</FormGroup>
+
+				<FormGroup>
+					<RateInput
+						rate={discountRate}
+						handleChange={handleChange}
+						handleFormSelectChange={handleFormSelectChange}
+						error={formErrors.discountRate}
+						label="Discount Rate"
+						name="discountRate"
+						placeholder="Your projected discount rate"
+						showInterval={false}
+					/>
+				</FormGroup>
 
 				<CalculateButton />
 			</form>

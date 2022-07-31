@@ -6,6 +6,8 @@ import checkKeyDown from '../../helpers/checkKeyDown';
 import BalanceInput from '../FormComponents/BalanceInput';
 import RateInput from '../FormComponents/RateInput';
 import CalculateButton from '../FormComponents/CalculateButton';
+import FormGroup from '../FormComponents/FormGroup';
+import CurrencySelector from '../FormComponents/CurrencySelector';
 
 const InvestmentTimeForm = ({
 	formData,
@@ -14,6 +16,8 @@ const InvestmentTimeForm = ({
 	setFormErrors,
 	setReport,
 	setCalculationCount,
+	currency,
+	setCurrency,
 }) => {
 	const { startingBalance, endingBalance, interestRate } = formData;
 
@@ -101,36 +105,44 @@ const InvestmentTimeForm = ({
 			</div>
 
 			<form onSubmit={handleCalculation}>
-				{/* Starting */}
-				<BalanceInput
-					key="starting-balance-input"
-					balanceFieldName="startingBalance"
-					balance={startingBalance}
-					error={formErrors.startingBalance}
-					handleChange={handleChange}
-					balanceLabel="Starting Value"
-					balanceFieldPlaceholder="Starting value"
-					showCurrency={false}
-				/>
+				<FormGroup>
+					{/* Starting */}
+					<BalanceInput
+						name="startingBalance"
+						balance={startingBalance}
+						currency={currency}
+						error={formErrors.startingBalance}
+						handleChange={handleChange}
+						label="Starting Value"
+						placeholder="Starting value"
+						showCurrency={false}
+					/>
 
-				<BalanceInput
-					key="ending-balance-input"
-					balanceFieldName="endingBalance"
-					balance={endingBalance}
-					error={formErrors.endingBalance}
-					handleChange={handleChange}
-					balanceLabel="Future Value"
-					balanceFieldPlaceholder="Future value"
-					showCurrency={false}
-				/>
+					<BalanceInput
+						name="endingBalance"
+						balance={endingBalance}
+						currency={currency}
+						error={formErrors.endingBalance}
+						handleChange={handleChange}
+						label="Future Value"
+						placeholder="Future value"
+						showCurrency={false}
+					/>
+				</FormGroup>
 
-				<RateInput
-					rate={interestRate}
-					handleChange={handleChange}
-					error={formErrors.interestRate}
-					showInterval={false}
-					rateFieldPlaceholder="Annual interest rate"
-				/>
+				<FormGroup>
+					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+				</FormGroup>
+
+				<FormGroup>
+					<RateInput
+						rate={interestRate}
+						handleChange={handleChange}
+						error={formErrors.interestRate}
+						showInterval={false}
+						placeholder="Annual interest rate"
+					/>
+				</FormGroup>
 
 				<CalculateButton />
 			</form>

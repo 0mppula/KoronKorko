@@ -7,6 +7,8 @@ import BalanceInput from '../FormComponents/BalanceInput';
 import DurationInput from '../FormComponents/DurationInput';
 import CalculateButton from '../FormComponents/CalculateButton';
 import { durationMultipliers } from '../../assets/data';
+import FormGroup from '../FormComponents/FormGroup';
+import CurrencySelector from '../FormComponents/CurrencySelector';
 
 const AnnualizedReturnForm = ({
 	formData,
@@ -73,9 +75,9 @@ const AnnualizedReturnForm = ({
 		const errors = { ...formErrors };
 
 		setFormData({
-			startingBalance: "",
-			endingBalance: "",
-			duration: "",
+			startingBalance: '',
+			endingBalance: '',
+			duration: '',
 			durationMultiplier: durationMultipliers[0],
 		});
 
@@ -84,7 +86,7 @@ const AnnualizedReturnForm = ({
 			errors[field] = false;
 		}
 
-		setFormErrors(errors)
+		setFormErrors(errors);
 		setReport(null);
 
 		toast.success('Form cleared');
@@ -108,35 +110,39 @@ const AnnualizedReturnForm = ({
 			</div>
 
 			<form onSubmit={handleCalculation}>
-				{/* Starting */}
-				<BalanceInput
-					key="starting-balance-input"
-					balance={startingBalance}
-					error={formErrors.startingBalance}
-					handleChange={handleChange}
-					currency={currency}
-					setCurrency={setCurrency}
-				/>
+				<FormGroup>
+					{/* Starting */}
+					<BalanceInput
+						balance={startingBalance}
+						currency={currency}
+						error={formErrors.startingBalance}
+						handleChange={handleChange}
+					/>
 
-				{/* Ending */}
-				<BalanceInput
-					key="ending-balance-input"
-					balance={endingBalance}
-					error={formErrors.endingBalance}
-					handleChange={handleChange}
-					currency={currency}
-					setCurrency={setCurrency}
-					balanceLabel="Ending Balance"
-					balanceFieldName="endingBalance"
-				/>
+					{/* Ending */}
+					<BalanceInput
+						balance={endingBalance}
+						currency={currency}
+						error={formErrors.endingBalance}
+						handleChange={handleChange}
+						label="Ending Balance"
+						name="endingBalance"
+					/>
+				</FormGroup>
 
-				<DurationInput
-					duration={duration}
-					error={formErrors.duration}
-					handleChange={handleChange}
-					durationMultiplier={durationMultiplier}
-					handleFormSelectChange={handleFormSelectChange}
-				/>
+				<FormGroup>
+					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+				</FormGroup>
+
+				<FormGroup>
+					<DurationInput
+						duration={duration}
+						error={formErrors.duration}
+						handleChange={handleChange}
+						durationMultiplier={durationMultiplier}
+						handleFormSelectChange={handleFormSelectChange}
+					/>
+				</FormGroup>
 
 				<CalculateButton />
 			</form>

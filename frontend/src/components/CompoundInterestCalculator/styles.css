@@ -119,6 +119,10 @@ div.icon.danger:hover {
 	opacity: 0.5;
 }
 
+.input-icon-wrapper.currency {
+	top: 40px;
+}
+
 .input-icon-wrapper.clear {
 	cursor: pointer;
 	pointer-events: all;
