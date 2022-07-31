@@ -31,7 +31,7 @@ const PresentValueCalculator = ({
 			// PV = FV * (1 / (1 + r) ^ n)
 			const FV = startingBalance;
 			const r = discountRate / 100;
-			const n = duration;
+			const n = (duration * durationMultiplier.value) / 12;
 			const PV = FV * (1 / (1 + r) ** n);
 
 			setReport({
@@ -87,6 +87,8 @@ const PresentValueCalculator = ({
 
 		toast.success('Form cleared');
 	};
+
+	console.log(durationMultiplier);
 
 	return (
 		<div className="form">
