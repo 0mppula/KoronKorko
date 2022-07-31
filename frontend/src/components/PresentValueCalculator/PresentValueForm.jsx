@@ -4,9 +4,10 @@ import { toast } from 'react-toastify';
 import { FaSyncAlt } from 'react-icons/fa';
 import checkKeyDown from '../../helpers/checkKeyDown';
 import BalanceInput from '../FormComponents/BalanceInput';
-import RateInput from '../FormComponents/RateInput';
+import PercentInput from '../FormComponents/PercentInput';
 import DurationInput from '../FormComponents/DurationInput';
 import CalculateButton from '../FormComponents/CalculateButton';
+import DurationSelector from '../FormComponents/DurationSelector';
 import { durationMultipliers } from '../../assets/data';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
@@ -66,10 +67,6 @@ const PresentValueCalculator = ({
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
-	const handleFormSelectChange = (e, inputField) => {
-		setFormData((prev) => ({ ...prev, [inputField]: e }));
-	};
-
 	const resetCalculator = () => {
 		const errors = { ...formErrors };
 
@@ -126,21 +123,23 @@ const PresentValueCalculator = ({
 						duration={duration}
 						error={formErrors.duration}
 						handleChange={handleChange}
+					/>
+
+					<DurationSelector
+						setFormData={setFormData}
 						durationMultiplier={durationMultiplier}
-						handleFormSelectChange={handleFormSelectChange}
+						formField="durationMultiplier"
 					/>
 				</FormGroup>
 
 				<FormGroup>
-					<RateInput
+					<PercentInput
 						rate={discountRate}
 						handleChange={handleChange}
-						handleFormSelectChange={handleFormSelectChange}
 						error={formErrors.discountRate}
 						label="Discount Rate"
 						name="discountRate"
 						placeholder="Your projected discount rate"
-						showInterval={false}
 					/>
 				</FormGroup>
 

@@ -9,6 +9,7 @@ import CalculateButton from '../FormComponents/CalculateButton';
 import { durationMultipliers } from '../../assets/data';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
+import DurationSelector from '../FormComponents/DurationSelector';
 
 const AnnualizedReturnForm = ({
 	formData,
@@ -65,10 +66,6 @@ const AnnualizedReturnForm = ({
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	};
-
-	const handleFormSelectChange = (e, inputField) => {
-		setFormData((prev) => ({ ...prev, [inputField]: e }));
 	};
 
 	const resetCalculator = () => {
@@ -139,8 +136,12 @@ const AnnualizedReturnForm = ({
 						duration={duration}
 						error={formErrors.duration}
 						handleChange={handleChange}
+					/>
+
+					<DurationSelector
+						setFormData={setFormData}
 						durationMultiplier={durationMultiplier}
-						handleFormSelectChange={handleFormSelectChange}
+						formField="durationMultiplier"
 					/>
 				</FormGroup>
 

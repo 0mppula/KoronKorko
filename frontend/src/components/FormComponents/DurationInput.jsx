@@ -1,22 +1,12 @@
-import React, { useRef } from 'react';
-import Select from 'react-select';
+import React from 'react';
 
-import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
-import { durationMultipliers } from '../../assets/data';
 
-const DurationInput = ({
-	duration,
-	handleChange,
-	durationMultiplier,
-	handleFormSelectChange,
-	error,
-}) => {
-	const durationRef = useRef();
+const DurationInput = ({ duration, handleChange, label, error }) => {
 	return (
 		<>
 			<div className="input-group">
-				<label htmlFor="duration">Duration</label>
+				<label htmlFor="duration">{label}</label>
 				<input
 					id="duration"
 					className={`${error ? 'error' : ''}`}
@@ -33,23 +23,12 @@ const DurationInput = ({
 					onWheel={() => document.activeElement.blur()}
 				/>
 			</div>
-			<div className="input-group">
-				{/* Duration selector */}
-				<label onClick={() => durationRef.current.focus()}>Duration Type</label>
-				<Select
-					ref={durationRef}
-					className="react-select-container"
-					classNamePrefix="react-select"
-					value={durationMultiplier}
-					options={durationMultipliers}
-					theme={customTheme}
-					onChange={(e) => handleFormSelectChange(e, 'durationMultiplier')}
-					styles={customStyles}
-					isSearchable={false}
-				/>
-			</div>
 		</>
 	);
+};
+
+DurationInput.defaultProps = {
+	label: 'Duration',
 };
 
 export default DurationInput;

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { FaSyncAlt } from 'react-icons/fa';
 import checkKeyDown from '../../helpers/checkKeyDown';
 import BalanceInput from '../FormComponents/BalanceInput';
-import RateInput from '../FormComponents/RateInput';
+import PercentInput from '../FormComponents/PercentInput';
 import CalculateButton from '../FormComponents/CalculateButton';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
@@ -135,11 +135,10 @@ const InvestmentTimeForm = ({
 				</FormGroup>
 
 				<FormGroup>
-					<RateInput
+					<PercentInput
 						rate={interestRate}
 						handleChange={handleChange}
 						error={formErrors.interestRate}
-						showInterval={false}
 						placeholder="Annual interest rate"
 					/>
 				</FormGroup>

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
@@ -8,7 +7,6 @@ import {
 	createCalculation,
 	updateCalculation,
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import FormControlsTop from './FormControlsTop';
 import {
 	durationMultipliers,
@@ -22,9 +20,12 @@ import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 import BalanceInput from '../FormComponents/BalanceInput';
 import CalculateButton from '../FormComponents/CalculateButton';
-import RateInput from '../FormComponents/RateInput';
+import PercentInput from '../FormComponents/PercentInput';
+import DurationInput from '../FormComponents/DurationInput';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
+import FrequencySelector from '../FormComponents/FrequencySelector';
+import DurationSelector from '../FormComponents/DurationSelector';
 
 const CompoundInterestForm = ({
 	user,
@@ -59,16 +60,10 @@ const CompoundInterestForm = ({
 		contributionFrequency,
 	} = formData || {};
 
-	const durationRef = useRef();
 	const contributionRef = useRef();
-	const contributionFrequencyRef = useRef();
 
 	const handleChange = (e) => {
 		setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	};
-
-	const handleFormSelectChange = (e, inputField) => {
-		setFormData((prev) => ({ ...prev, [inputField]: e }));
 	};
 
 	const formValidated = () => {
@@ -259,49 +254,32 @@ const CompoundInterestForm = ({
 				</FormGroup>
 
 				<FormGroup>
-					<RateInput
+					<PercentInput
 						rate={interestRate}
 						handleChange={handleChange}
 						compoundFrequency={compoundFrequency}
-						handleFormSelectChange={handleFormSelectChange}
 						error={formErrors.interestRate}
+					/>
+
+					<FrequencySelector
+						frequencyValue={compoundFrequency}
+						setFormData={setFormData}
+						formField="compoundFrequency"
 					/>
 				</FormGroup>
 
 				<FormGroup>
-					<div className="input-group">
-						<label htmlFor="duration">Duration</label>
-						<input
-							id="duration"
-							className={`icon-input ${formErrors.duration ? 'error' : ''}`}
-							name="duration"
-							placeholder="Duration of your investment"
-							type="number"
-							min="0"
-							max="200"
-							step=".01"
-							autoComplete="off"
-							value={duration}
-							onChange={(e) => handleChange(e)}
-							onKeyDown={(e) => disableArrowKeys(e)}
-							onWheel={() => document.activeElement.blur()}
-						/>
-					</div>
-					<div className="input-group">
-						{/* Duration selector */}
-						<label onClick={() => durationRef.current.focus()}>Duration Type</label>
-						<Select
-							ref={durationRef}
-							className="react-select-container"
-							classNamePrefix="react-select"
-							value={durationMultiplier}
-							options={durationMultipliers}
-							theme={customTheme}
-							onChange={(e) => handleFormSelectChange(e, 'durationMultiplier')}
-							styles={customStyles}
-							isSearchable={false}
-						/>
-					</div>
+					<DurationInput
+						duration={duration}
+						error={formErrors.duration}
+						handleChange={handleChange}
+					/>
+
+					<DurationSelector
+						setFormData={setFormData}
+						durationMultiplier={durationMultiplier}
+						formField="durationMultiplier"
+					/>
 				</FormGroup>
 
 				<FormGroup>
@@ -331,23 +309,13 @@ const CompoundInterestForm = ({
 							{depositting() ? <FaSignInAlt /> : <FaSignOutAlt />}
 						</div>
 					</div>
-					<div className="input-group">
-						{/* Contribution selector */}
-						<label onClick={() => contributionFrequencyRef.current.focus()}>
-							Contribution Frequency
-						</label>
-						<Select
-							className="react-select-container"
-							classNamePrefix="react-select"
-							ref={contributionFrequencyRef}
-							value={contributionFrequency}
-							options={contributionFrequencies}
-							theme={customTheme}
-							onChange={(e) => handleFormSelectChange(e, 'contributionFrequency')}
-							styles={customStyles}
-							isSearchable={false}
-						/>
-					</div>
+
+					<FrequencySelector
+						label="Contribution Frequency"
+						frequencyValue={contributionFrequency}
+						setFormData={setFormData}
+						formField="contributionFrequency"
+					/>
 				</FormGroup>
 
 				<CalculateButton />
