@@ -67,7 +67,7 @@ const Footer = () => {
 						</div>
 						<ul>
 							<Link
-								url="https://omars-portfolio.netlify.app"
+								url="https://www.omarkraidie.com/"
 								text="Omar Kraidié Portfolio"
 							/>
 							<Link
