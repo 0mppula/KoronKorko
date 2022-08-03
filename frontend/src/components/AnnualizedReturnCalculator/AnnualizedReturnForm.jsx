@@ -121,6 +121,7 @@ const AnnualizedReturnForm = ({
 						balance={endingBalance}
 						currency={currency}
 						error={formErrors.endingBalance}
+						placeholder="Your Ending Balance"
 						handleChange={handleChange}
 						label="Ending Balance"
 						name="endingBalance"
