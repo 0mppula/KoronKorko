@@ -2,10 +2,9 @@ import React, { useRef } from 'react';
 import Select from 'react-select';
 
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
-import { durationMultipliers } from '../../assets/data';
 
-const DurationSelector = ({ setFormData, durationMultiplier, formField, label }) => {
-	const durationRef = useRef();
+const FormSelector = ({ options, value, setFormData, formField, label }) => {
+	const selectorRef = useRef();
 
 	const handleFormSelectChange = (e, inputField) => {
 		setFormData((prev) => ({ ...prev, [inputField]: e }));
@@ -13,13 +12,13 @@ const DurationSelector = ({ setFormData, durationMultiplier, formField, label })
 
 	return (
 		<div className="input-group">
-			<label onClick={() => durationRef.current.focus()}>{label}</label>
+			<label onClick={() => selectorRef.current.focus()}>{label}</label>
 			<Select
-				ref={durationRef}
+				ref={selectorRef}
 				className="react-select-container"
 				classNamePrefix="react-select"
-				value={durationMultiplier}
-				options={durationMultipliers}
+				value={value}
+				options={options}
 				theme={customTheme}
 				onChange={(e) => handleFormSelectChange(e, formField)}
 				styles={customStyles}
@@ -29,8 +28,4 @@ const DurationSelector = ({ setFormData, durationMultiplier, formField, label })
 	);
 };
 
-DurationSelector.defaultProps = {
-	label: 'Duration Type',
-};
-
-export default DurationSelector;
+export default FormSelector;

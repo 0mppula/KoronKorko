@@ -24,8 +24,7 @@ import PercentInput from '../FormComponents/PercentInput';
 import DurationInput from '../FormComponents/DurationInput';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
-import FrequencySelector from '../FormComponents/FrequencySelector';
-import DurationSelector from '../FormComponents/DurationSelector';
+import FormSelector from '../FormComponents/FormSelector';
 
 const CompoundInterestForm = ({
 	user,
@@ -261,10 +260,12 @@ const CompoundInterestForm = ({
 						error={formErrors.interestRate}
 					/>
 
-					<FrequencySelector
-						frequencyValue={compoundFrequency}
-						setFormData={setFormData}
+					<FormSelector
+						label="Compound Interval"
 						formField="compoundFrequency"
+						value={compoundFrequency}
+						setFormData={setFormData}
+						options={compoundFrequencies}
 					/>
 				</FormGroup>
 
@@ -275,10 +276,12 @@ const CompoundInterestForm = ({
 						handleChange={handleChange}
 					/>
 
-					<DurationSelector
-						setFormData={setFormData}
-						durationMultiplier={durationMultiplier}
+					<FormSelector
+						label="Duration Type"
 						formField="durationMultiplier"
+						value={durationMultiplier}
+						setFormData={setFormData}
+						options={durationMultipliers}
 					/>
 				</FormGroup>
 
@@ -310,11 +313,12 @@ const CompoundInterestForm = ({
 						</div>
 					</div>
 
-					<FrequencySelector
+					<FormSelector
 						label="Contribution Frequency"
-						frequencyValue={contributionFrequency}
-						setFormData={setFormData}
 						formField="contributionFrequency"
+						value={contributionFrequency}
+						setFormData={setFormData}
+						options={contributionFrequencies}
 					/>
 				</FormGroup>
 

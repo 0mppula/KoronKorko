@@ -7,10 +7,10 @@ import BalanceInput from '../FormComponents/BalanceInput';
 import PercentInput from '../FormComponents/PercentInput';
 import DurationInput from '../FormComponents/DurationInput';
 import CalculateButton from '../FormComponents/CalculateButton';
-import DurationSelector from '../FormComponents/DurationSelector';
 import { durationMultipliers } from '../../assets/data';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
+import FormSelector from '../FormComponents/FormSelector';
 
 const PresentValueCalculator = ({
 	formData,
@@ -127,10 +127,12 @@ const PresentValueCalculator = ({
 						handleChange={handleChange}
 					/>
 
-					<DurationSelector
-						setFormData={setFormData}
-						durationMultiplier={durationMultiplier}
+					<FormSelector
+						label="Duration Type"
 						formField="durationMultiplier"
+						value={durationMultiplier}
+						setFormData={setFormData}
+						options={durationMultipliers}
 					/>
 				</FormGroup>
 
