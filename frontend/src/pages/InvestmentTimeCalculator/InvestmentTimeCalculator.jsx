@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useTitle } from '../../hooks/useTitle';
@@ -11,7 +11,7 @@ import InvestmentTimeReport from '../../components/InvestmentTimeCalculator/Inve
 
 const InvestmentTimeCalculator = () => {
 	useTitle('Investment Time Calculator');
-	const { isLoading } = useSelector((state) => state.auth);
+	const { user, isLoading } = useSelector((state) => state.auth);
 
 	const [report, setReport] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
@@ -28,6 +28,13 @@ const InvestmentTimeCalculator = () => {
 	const [currency, setCurrency] = useState(
 		JSON.parse(localStorage.getItem('currency')) || currencies[0]
 	);
+
+	useEffect(() => {
+		if (user) {
+			// Update the currency if user is logged in
+			setCurrency(user?.preferences.currency);
+		}
+	}, [user]);
 
 	return (
 		<>

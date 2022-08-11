@@ -88,8 +88,6 @@ const PresentValueCalculator = ({
 		toast.success('Form cleared');
 	};
 
-	console.log(durationMultiplier);
-
 	return (
 		<div className="form">
 			<div className="form-controls-top">
