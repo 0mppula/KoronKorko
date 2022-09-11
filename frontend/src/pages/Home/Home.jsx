@@ -36,6 +36,12 @@ const Home = () => {
 			description:
 				'Calculate the amount of time needed to grow an investment to a certain future value given an annual interest rate.',
 		},
+		{
+			name: 'Break Even Point Calculator',
+			url: 'break-even-point-calculator',
+			description:
+				'Calculate the point at which total cost and total revenue are equal, meaning there is no loss or gain for your business.',
+		},
 	];
 
 	return (

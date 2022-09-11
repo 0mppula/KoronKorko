@@ -38,4 +38,10 @@ KoronKorko is created using the the MERN stack.,
 
 ---
 
+-   ### Break Even Point Calculator
+
+    Calculate the point at which total cost and total revenue are equal, meaning there is no loss or gain for your business.
+
+---
+
 [1]: https://koronkorko.herokuapp.com/

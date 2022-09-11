@@ -18,6 +18,7 @@ import CompoundInterestCalculator from './pages/CompoundInterestCalculator/Compo
 import AnnualizedReturnCalculator from './pages/AnnualizedReturnCalculator/AnnualizedReturnCalculator';
 import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueCalculator';
 import InvestmentTimeCalculator from './pages/InvestmentTimeCalculator/InvestmentTimeCalculator';
+import BreakEvenPointCalculator from './pages/BreakEvenPointCalculator/BreakEvenPointCalculator';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -76,6 +77,10 @@ function App() {
 						<Route
 							path="/investment-time-calculator"
 							element={<InvestmentTimeCalculator />}
+						/>
+						<Route
+							path="/break-even-point-calculator"
+							element={<BreakEvenPointCalculator />}
 						/>
 						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />
