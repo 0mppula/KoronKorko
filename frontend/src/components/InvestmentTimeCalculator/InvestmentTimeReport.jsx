@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 const InvestmentTimeReport = ({ report, calculationCount }) => {
-	const [windowWidth, setWindowWidth] = useState(getWindowWidth());
+	const windowWidth = useWindowWidth();
 
 	useEffect(() => {
 		const reportSummary = document.querySelector('.report-container');
@@ -14,20 +16,6 @@ const InvestmentTimeReport = ({ report, calculationCount }) => {
 			});
 		}
 	}, [calculationCount, windowWidth]);
-
-	useEffect(() => {
-		function handleResize() {
-			setWindowWidth(getWindowWidth());
-		}
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	function getWindowWidth() {
-		const { innerWidth: width } = window;
-		return width;
-	}
 
 	const { timeRequired } = report;
 

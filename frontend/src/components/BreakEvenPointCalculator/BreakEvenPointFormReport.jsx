@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { formatCurrency, formatPercentage } from '../../helpers/format';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 const BreakEvenPointFormReport = ({ report, calculationCount }) => {
-	const [windowWidth, setWindowWidth] = useState(getWindowWidth());
+	const windowWidth = useWindowWidth();
 
 	useEffect(() => {
 		const reportSummary = document.querySelector('.report-container');
@@ -17,20 +18,6 @@ const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 		}
 	}, [calculationCount, windowWidth]);
 
-	useEffect(() => {
-		function handleResize() {
-			setWindowWidth(getWindowWidth());
-		}
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	function getWindowWidth() {
-		const { innerWidth: width } = window;
-		return width;
-	}
-
 	const {
 		breakEvenPointUnits,
 		breakEvenPointMoney,
@@ -38,8 +25,6 @@ const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 		contributionMarginPercent,
 		currency,
 	} = report;
-
-	
 
 	return (
 		<div className="report-container">

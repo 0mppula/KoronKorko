@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { formatCurrency, formatPercentage } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 
-const AnnualizedReturnReport = ({ report, calculationCount }) => {
+const MarkupCalculatorReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 		}
 	}, [calculationCount, windowWidth]);
 
-	const { startingBalance, endingBalance, annualizedReturn, percentReturn, currency } = report;
+	const { profit, markup, currency } = report;
 
 	return (
 		<div className="report-container">
@@ -29,26 +29,13 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 			<div className="summary-container auto-height">
 				<div className="report-top">
 					<div className="report-group">
-						<p>Starting Balance</p>
-						<h2>
-							{formatCurrency(startingBalance, currency?.locale, currency?.value)}
-						</h2>
+						<p>Markup</p>
+						<h2>{isFinite(markup) ? formatPercentage(markup) : 'N/A'}</h2>
 					</div>
+
 					<div className="report-group">
-						<p>Ending Balance</p>
-						<h2>{formatCurrency(endingBalance, currency?.locale, currency?.value)}</h2>
-					</div>
-					<div className="report-group">
-						<p>Annualized Return</p>
-						<h2>
-							{annualizedReturn !== Infinity
-								? formatPercentage(annualizedReturn)
-								: 'N/A'}
-						</h2>
-					</div>
-					<div className="report-group">
-						<p>Percent Return</p>
-						<h2>{formatPercentage(percentReturn)}</h2>
+						<p>Profit</p>
+						<h2>{formatCurrency(profit, currency?.locale, currency?.value)}</h2>
 					</div>
 				</div>
 			</div>
@@ -56,4 +43,4 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	);
 };
 
-export default AnnualizedReturnReport;
+export default MarkupCalculatorReport;

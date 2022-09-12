@@ -19,6 +19,7 @@ import AnnualizedReturnCalculator from './pages/AnnualizedReturnCalculator/Annua
 import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueCalculator';
 import InvestmentTimeCalculator from './pages/InvestmentTimeCalculator/InvestmentTimeCalculator';
 import BreakEvenPointCalculator from './pages/BreakEvenPointCalculator/BreakEvenPointCalculator';
+import MarkupCalculator from './pages/MarkupCalculator/MarkupCalculator';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -62,6 +63,7 @@ function App() {
 				<Nav />
 				<div className="container">
 					<Routes>
+						{/* Calculators */}
 						<Route
 							path="/compound-interest-calculator"
 							element={<CompoundInterestCalculator />}
@@ -82,6 +84,9 @@ function App() {
 							path="/break-even-point-calculator"
 							element={<BreakEvenPointCalculator />}
 						/>
+						<Route path="/markup-calculator" element={<MarkupCalculator />} />
+						{/* End Calculators */}
+
 						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />

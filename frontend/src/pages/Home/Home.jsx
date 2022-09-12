@@ -42,6 +42,12 @@ const Home = () => {
 			description:
 				'Calculate the point at which total cost and total revenue are equal, meaning there is no loss or gain for your business.',
 		},
+		{
+			name: 'Markup Calculator',
+			url: 'markup-calculator',
+			description:
+				'Calculate the difference between the cost and the selling price of your product.',
+		},
 	];
 
 	return (

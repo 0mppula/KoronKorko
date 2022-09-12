@@ -8,7 +8,7 @@ import BalanceInput from '../FormComponents/BalanceInput';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import CalculateButton from '../FormComponents/CalculateButton';
 
-const BreakEvenPointForm = ({
+const MarkupCalculatorForm = ({
 	formData,
 	setFormData,
 	formErrors,
@@ -18,28 +18,17 @@ const BreakEvenPointForm = ({
 	setReport,
 	setCalculationCount,
 }) => {
-	const { fixedCosts, pricePerUnit, variableCostsPerUnit } = formData;
+	const { cost, salesPrice } = formData;
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
 
 		if (formValidated()) {
-			// BEP = Fixed costs / (Sales price per unit – Variable cost per unit)
-			const BEP = fixedCosts / (pricePerUnit - variableCostsPerUnit);
-			// Break even point in currency
-			const BEPM = BEP * pricePerUnit;
+			// markup = profit / (cost * 100)
+			const profit = salesPrice - cost;
+			const markup = (profit / cost) * 100;
 
-			// Contribution margin
-			const CM = pricePerUnit - variableCostsPerUnit;
-			const CMP = (CM / pricePerUnit) * 100;
-
-			setReport({
-				breakEvenPointUnits: BEP,
-				breakEvenPointMoney: BEPM,
-				contributionMarginMoney: CM,
-				contributionMarginPercent: CMP,
-				currency,
-			});
+			setReport({ profit, markup });
 
 			setCalculationCount((prev) => prev + 1);
 		} else {
@@ -48,8 +37,8 @@ const BreakEvenPointForm = ({
 	};
 
 	const formValidated = () => {
-		const requiredFields = [fixedCosts, pricePerUnit, variableCostsPerUnit];
-		const requiredFieldLabels = ['fixedCosts', 'pricePerUnit', 'variableCostsPerUnit'];
+		const requiredFields = [cost, salesPrice];
+		const requiredFieldLabels = ['cost', 'salesPrice'];
 		const errors = { ...formErrors };
 
 		requiredFields.forEach((rf, i) => {
@@ -73,9 +62,8 @@ const BreakEvenPointForm = ({
 		const errors = { ...formErrors };
 
 		setFormData({
-			fixedCosts: '',
-			pricePerUnit: '',
-			variableCostsPerUnit: '',
+			cost: '',
+			salesPrice: '',
 		});
 
 		// Reset all form errors
@@ -106,40 +94,31 @@ const BreakEvenPointForm = ({
 
 			<form onSubmit={handleCalculation}>
 				<FormGroup>
-					{/* Fixed costs */}
+					{/* Cost */}
 					<BalanceInput
-						balance={fixedCosts}
+						balance={cost}
 						currency={currency}
-						error={formErrors.fixedCosts}
+						error={formErrors.cost}
 						handleChange={handleChange}
-						label="Fixed Costs"
-						name="fixedCosts"
-						placeholder="Your fixed costs"
+						label="Cost"
+						name="cost"
+						placeholder="Cost to produce your product"
 					/>
 
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					{/* Sales prices */}
+					<BalanceInput
+						balance={salesPrice}
+						currency={currency}
+						error={formErrors.salesPrice}
+						handleChange={handleChange}
+						label="Sales Price"
+						name="salesPrice"
+						placeholder="Sales price of your product"
+					/>
 				</FormGroup>
 
 				<FormGroup>
-					<BalanceInput
-						balance={pricePerUnit}
-						currency={currency}
-						error={formErrors.pricePerUnit}
-						handleChange={handleChange}
-						label="Price Per Unit"
-						name="pricePerUnit"
-						placeholder="Your sales price per unit sold"
-					/>
-
-					<BalanceInput
-						balance={variableCostsPerUnit}
-						currency={currency}
-						error={formErrors.variableCostsPerUnit}
-						handleChange={handleChange}
-						label="Variable Costs Per Unit"
-						name="variableCostsPerUnit"
-						placeholder="Your variable costs per unit"
-					/>
+					<CurrencySelector currency={currency} setCurrency={setCurrency} />
 				</FormGroup>
 
 				<CalculateButton />
@@ -148,4 +127,4 @@ const BreakEvenPointForm = ({
 	);
 };
 
-export default BreakEvenPointForm;
+export default MarkupCalculatorForm;
