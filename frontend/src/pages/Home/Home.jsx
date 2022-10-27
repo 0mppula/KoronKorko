@@ -66,10 +66,6 @@ const Home = () => {
 		},
 	];
 
-	const handleFeaturedAppOpen = (url) => {
-		window.open(`${url}`, '_blank', 'noopener');
-	};
-
 	return (
 		<>
 			{isLoading && <Spinner />}
@@ -104,10 +100,12 @@ const Home = () => {
 
 			<div className="calculator-container">
 				{featuredApps.map((app, i) => (
-					<div
+					<a
 						key={`app-${i}`}
 						className="calculator-card"
-						onClick={() => handleFeaturedAppOpen(app.url)}
+						href={`${app.url}`}
+						rel="noreferrer"
+						target="_blank"
 					>
 						<h2>{app.name}</h2>
 						<div className="featured-app-icon-container">
@@ -115,7 +113,7 @@ const Home = () => {
 						</div>
 						<hr />
 						<p>{app.description}</p>
-					</div>
+					</a>
 				))}
 			</div>
 		</>
