@@ -109,6 +109,12 @@ a {
 	cursor: pointer;
 }
 
+hr {
+	height: 1px;
+	border: none;
+	background-color: var(--clr-primary);
+}
+
 .container {
 	padding-top: 4rem;
 	display: flex;

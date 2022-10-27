@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 import { useTitle } from '../../hooks/useTitle';
 import Spinner from '../../components/Loading/Loading';
@@ -50,6 +51,25 @@ const Home = () => {
 		},
 	];
 
+	const featuredApps = [
+		{
+			name: 'CoinCaps',
+			url: 'https://coincaps.netlify.app/',
+			description:
+				'A web-application where the user can view the 1000 most valuable cryptocurrencies by market capitalization.',
+		},
+		{
+			name: 'WSB-Tickers',
+			url: 'https://wsb-tickers.netlify.app/',
+			description:
+				'App that displays the top 50 stocks discussed on reddit.com/r/wallstreetbets/',
+		},
+	];
+
+	const handleFeaturedAppOpen = (url) => {
+		window.open(`${url}`, '_blank', 'noopener');
+	};
+
 	return (
 		<>
 			{isLoading && <Spinner />}
@@ -73,6 +93,29 @@ const Home = () => {
 							<p>{calculator.description}</p>
 						</div>
 					</Link>
+				))}
+			</div>
+
+			<div className="featured-apps-seperator">
+				<div />
+				<h2>Featured</h2>
+				<div />
+			</div>
+
+			<div className="calculator-container">
+				{featuredApps.map((app, i) => (
+					<div
+						key={`app-${i}`}
+						className="calculator-card"
+						onClick={() => handleFeaturedAppOpen(app.url)}
+					>
+						<h2>{app.name}</h2>
+						<div className="featured-app-icon-container">
+							<FaExternalLinkAlt />
+						</div>
+						<hr />
+						<p>{app.description}</p>
+					</div>
 				))}
 			</div>
 		</>

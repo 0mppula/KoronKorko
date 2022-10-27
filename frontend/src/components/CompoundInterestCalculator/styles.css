@@ -161,10 +161,6 @@ div.icon.danger:hover {
 	opacity: 1;
 }
 
-.interest-chart {
-	/* background-color: var(--clr-background-L2); */
-}
-
 .options-toggler-container {
 	width: 100%;
 	display: flex;
