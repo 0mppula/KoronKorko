@@ -387,15 +387,13 @@ tr:last-child:not(.thead-margin-bottom) {
 	.report-group {
 		flex: 1 1 100%;
 	}
-	.input-group {
-		flex: 1 1 100% !important;
-	}
 	div.icon.save:hover,
 	div.icon.reset:hover {
 		background-color: transparent;
 		color: var(--clr-text-secondary);
 	}
 }
+
 @media only screen and (max-width: 496px) {
 	.form-controls-icons {
 		width: 100%;
