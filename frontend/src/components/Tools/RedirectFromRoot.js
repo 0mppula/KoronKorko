@@ -12,7 +12,7 @@ const RedirectFromRoot = () => {
 		const suffix = window.location.href.split(/\//);
 
 		if (!String(url).match(/\/\/www./) && !devUrl && !herokuUrl) {
-			window.location.href = `http://www.koronkorko.com/${suffix}`;
+			window.location.href = `http://www.koronkorko.com/${suffix[suffix.length - 1]}`;
 		}
 	}, [pathname, url]);
 
