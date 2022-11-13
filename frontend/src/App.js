@@ -20,6 +20,7 @@ import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueC
 import InvestmentTimeCalculator from './pages/InvestmentTimeCalculator/InvestmentTimeCalculator';
 import BreakEvenPointCalculator from './pages/BreakEvenPointCalculator/BreakEvenPointCalculator';
 import MarkupCalculator from './pages/MarkupCalculator/MarkupCalculator';
+import RedirectFromRoot from './components/Tools/RedirectFromRoot';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -60,6 +61,8 @@ function App() {
 		<>
 			<Router>
 				<ScrollToTop />
+				<RedirectFromRoot />
+
 				<Nav />
 				<div className="container">
 					<Routes>
