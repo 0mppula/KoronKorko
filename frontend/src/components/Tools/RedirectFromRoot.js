@@ -8,7 +8,8 @@ const RedirectFromRoot = () => {
 
 	useEffect(() => {
 		// If in root url redirect to www.koronkorko.com
-		if (!String(url).match(/\/\/www./)) {
+		const devUrl = 'http://localhost:3000/';
+		if (!String(url).match(/\/\/www./) && !devUrl) {
 			window.location.href = 'http://www.koronkorko.com/';
 		}
 	}, [pathname, url]);
