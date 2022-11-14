@@ -50,10 +50,10 @@ Calculates the difference between the cost and the selling price of your product
 
 ---
 
-[0]: https://koronkorko.herokuapp.com/
-[1]: https://koronkorko.herokuapp.com/compound-interest-calculator
-[2]: https://koronkorko.herokuapp.com/annualized-return-calculator
-[3]: https://koronkorko.herokuapp.com/present-value-calculator
-[4]: https://koronkorko.herokuapp.com/investment-time-calculator
-[5]: https://koronkorko.herokuapp.com/break-even-point-calculator
-[6]: https://koronkorko.herokuapp.com/markup-calculator
+[0]: https://www.koronkorko.com/
+[1]: https://www.koronkorko.com/compound-interest-calculator
+[2]: https://www.koronkorko.com/annualized-return-calculator
+[3]: https://www.koronkorko.com/present-value-calculator
+[4]: https://www.koronkorko.com/investment-time-calculator
+[5]: https://www.koronkorko.com/break-even-point-calculator
+[6]: https://www.koronkorko.com/markup-calculator
