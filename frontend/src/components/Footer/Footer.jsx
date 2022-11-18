@@ -103,7 +103,7 @@ const Footer = () => {
 				<div className="footer-icons">
 					<Icon url="https://github.com/0mppula" icon={<FaGithub />} />
 					<Icon
-						url="https://www.linkedin.com/in/omar-kraidi%C3%A9-b7a8141a8/"
+						url="https://www.linkedin.com/in/omarkraidie/"
 						icon={<FaLinkedin />}
 					/>
 					<Icon url="https://twitter.com/OmarKraidie" icon={<FaTwitter />} />
