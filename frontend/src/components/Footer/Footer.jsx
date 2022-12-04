@@ -72,16 +72,12 @@ const Footer = () => {
 							/>
 							<Link
 								url="https://www.goodreads.com/review/list/135003326-0mppu?ref=nav_mybooks&shelf=programming"
-								text="Programming Books"
+								text="Technology Books"
 							/>
 							<Link url="https://coincaps.netlify.app/" text="Project: CoinCaps" />
 							<Link
-								url="https://csgo-weapons.netlify.app/"
-								text="Project: CS:GO Weapons"
-							/>
-							<Link
-								url="https://polishcow.netlify.app/"
-								text="Project: Dancing Polish Cow"
+								url="https://wsb-tickers.netlify.app/"
+								text="Project: WSB-Tickers"
 							/>
 						</ul>
 					</div>
@@ -102,10 +98,7 @@ const Footer = () => {
 			<div className="footer-bottom">
 				<div className="footer-icons">
 					<Icon url="https://github.com/0mppula" icon={<FaGithub />} />
-					<Icon
-						url="https://www.linkedin.com/in/omarkraidie/"
-						icon={<FaLinkedin />}
-					/>
+					<Icon url="https://www.linkedin.com/in/omarkraidie/" icon={<FaLinkedin />} />
 					<Icon url="https://twitter.com/OmarKraidie" icon={<FaTwitter />} />
 					<Icon
 						url="https://www.youtube.com/channel/UCdpM1SUen7ZxX2owolyIGyQ"
