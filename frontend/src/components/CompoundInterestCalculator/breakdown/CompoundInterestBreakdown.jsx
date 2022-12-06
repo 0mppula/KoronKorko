@@ -20,6 +20,7 @@ import LoadingSmall from '../../Loading/LoadingSmall';
 import BreakdownTable from './BreakdownTable';
 import DownloadTableButton from './DownloadTableButton';
 import ReportContainer from '../../CalculatorReportComponents/ReportContainer';
+import ReportSummaryContainer from '../../CalculatorReportComponents/ReportSummaryContainer';
 
 const CompoundInterestBreakdown = ({
 	formData,
@@ -146,14 +147,14 @@ const CompoundInterestBreakdown = ({
 
 	return (
 		<ReportContainer header="Breakdown">
-			<div className={`summary-container ${loadingCalculation ? 'loading' : ''}`}>
+			<ReportSummaryContainer loading={loadingCalculation} autoHeight={false}>
 				<>
 					{loadingCalculation ? (
 						<LoadingSmall />
 					) : (
 						<>
 							<div className="summary-controls">
-								{/* IF NOT LOADING THEN ABLE TO TOGGLEn */}
+								{/* IF NOT LOADING THEN ABLE TO TOGGLE */}
 								<TimeBreakdownOptionToggler
 									report={report}
 									setReport={setReport}
@@ -207,7 +208,7 @@ const CompoundInterestBreakdown = ({
 						</>
 					)}
 				</>
-			</div>
+			</ReportSummaryContainer>
 		</ReportContainer>
 	);
 };

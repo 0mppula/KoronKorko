@@ -5,6 +5,7 @@ import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
+import ReportSummaryContainer from '../CalculatorReportComponents/ReportSummaryContainer';
 
 const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -25,7 +26,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 
 	return (
 		<ReportContainer>
-			<div className="summary-container auto-height">
+			<ReportSummaryContainer>
 				<ReportGroupContainer>
 					<ReportGroup
 						header="Starting Balance"
@@ -48,7 +49,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 
 					<ReportGroup header="Percent Return" value={formatPercentage(percentReturn)} />
 				</ReportGroupContainer>
-			</div>
+			</ReportSummaryContainer>
 		</ReportContainer>
 	);
 };

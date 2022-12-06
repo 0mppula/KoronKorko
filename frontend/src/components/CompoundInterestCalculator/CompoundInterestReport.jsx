@@ -6,6 +6,7 @@ import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import './styles.css';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
+import ReportSummaryContainer from '../CalculatorReportComponents/ReportSummaryContainer';
 
 const CompoundInterestReport = ({ report, loadingCalculation }) => {
 	const {
@@ -21,7 +22,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 
 	return (
 		<ReportContainer>
-			<div className={`summary-container ${loadingCalculation ? 'loading' : ''}`}>
+			<ReportSummaryContainer loading={loadingCalculation} autoHeight={false}>
 				<>
 					{loadingCalculation ? (
 						<LoadingSmall />
@@ -75,7 +76,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 						</ReportGroupContainer>
 					)}
 				</>
-			</div>
+			</ReportSummaryContainer>
 		</ReportContainer>
 	);
 };

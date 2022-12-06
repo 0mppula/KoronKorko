@@ -5,6 +5,8 @@ import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
+import ReportSummaryContainer from '../CalculatorReportComponents/ReportSummaryContainer';
+
 
 const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -31,7 +33,7 @@ const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 
 	return (
 		<ReportContainer>
-			<div className="summary-container auto-height">
+			<ReportSummaryContainer>
 				<ReportGroupContainer>
 					<ReportGroup
 						header="Break Even Point"
@@ -67,7 +69,7 @@ const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 						)}
 					/>
 				</ReportGroupContainer>
-			</div>
+			</ReportSummaryContainer>
 		</ReportContainer>
 	);
 };
