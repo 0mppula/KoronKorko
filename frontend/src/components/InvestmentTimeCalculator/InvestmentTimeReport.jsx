@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
+import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 
 const InvestmentTimeReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -21,11 +22,7 @@ const InvestmentTimeReport = ({ report, calculationCount }) => {
 	const { timeRequired } = report;
 
 	return (
-		<div className="report-container">
-			<h1>
-				<span>S</span>ummary
-			</h1>
-
+		<ReportContainer>
 			<div className="summary-container auto-height">
 				<div className="report-group-container">
 					<ReportGroup header="Years required" value={timeRequired.toFixed(2)} />
@@ -35,7 +32,7 @@ const InvestmentTimeReport = ({ report, calculationCount }) => {
 					<ReportGroup header="Days required" value={(timeRequired * 365).toFixed(2)} />
 				</div>
 			</div>
-		</div>
+		</ReportContainer>
 	);
 };
 

@@ -4,6 +4,7 @@ import { formatCurrency, formatPercentage } from '../../helpers/format';
 import LoadingSmall from '../Loading/LoadingSmall';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import './styles.css';
+import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 
 const CompoundInterestReport = ({ report, loadingCalculation }) => {
 	const {
@@ -18,10 +19,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 	} = report;
 
 	return (
-		<div className="report-container">
-			<h1>
-				<span>S</span>ummary
-			</h1>
+		<ReportContainer>
 			<div className={`summary-container ${loadingCalculation ? 'loading' : ''}`}>
 				<>
 					{loadingCalculation ? (
@@ -77,7 +75,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 					)}
 				</>
 			</div>
-		</div>
+		</ReportContainer>
 	);
 };
 

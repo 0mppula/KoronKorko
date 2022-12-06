@@ -19,6 +19,7 @@ import VisualBreakdownOptionToggler from './VisualBreakdownOptionToggler';
 import LoadingSmall from '../../Loading/LoadingSmall';
 import BreakdownTable from './BreakdownTable';
 import DownloadTableButton from './DownloadTableButton';
+import ReportContainer from '../../CalculatorReportComponents/ReportContainer';
 
 const CompoundInterestBreakdown = ({
 	formData,
@@ -144,10 +145,7 @@ const CompoundInterestBreakdown = ({
 	const plugins = [legendMargin];
 
 	return (
-		<div className="report-container">
-			<h1>
-				<span>B</span>reakdown
-			</h1>
+		<ReportContainer header="Breakdown">
 			<div className={`summary-container ${loadingCalculation ? 'loading' : ''}`}>
 				<>
 					{loadingCalculation ? (
@@ -210,7 +208,7 @@ const CompoundInterestBreakdown = ({
 					)}
 				</>
 			</div>
-		</div>
+		</ReportContainer>
 	);
 };
 

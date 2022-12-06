@@ -3,10 +3,12 @@
 	margin-bottom: 3rem;
 }
 
-.report-container h1 {
+.report-container h2 {
+	font-size: 2rem;
 	margin-bottom: 0.5rem;
 }
-.report-container h1 span {
+
+.report-container h2 span {
 	color: var(--clr-primary);
 }
 

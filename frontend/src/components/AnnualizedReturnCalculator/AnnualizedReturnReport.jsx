@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { formatCurrency, formatPercentage } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
+import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 
 const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -22,11 +23,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	const { startingBalance, endingBalance, annualizedReturn, percentReturn, currency } = report;
 
 	return (
-		<div className="report-container">
-			<h1>
-				<span>S</span>ummary
-			</h1>
-
+		<ReportContainer>
 			<div className="summary-container auto-height">
 				<div className="report-group-container">
 					<ReportGroup
@@ -51,7 +48,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 					<ReportGroup header="Percent Return" value={formatPercentage(percentReturn)} />
 				</div>
 			</div>
-		</div>
+		</ReportContainer>
 	);
 };
 
