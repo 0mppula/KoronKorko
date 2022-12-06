@@ -28,7 +28,7 @@ const MarkupCalculatorReport = ({ report, calculationCount }) => {
 			</h1>
 
 			<div className="summary-container auto-height">
-				<div className="report-top">
+				<div className="report-group-container">
 					<ReportGroup
 						header="Markup"
 						value={isFinite(markup) ? formatPercentage(markup) : 'N/A'}

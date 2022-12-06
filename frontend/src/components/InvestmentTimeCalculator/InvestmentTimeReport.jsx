@@ -27,7 +27,7 @@ const InvestmentTimeReport = ({ report, calculationCount }) => {
 			</h1>
 
 			<div className="summary-container auto-height">
-				<div className="report-top">
+				<div className="report-group-container">
 					<ReportGroup header="Years required" value={timeRequired.toFixed(2)} />
 
 					<ReportGroup header="Months required" value={(timeRequired * 12).toFixed(2)} />

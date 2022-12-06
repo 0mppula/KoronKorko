@@ -35,7 +35,7 @@
 	height: 420px;
 }
 
-.report-top {
+.report-group-container {
 	display: flex;
 	gap: 1rem;
 	flex-wrap: wrap;

@@ -27,7 +27,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 					{loadingCalculation ? (
 						<LoadingSmall />
 					) : (
-						<div className="report-top">
+						<div className="report-group-container">
 							<ReportGroup
 								header="Future Value"
 								value={formatCurrency(
