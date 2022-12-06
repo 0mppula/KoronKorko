@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
@@ -8,8 +8,9 @@ import logo_dark from '../../assets/images/logo_dark.png';
 import logo_light from '../../assets/images/logo_light.png';
 import './styles.css';
 
+const year = new Date(Date.now()).getFullYear();
+
 const Footer = () => {
-	const [year] = useState(new Date(Date.now()).getFullYear());
 	const { darkMode } = useSelector((state) => state.theme);
 
 	return (
