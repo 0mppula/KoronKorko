@@ -4,6 +4,7 @@ import { formatCurrency, formatPercentage } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
+import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
 
 const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -25,7 +26,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 	return (
 		<ReportContainer>
 			<div className="summary-container auto-height">
-				<div className="report-group-container">
+				<ReportGroupContainer>
 					<ReportGroup
 						header="Starting Balance"
 						value={formatCurrency(startingBalance, currency?.locale, currency?.value)}
@@ -46,7 +47,7 @@ const AnnualizedReturnReport = ({ report, calculationCount }) => {
 					/>
 
 					<ReportGroup header="Percent Return" value={formatPercentage(percentReturn)} />
-				</div>
+				</ReportGroupContainer>
 			</div>
 		</ReportContainer>
 	);

@@ -4,6 +4,7 @@ import { formatCurrency } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
+import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
 
 const PresentValueFormReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -25,12 +26,12 @@ const PresentValueFormReport = ({ report, calculationCount }) => {
 	return (
 		<ReportContainer>
 			<div className="summary-container auto-height">
-				<div className="report-group-container">
+				<ReportGroupContainer>
 					<ReportGroup
 						header="Present Value"
 						value={formatCurrency(presentValue, currency?.locale, currency?.value)}
 					/>
-				</div>
+				</ReportGroupContainer>
 			</div>
 		</ReportContainer>
 	);

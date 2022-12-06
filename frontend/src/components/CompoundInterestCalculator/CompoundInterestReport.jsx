@@ -5,6 +5,7 @@ import LoadingSmall from '../Loading/LoadingSmall';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import './styles.css';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
+import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
 
 const CompoundInterestReport = ({ report, loadingCalculation }) => {
 	const {
@@ -25,7 +26,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 					{loadingCalculation ? (
 						<LoadingSmall />
 					) : (
-						<div className="report-group-container">
+						<ReportGroupContainer>
 							<ReportGroup
 								header="Future Value"
 								value={formatCurrency(
@@ -71,7 +72,7 @@ const CompoundInterestReport = ({ report, loadingCalculation }) => {
 								header="Total Return (APY)"
 								value={formatPercentage(totalReturn)}
 							/>
-						</div>
+						</ReportGroupContainer>
 					)}
 				</>
 			</div>
