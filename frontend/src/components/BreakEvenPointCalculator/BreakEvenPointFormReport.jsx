@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { formatCurrency, formatPercentage } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
+import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 
 const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -34,38 +35,39 @@ const BreakEvenPointFormReport = ({ report, calculationCount }) => {
 
 			<div className="summary-container auto-height">
 				<div className="report-top">
-					<div className="report-group">
-						<p>Break Even Point</p>
-						<h2>
-							{isFinite(breakEvenPointUnits) ? breakEvenPointUnits.toFixed(2) : 'N/A'}
-						</h2>
-					</div>
-					<div className="report-group">
-						<p>Break Even Point Revenue</p>
-						<h2>
-							{isFinite(breakEvenPointUnits)
+					<ReportGroup
+						header="Break Even Point"
+						value={
+							isFinite(breakEvenPointUnits) ? breakEvenPointUnits.toFixed(2) : 'N/A'
+						}
+					/>
+
+					<ReportGroup
+						header="Break Even Point Revenue"
+						value={
+							isFinite(breakEvenPointUnits)
 								? formatCurrency(
 										breakEvenPointMoney,
 										currency?.locale,
 										currency?.value
 								  )
-								: 'N/A'}
-						</h2>
-					</div>
-					<div className="report-group">
-						<p>Contribution Margin %</p>
-						<h2>{formatPercentage(contributionMarginPercent)}</h2>
-					</div>
-					<div className="report-group">
-						<p>Contribution Margin</p>
-						<h2>
-							{formatCurrency(
-								contributionMarginMoney,
-								currency?.locale,
-								currency?.value
-							)}
-						</h2>
-					</div>
+								: 'N/A'
+						}
+					/>
+
+					<ReportGroup
+						header="Contribution Margin %"
+						value={formatPercentage(contributionMarginPercent)}
+					/>
+
+					<ReportGroup
+						header="Contribution Margin"
+						value={formatCurrency(
+							contributionMarginMoney,
+							currency?.locale,
+							currency?.value
+						)}
+					/>
 				</div>
 			</div>
 		</div>

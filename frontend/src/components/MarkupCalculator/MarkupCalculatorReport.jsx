@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { formatCurrency, formatPercentage } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
+import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 
 const MarkupCalculatorReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -28,15 +29,15 @@ const MarkupCalculatorReport = ({ report, calculationCount }) => {
 
 			<div className="summary-container auto-height">
 				<div className="report-top">
-					<div className="report-group">
-						<p>Markup</p>
-						<h2>{isFinite(markup) ? formatPercentage(markup) : 'N/A'}</h2>
-					</div>
+					<ReportGroup
+						header="Markup"
+						value={isFinite(markup) ? formatPercentage(markup) : 'N/A'}
+					/>
 
-					<div className="report-group">
-						<p>Profit</p>
-						<h2>{formatCurrency(profit, currency?.locale, currency?.value)}</h2>
-					</div>
+					<ReportGroup
+						header="Profit"
+						value={formatCurrency(profit, currency?.locale, currency?.value)}
+					/>
 				</div>
 			</div>
 		</div>

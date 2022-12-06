@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { formatCurrency } from '../../helpers/format';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
+import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 
 const PresentValueFormReport = ({ report, calculationCount }) => {
 	const windowWidth = useWindowWidth();
@@ -28,10 +29,10 @@ const PresentValueFormReport = ({ report, calculationCount }) => {
 
 			<div className="summary-container auto-height">
 				<div className="report-top">
-					<div className="report-group">
-						<p>Present Value</p>
-						<h2>{formatCurrency(presentValue, currency?.locale, currency?.value)}</h2>
-					</div>
+					<ReportGroup
+						header="Present Value"
+						value={formatCurrency(presentValue, currency?.locale, currency?.value)}
+					/>
 				</div>
 			</div>
 		</div>
