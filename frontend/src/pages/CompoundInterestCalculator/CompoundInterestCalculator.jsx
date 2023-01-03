@@ -106,7 +106,11 @@ const CompoundInterestCalculator = () => {
 				setActiveCalculationId={setActiveCalculationId}
 			/>
 			{report && (
-				<CompoundInterestReport report={report} loadingCalculation={loadingCalculation} />
+				<CompoundInterestReport
+					report={report}
+					loadingCalculation={loadingCalculation}
+					calculationCount={calculationCount}
+				/>
 			)}
 			{report && (
 				<CompoundInterestBreakdown
@@ -114,7 +118,6 @@ const CompoundInterestCalculator = () => {
 					formData={formData}
 					report={report}
 					setReport={setReport}
-					calculationCount={calculationCount}
 					loadingCalculation={loadingCalculation}
 					setLoadingCalculation={setLoadingCalculation}
 				/>

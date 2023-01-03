@@ -26,7 +26,6 @@ const CompoundInterestBreakdown = ({
 	formData,
 	report,
 	setReport,
-	calculationCount,
 	loadingCalculation,
 	setLoadingCalculation,
 }) => {
@@ -47,18 +46,6 @@ const CompoundInterestBreakdown = ({
 		getChartData();
 		// eslint-disable-next-line
 	}, [report, darkMode]);
-
-	useEffect(() => {
-		const reportSummary = document.querySelector('.report-container');
-
-		if (loadingCalculation && reportSummary) {
-			window.scrollTo({
-				top: reportSummary.offsetTop - 60,
-				left: 0,
-				behavior: 'smooth',
-			});
-		}
-	}, [calculationCount]);
 
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

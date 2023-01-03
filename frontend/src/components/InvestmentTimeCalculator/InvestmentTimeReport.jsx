@@ -1,25 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useWindowWidth } from '../../hooks/useWindowWidth';
 import ReportGroup from '../CalculatorReportComponents/ReportGroup';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
 import ReportSummaryContainer from '../CalculatorReportComponents/ReportSummaryContainer';
+import { useMobileScrollToReportContainer } from '../../hooks/useMobileScrollToReportContainer';
 
 const InvestmentTimeReport = ({ report, calculationCount }) => {
-	const windowWidth = useWindowWidth();
-
-	useEffect(() => {
-		const reportSummary = document.querySelector('.report-container');
-
-		if (windowWidth <= 576 && reportSummary) {
-			window.scrollTo({
-				top: reportSummary.offsetTop - 60,
-				left: 0,
-				behavior: 'smooth',
-			});
-		}
-	}, [calculationCount, windowWidth]);
+	useMobileScrollToReportContainer(calculationCount);
 
 	const { timeRequired } = report;
 
