@@ -2,7 +2,7 @@ import React from 'react';
 
 import checkKeyDown from '../../../helpers/checkKeyDown';
 
-const VisualBreakdownOptionToggler = ({
+const BreakdownVisualOptionToggler = ({
 	breakdownMethod,
 	setBreakdownMethod,
 	loadingCalculation,
@@ -41,4 +41,4 @@ const VisualBreakdownOptionToggler = ({
 	);
 };
 
-export default VisualBreakdownOptionToggler;
+export default BreakdownVisualOptionToggler;

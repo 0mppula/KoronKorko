@@ -2,7 +2,7 @@ import React from 'react';
 
 import checkKeyDown from '../../../helpers/checkKeyDown';
 
-const TimeBreakdownOptionToggler = ({ report, setReport }) => {
+const BreakdownTimeOptionToggler = ({ report, setReport }) => {
 	const { breakdown } = report;
 
 	const handleOptionChange = (e) => {
@@ -35,4 +35,4 @@ const TimeBreakdownOptionToggler = ({ report, setReport }) => {
 	);
 };
 
-export default TimeBreakdownOptionToggler;
+export default BreakdownTimeOptionToggler;

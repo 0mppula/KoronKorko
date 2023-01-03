@@ -14,8 +14,8 @@ import { useSelector } from 'react-redux';
 import { cssVar } from '../../../helpers/getCssVariable';
 import { formatCurrency, formatCurrencyK } from '../../../helpers/format';
 import createChartData from '../../../helpers/createChartData';
-import TimeBreakdownOptionToggler from './TimeBreakdownOptionToggler';
-import VisualBreakdownOptionToggler from './VisualBreakdownOptionToggler';
+import BreakdownTimeOptionToggler from './BreakdownTimeOptionToggler';
+import BreakdownVisualOptionToggler from './BreakdownVisualOptionToggler';
 import LoadingSmall from '../../Loading/LoadingSmall';
 import BreakdownTable from './BreakdownTable';
 import DownloadTableButton from './DownloadTableButton';
@@ -142,12 +142,12 @@ const CompoundInterestBreakdown = ({
 						<>
 							<div className="summary-controls">
 								{/* IF NOT LOADING THEN ABLE TO TOGGLE */}
-								<TimeBreakdownOptionToggler
+								<BreakdownTimeOptionToggler
 									report={report}
 									setReport={setReport}
 									loadingCalculation={loadingCalculation}
 								/>
-								<VisualBreakdownOptionToggler
+								<BreakdownVisualOptionToggler
 									breakdownMethod={breakdownMethod}
 									setBreakdownMethod={setBreakdownMethod}
 									loadingCalculation={loadingCalculation}

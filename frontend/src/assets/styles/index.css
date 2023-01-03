@@ -173,7 +173,7 @@ hr {
 }
 
 .heading p {
-	color: var(--clr-primary-opacity-high);
+	color: var(--clr-text-primary);
 }
 
 .heading svg {
