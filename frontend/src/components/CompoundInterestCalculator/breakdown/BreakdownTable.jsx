@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
 import { formatCurrency } from '../../../helpers/format';
 import LoadinSmall from '../../Loading/LoadingSmall';
@@ -10,7 +10,7 @@ const BreakdownTable = ({ data, breakdown, currency, tableLoading, setTableLoadi
 	useEffect(() => {
 		const get = async () => {
 			setTableLoading(true);
-			
+
 			// Create data for table in a async way
 			const tableDataArray = await createData();
 			setTableData(tableDataArray);
@@ -86,66 +86,48 @@ const BreakdownTable = ({ data, breakdown, currency, tableLoading, setTableLoadi
 								month;
 
 							return (
-								<>
-									<tr
-										key={`table-margin-top-${i}`}
-										className="table-margin-top"
-									/>
-									<tr key={`table-item-${i}`} className="table-item">
-										<td key={`td-${i}-0`}>{i}</td>
-										<td
-											key={`td-${i}-1`}
-											className={`${contribs < 0 ? 'danger' : ''}`}
-										>
+								<Fragment key={`table-row-${i}`}>
+									<tr className="table-margin-top" />
+									<tr className="table-item">
+										<td>{i}</td>
+										<td className={`${contribs < 0 ? 'danger' : ''}`}>
 											{formatCurrency(
 												contribs,
 												currency.locale,
 												currency.value
 											)}
 										</td>
-										<td
-											key={`td-${i}-2`}
-											className={`${interest < 0 ? 'danger' : ''}`}
-										>
+										<td className={`${interest < 0 ? 'danger' : ''}`}>
 											{formatCurrency(
 												interest,
 												currency.locale,
 												currency.value
 											)}
 										</td>
-										<td
-											key={`td-${i}-3`}
-											className={`${totalContribs < 0 ? 'danger' : ''}`}
-										>
+										<td className={`${totalContribs < 0 ? 'danger' : ''}`}>
 											{formatCurrency(
 												totalContribs,
 												currency.locale,
 												currency.value
 											)}
 										</td>
-										<td
-											key={`td-${i}-4`}
-											className={`${totalInterest < 0 ? 'danger' : ''}`}
-										>
+										<td className={`${totalInterest < 0 ? 'danger' : ''}`}>
 											{formatCurrency(
 												totalInterest,
 												currency.locale,
 												currency.value
 											)}
 										</td>
-										<td
-											key={`td-${i}-5`}
-											className={`${balance < 0 ? 'danger' : ''}`}
-										>
+										<td className={`${balance < 0 ? 'danger' : ''}`}>
 											{formatCurrency(
 												balance,
 												currency.locale,
 												currency.value
 											)}
 										</td>
-										<td key={`td-${i}-6`} className="border-bottom" />
+										<td className="border-bottom" />
 									</tr>
-								</>
+								</Fragment>
 							);
 						})}
 					</tbody>
