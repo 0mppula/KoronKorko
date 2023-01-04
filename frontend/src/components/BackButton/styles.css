@@ -1,12 +1,13 @@
 .back-button {
 	display: flex;
 	align-items: center;
-	width: min(90%, 650px);
+	/* Maintain the same width as the calculator */
+	width: min(calc(90% + 4rem), 650px);
 	margin-bottom: 0.25rem;
 	transition: var(--fast-transition);
 }
 
-.back-button:hover a {
+.back-button a:hover {
 	color: var(--clr-primary);
 }
 
@@ -17,10 +18,11 @@
 	gap: 0.5rem;
 	padding: 0.25rem;
 	color: var(--clr-text-secondary);
+	user-select: none;
 }
 
 /* Media Queries */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 680px) {
 	.back-button {
 		width: 100%;
 	}
