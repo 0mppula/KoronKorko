@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
 import {
+	closeCalculation,
 	createCalculation,
 	updateCalculation,
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import FormControlsTop from './FormControlsTop';
 import {
 	durationMultipliers,
 	contributionFrequencies,
@@ -25,6 +25,7 @@ import DurationInput from '../FormComponents/DurationInput';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
+import FormControlsTop from '../FormComponents/FormControlsTop';
 
 const CompoundInterestForm = ({
 	user,
@@ -204,6 +205,11 @@ const CompoundInterestForm = ({
 		}
 	};
 
+	const closeActiveCalculation = () => {
+		dispatch(closeCalculation());
+		closeAndResetCalculation();
+	};
+
 	const toggleContributionMultiplier = () => {
 		let value = depositting() ? -1 : 1;
 		setFormData({ ...formData, contributionMultiplier: value });
@@ -232,13 +238,15 @@ const CompoundInterestForm = ({
 				modalOpen={renameModalOpen}
 				setModalOpen={setRenameModalOpen}
 			/>
+
 			<FormControlsTop
-				openSaveModal={openSaveModal}
 				openRenameModal={openRenameModal}
+				closeActiveCalculation={closeActiveCalculation}
 				openImportModal={openImportModal}
-				resetCalculator={resetCalculator}
-				closeAndResetCalculation={closeAndResetCalculation}
+				openSaveModal={openSaveModal}
+				resetForm={resetCalculator}
 			/>
+
 			<form onSubmit={handleCalculation}>
 				<FormGroup>
 					<BalanceInput

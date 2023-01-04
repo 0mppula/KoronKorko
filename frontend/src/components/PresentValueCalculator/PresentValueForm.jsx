@@ -1,8 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-import { FaSyncAlt } from 'react-icons/fa';
-import checkKeyDown from '../../helpers/checkKeyDown';
 import BalanceInput from '../FormComponents/BalanceInput';
 import PercentInput from '../FormComponents/PercentInput';
 import DurationInput from '../FormComponents/DurationInput';
@@ -11,6 +9,7 @@ import { durationMultipliers } from '../../assets/data';
 import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
+import FormControlsTop from '../FormComponents/FormControlsTop';
 
 const PresentValueCalculator = ({
 	formData,
@@ -90,18 +89,7 @@ const PresentValueCalculator = ({
 
 	return (
 		<div className="form">
-			<div className="form-controls-top">
-				<div />
-				<div
-					tabIndex={0}
-					className="icon danger"
-					title="Reset calculator"
-					onClick={resetCalculator}
-					onKeyDown={(e) => checkKeyDown(e, resetCalculator)}
-				>
-					<FaSyncAlt />
-				</div>
-			</div>
+			<FormControlsTop resetForm={resetCalculator} />
 
 			<form onSubmit={handleCalculation}>
 				<FormGroup>
