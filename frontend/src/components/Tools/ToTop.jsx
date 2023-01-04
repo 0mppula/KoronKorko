@@ -25,14 +25,14 @@ const ToTop = () => {
 	};
 
 	return (
-		<div
+		<button
 			tabIndex={active ? 0 : -1}
 			onClick={scrollToTop}
 			onKeyDown={(e) => checkKeyDown(e, scrollToTop)}
 			className={`to-top-button ${active ? 'active' : ''}`}
 		>
 			<FaChevronUp />
-		</div>
+		</button>
 	);
 };
 

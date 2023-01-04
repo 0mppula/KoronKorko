@@ -24,7 +24,8 @@
 	pointer-events: auto;
 }
 
-.to-top-button:hover {
+.to-top-button:hover,
+.to-top-button:focus-visible {
 	color: var(--clr-primary);
 	background: var(--clr-background-L3);
 }

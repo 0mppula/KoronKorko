@@ -59,17 +59,19 @@ const CompoundInterestSaveModal = ({
 	return (
 		<div className={`compound-interest-modal-overlay ${modalOpen ? 'show' : ''}`}>
 			<div className="compound-interest-modal">
-				<div
+				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
 					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
 				>
 					<RiCloseLine />
-				</div>
+				</button>
+
 				<div className="modal-header">
 					<h2>Save Your Calculation</h2>
 				</div>
+
 				<div className="modal-body">
 					<div className="form-group">
 						<label htmlFor="calculation-name">Calculation name</label>

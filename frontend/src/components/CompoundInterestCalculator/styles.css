@@ -91,30 +91,6 @@
 	gap: 0.125rem;
 }
 
-div.icon {
-	display: flex;
-	padding: 0.5rem;
-	font-size: 1.125rem;
-	color: var(--clr-text-secondary);
-	transition: var(--fast-transition);
-	border-radius: 4px;
-}
-
-div.ri {
-	padding: 0.1875rem 0.1875rem 0.125rem 0.1875rem;
-	font-size: 1.75rem;
-}
-
-div.icon.success:hover {
-	color: var(--clr-success);
-	background-color: var(--clr-hover);
-}
-
-div.icon.danger:hover {
-	color: var(--clr-danger);
-	background-color: var(--clr-hover);
-}
-
 .input-icon-wrapper {
 	position: absolute;
 	top: 39px;

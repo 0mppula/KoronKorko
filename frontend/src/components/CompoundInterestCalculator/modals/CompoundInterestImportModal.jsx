@@ -62,17 +62,20 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 	return (
 		<div className={`compound-interest-modal-overlay ${modalOpen ? 'show' : ''}`}>
 			<div className="compound-interest-modal">
-				<div
+
+				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
 					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
 				>
 					<RiCloseLine />
-				</div>
+				</button>
+
 				<div className="modal-header">
 					<h2>Import Your Calculation</h2>
 				</div>
+
 				<div className="modal-mody">
 					{calculations.length > 0 ? (
 						<ul>
@@ -80,7 +83,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 								<li key={calculation._id} className="calculation-item">
 									<div className="calculation-item-name">{calculation.name}</div>
 									<div className="calculation-item-options">
-										<div
+										<button
 											tabIndex={`${modalOpen ? 0 : -1}`}
 											className="icon success"
 											title="Import calculation"
@@ -92,8 +95,9 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 											}
 										>
 											<FaFileImport />
-										</div>
-										<div
+										</button>
+										
+										<button
 											tabIndex={`${modalOpen ? 0 : -1}`}
 											className="icon danger"
 											title="Delete calculation"
@@ -105,7 +109,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 											}
 										>
 											<FaTrash />
-										</div>
+										</button>
 									</div>
 								</li>
 							))}

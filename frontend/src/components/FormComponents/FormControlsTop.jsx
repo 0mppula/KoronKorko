@@ -22,24 +22,23 @@ const FormControlsTop = ({
 					<>
 						<p>{activeCalculation.name}</p>
 						<div>
-							<div
-								tabIndex={0}
+							<button
 								className="icon success"
 								title="Rename calculation"
 								onClick={openRenameModal}
 								onKeyDown={(e) => checkKeyDown(e, openRenameModal)}
 							>
 								<FaEdit />
-							</div>
-							<div
-								tabIndex={0}
+							</button>
+
+							<button
 								className="icon ri danger"
 								title="Close calculation"
 								onClick={closeActiveCalculation}
 								onKeyDown={(e) => checkKeyDown(e, closeActiveCalculation)}
 							>
 								<RiCloseLine />
-							</div>
+							</button>
 						</div>
 					</>
 				)}
@@ -47,39 +46,36 @@ const FormControlsTop = ({
 
 			<div className="form-controls-icons">
 				{openImportModal && (
-					<div
-						tabIndex={0}
+					<button
 						className="icon success"
 						title="Import calculation"
 						onClick={openImportModal}
 						onKeyDown={(e) => checkKeyDown(e, openImportModal)}
 					>
 						<FaFileImport />
-					</div>
+					</button>
 				)}
 
 				{openSaveModal && (
-					<div
-						tabIndex={0}
+					<button
 						className="icon success"
 						title="Save calculation"
 						onClick={openSaveModal}
 						onKeyDown={(e) => checkKeyDown(e, openSaveModal)}
 					>
 						<FaSave />
-					</div>
+					</button>
 				)}
 
 				{resetForm && (
-					<div
-						tabIndex={0}
+					<button
 						className="icon danger"
 						title="Reset calculator"
 						onClick={resetForm}
 						onKeyDown={(e) => checkKeyDown(e, resetForm)}
 					>
 						<FaSyncAlt />
-					</div>
+					</button>
 				)}
 			</div>
 		</div>
