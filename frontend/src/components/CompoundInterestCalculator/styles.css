@@ -163,7 +163,7 @@
 	height: 100%;
 }
 
-.options-toggler-container div {
+.options-toggler-container label {
 	padding: 10px;
 	cursor: pointer;
 	width: 100%;
@@ -172,16 +172,11 @@
 	color: var(--clr-text-primary);
 }
 
-.options-toggler-container div:nth-child(1) {
+.options-toggler-container label:nth-of-type(1) {
 	border-radius: 4px 0 0 4px;
 }
-.options-toggler-container div:nth-child(2) {
+.options-toggler-container label:nth-of-type(2) {
 	border-radius: 0 4px 4px 0;
-}
-
-.options-toggler-container div.active {
-	background-color: var(--clr-primary);
-	color: var(--clr-white);
 }
 
 /* Compound Interest Modal */

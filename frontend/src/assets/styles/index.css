@@ -128,6 +128,15 @@ button.danger:hover {
 	background-color: var(--clr-hover);
 }
 
+input.custom-radio-input {
+	display: none;
+}
+
+input.custom-radio-input:checked + label {
+	background-color: var(--clr-primary);
+	color: var(--clr-white);
+}
+
 a {
 	text-decoration: none;
 	color: var(--clr-text-primary);

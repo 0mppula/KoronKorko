@@ -210,7 +210,8 @@ const CompoundInterestForm = ({
 		closeAndResetCalculation();
 	};
 
-	const toggleContributionMultiplier = () => {
+	const toggleContributionMultiplier = (e) => {
+		e.preventDefault();
 		let value = depositting() ? -1 : 1;
 		setFormData({ ...formData, contributionMultiplier: value });
 		contributionRef.current.focus();
@@ -311,14 +312,13 @@ const CompoundInterestForm = ({
 							onKeyDown={(e) => disableArrowKeys(e)}
 							onWheel={() => document.activeElement.blur()}
 						/>
-						<div
-							tabIndex={0}
+						<button
 							className={`contribution-multiplier-icon-container 
 								${depositting() ? 'deposit' : 'withdraw'} `}
-							onClick={toggleContributionMultiplier}
+							onClick={(e) => toggleContributionMultiplier(e)}
 						>
 							{depositting() ? <FaSignInAlt /> : <FaSignOutAlt />}
-						</div>
+						</button>
 					</div>
 
 					<FormSelector

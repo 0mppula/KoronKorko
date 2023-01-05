@@ -66,7 +66,7 @@ const DownloadTableButton = ({ data, breakdown, currency }) => {
 					Number(totalInterest).toFixed(2),
 					Number(balance).toFixed(2),
 				];
-			});
+			});   
 
 			resolve([headers, ...rows]);
 		});
@@ -75,19 +75,23 @@ const DownloadTableButton = ({ data, breakdown, currency }) => {
 	return (
 		<div className="options-toggler-container button-toggler-container">
 			{!loading ? (
-				<CSVLink
-					className="btn btn-static btn-block"
-					filename={`${
-						activeCalculation?.name
-							? `${activeCalculation.name.replaceAll(' ', '')}-${breakdown}.csv`
-							: 'calculation.csv'
-					}`}
-					data={CSVData}
-				>
-					<FaFileDownload /> .csv
-				</CSVLink>
+				<button className='btn-block' aria-label='download breakdown data in csv format'>
+					<CSVLink
+						aria-hidden
+						className="btn btn-static btn-block"
+						tabIndex={-1}
+						filename={`${
+							activeCalculation?.name
+								? `${activeCalculation.name.replaceAll(' ', '')}-${breakdown}.csv`
+								: 'calculation.csv'
+						}`}
+						data={CSVData}
+					>
+						<FaFileDownload /> .csv
+					</CSVLink>
+				</button>
 			) : (
-				<button className="btn btn-static btn-block">
+				<button className="btn btn-static btn-block" aria-label='breakdown data is loading'>
 					<span className="spin">
 						<FaCircleNotch />
 					</span>

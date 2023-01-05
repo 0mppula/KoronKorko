@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import checkKeyDown from '../../../helpers/checkKeyDown';
 
@@ -7,36 +7,52 @@ const BreakdownVisualOptionToggler = ({
 	setBreakdownMethod,
 	loadingCalculation,
 }) => {
-	const handleOptionChange = (e) => {
-		const option = e.target.dataset.value;
+	const RadioLabelRef1 = useRef();
+	const RadioLabelRef2 = useRef();
 
-		setBreakdownMethod(option);
+	const handleOptionChange = (e) => {
+		const selectedOption = e.target.name;
+
+		setBreakdownMethod(selectedOption);
 	};
 
 	return (
 		<div className="options-toggler-container shadow-container">
-			<div
-				onKeyDown={(e) =>
-					!loadingCalculation ? checkKeyDown(e, () => handleOptionChange(e)) : null
-				}
-				className={`${breakdownMethod === 'chart' ? 'active' : ''}`}
-				onClick={(e) => (!loadingCalculation ? handleOptionChange(e) : null)}
-				data-value="chart"
-				tabIndex={0}
+			<input
+				className="custom-radio-input"
+				type="radio"
+				name="chart"
+				id="chart"
+				checked={breakdownMethod === 'chart'}
+				onChange={(e) => (!loadingCalculation ? handleOptionChange(e) : null)}
+			/>
+
+			<label
+				tabIndex={breakdownMethod === 'chart' ? -1 : 0}
+				ref={RadioLabelRef1}
+				onKeyDown={(e) => checkKeyDown(e, () => RadioLabelRef1.current.click())}
+				htmlFor="chart"
 			>
 				Chart
-			</div>
-			<div
-				onKeyDown={(e) =>
-					!loadingCalculation ? checkKeyDown(e, () => handleOptionChange(e)) : null
-				}
-				className={`${breakdownMethod === 'table' ? 'active' : ''}`}
-				onClick={(e) => (!loadingCalculation ? handleOptionChange(e) : null)}
-				data-value="table"
-				tabIndex={0}
+			</label>
+
+			<input
+				className="custom-radio-input"
+				type="radio"
+				name="table"
+				id="table"
+				checked={breakdownMethod === 'table'}
+				onChange={(e) => (!loadingCalculation ? handleOptionChange(e) : null)}
+			/>
+
+			<label
+				tabIndex={breakdownMethod === 'table' ? -1 : 0}
+				ref={RadioLabelRef2}
+				onKeyDown={(e) => checkKeyDown(e, () => RadioLabelRef2.current.click())}
+				htmlFor="table"
 			>
 				Table
-			</div>
+			</label>
 		</div>
 	);
 };

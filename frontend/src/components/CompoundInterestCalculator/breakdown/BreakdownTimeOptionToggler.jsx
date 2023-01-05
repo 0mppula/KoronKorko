@@ -1,36 +1,56 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import checkKeyDown from '../../../helpers/checkKeyDown';
 
 const BreakdownTimeOptionToggler = ({ report, setReport }) => {
 	const { breakdown } = report;
 
-	const handleOptionChange = (e) => {
-		const option = e.target.dataset.value;
+	const RadioLabelRef1 = useRef();
+	const RadioLabelRef2 = useRef();
 
-		setReport({ ...report, breakdown: option });
+	const handleOptionChange = (e) => {
+		const selectedOption = e.target.name;
+
+		setReport({ ...report, breakdown: selectedOption });
 	};
 
 	return (
 		<div className="options-toggler-container shadow-container">
-			<div
-				onKeyDown={(e) => checkKeyDown(e, () => handleOptionChange(e))}
-				className={`${breakdown === 'yearly' ? 'active' : ''}`}
-				onClick={(e) => handleOptionChange(e)}
-				data-value="yearly"
-				tabIndex={0}
+			<input
+				className="custom-radio-input"
+				type="radio"
+				name="yearly"
+				id="yearly"
+				checked={breakdown === 'yearly'}
+				onChange={(e) => handleOptionChange(e)}
+			/>
+
+			<label
+				tabIndex={breakdown === 'yearly' ? -1 : 0}
+				ref={RadioLabelRef1}
+				onKeyDown={(e) => checkKeyDown(e, () => RadioLabelRef1.current.click())}
+				htmlFor="yearly"
 			>
 				Yearly
-			</div>
-			<div
-				onKeyDown={(e) => checkKeyDown(e, () => handleOptionChange(e))}
-				className={`${breakdown === 'monthly' ? 'active' : ''}`}
-				onClick={(e) => handleOptionChange(e)}
-				data-value="monthly"
-				tabIndex={0}
+			</label>
+
+			<input
+				className="custom-radio-input"
+				type="radio"
+				name="monthly"
+				id="monthly"
+				checked={breakdown === 'monthly'}
+				onChange={(e) => handleOptionChange(e)}
+			/>
+
+			<label
+				tabIndex={breakdown === 'monthly' ? -1 : 0}
+				ref={RadioLabelRef2}
+				onKeyDown={(e) => checkKeyDown(e, () => RadioLabelRef2.current.click())}
+				htmlFor="monthly"
 			>
 				Monthly
-			</div>
+			</label>
 		</div>
 	);
 };
