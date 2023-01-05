@@ -105,7 +105,7 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 				state.isError = true;
 				state.message = action.payload;
-				// state.user = null;
+				state.user = null;
 			})
 			// Register
 			.addCase(register.pending, (state) => {
