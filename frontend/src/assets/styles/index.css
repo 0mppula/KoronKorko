@@ -100,6 +100,7 @@ ul {
 }
 
 button {
+	font-size: inherit;
 	border: none;
 	background-color: transparent;
 }

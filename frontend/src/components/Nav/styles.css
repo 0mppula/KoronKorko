@@ -32,8 +32,8 @@ nav ul li:hover {
 
 nav img {
 	margin-top: 0.35rem;
-    height: 34px;
-    cursor: pointer;
+	height: 34px;
+	cursor: pointer;
 	user-select: none;
 }
 
@@ -57,7 +57,8 @@ nav img {
 	margin: 0;
 }
 
-.nav-links li a {
+.nav-links li a,
+.nav-links li button {
 	display: flex;
 	justify-content: center;
 	height: 40px;
@@ -67,6 +68,11 @@ nav img {
 	align-items: center;
 	gap: 0.25rem;
 	user-select: none;
+}
+
+.nav-links li button {
+	color: var(--clr-text-primary);
+	cursor: pointer;
 }
 
 .nav-icon {

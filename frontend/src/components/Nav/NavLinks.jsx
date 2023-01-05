@@ -41,8 +41,7 @@ const NavLinks = ({
 	return (
 		<ul className={`nav-links ${burgerActive ? 'active' : ''}`} ref={navLinksRef}>
 			<li>
-				<a
-					tabIndex={0}
+				<button
 					className="nav-icon"
 					onClick={() => handleDarkModeChange()}
 					onKeyDown={(e) => checkKeyDown(e, handleDarkModeChange)}
@@ -59,7 +58,7 @@ const NavLinks = ({
 							<FaMoon />
 						</>
 					)}
-				</a>
+				</button>
 			</li>
 			{/* No user */}
 			{!user ? (
@@ -89,10 +88,11 @@ const NavLinks = ({
 						className={`user-options-toggler ${listOpen ? 'active' : ''} `}
 						onClick={() => setListOpen(!listOpen)}
 						onKeyDown={(e) => checkKeyDown(e, () => setListOpen(!listOpen))}
+						aria-expanded={listOpen}
 					>
-						<a>
+						<button className='btn-block'>
 							{user.username} <FaCaretDown />
-						</a>
+						</button>
 					</li>
 				</>
 			)}

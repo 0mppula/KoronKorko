@@ -58,6 +58,7 @@ const Nav = () => {
 					</h1>
 				</Link>
 			</div>
+			
 			<NavLinks
 				user={user}
 				listOpen={listOpen}
