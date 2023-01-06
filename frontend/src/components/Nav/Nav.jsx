@@ -53,12 +53,12 @@ const Nav = () => {
 			<div className="logo">
 				<Link to="/">
 					<img src={darkMode ? logo_dark : logo_light} alt="logo.jpg" />
-					<h1>
+					<p>
 						<span>K</span>oron<span>K</span>orko
-					</h1>
+					</p>
 				</Link>
 			</div>
-			
+
 			<NavLinks
 				user={user}
 				listOpen={listOpen}

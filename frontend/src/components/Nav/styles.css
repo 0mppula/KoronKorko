@@ -26,8 +26,10 @@ nav ul li:hover {
 	gap: 0.35rem;
 }
 
-.logo h1 {
+.logo p {
+	font-weight: 700;
 	margin-top: 0.35rem;
+	font-size: 1.5rem;
 }
 
 nav img {
