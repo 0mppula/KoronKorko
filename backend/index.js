@@ -15,9 +15,11 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 const userRoutes = require('./routes/userRoutes');
 const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalculationRoutes');
+const annualizedReturnCalculationRoutes = require('./routes/AnnualizedReturnCalculationRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
+app.use('/api/annualized-return-calculations', annualizedReturnCalculationRoutes);
 
 // Serve client
 if (process.env.NODE_ENV === 'production') {

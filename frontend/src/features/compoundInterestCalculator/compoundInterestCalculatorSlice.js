@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import compoundInterestCalculatorService from './compoundInterestCalculatorService';
 
 const initialState = {
