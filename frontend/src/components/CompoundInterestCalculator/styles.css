@@ -180,7 +180,7 @@
 }
 
 /* Compound Interest Modal */
-.compound-interest-modal-overlay {
+.modal-overlay {
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -198,7 +198,7 @@
 	pointer-events: none;
 }
 
-.compound-interest-modal-overlay.show {
+.modal-overlay.show {
 	opacity: 1;
 	pointer-events: all;
 	z-index: 10000;

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import BalanceInput from '../FormComponents/BalanceInput';
 import DurationInput from '../FormComponents/DurationInput';
@@ -9,8 +10,11 @@ import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
+import ImportCalculationModal from '../Modals/ImportCalculationModal';
+import { getCalculations } from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
 
 const AnnualizedReturnForm = ({
+	user,
 	formData,
 	setFormData,
 	formErrors,
@@ -19,7 +23,15 @@ const AnnualizedReturnForm = ({
 	setCurrency,
 	setReport,
 	setCalculationCount,
+	setActiveCalculationId,
 }) => {
+	const [calculationName, setCalculationName] = useState('');
+	const [importModalOpen, setImportModalOpen] = useState(false);
+
+	const { activeCalculation, calculations } = useSelector(
+		(state) => state.annualizedReturnCalculations
+	);
+
 	const { startingBalance, endingBalance, duration, durationMultiplier } = formData;
 
 	const handleCalculation = (e) => {
@@ -88,9 +100,27 @@ const AnnualizedReturnForm = ({
 		toast.success('Form cleared');
 	};
 
+	const openImportModal = () => {
+		if (user) {
+			setImportModalOpen(true);
+		} else {
+			toast.error('Please login to load a calculation');
+		}
+	};
+
 	return (
 		<div className="form">
-			<FormControlsTop resetForm={resetCalculator} />
+			<ImportCalculationModal
+				modalOpen={importModalOpen}
+				setModalOpen={setImportModalOpen}
+				calculations={calculations}
+				getCalculation={() => console.log('TODO: GET CALCULATION')}
+				getCalculations={getCalculations}
+				deleteCalculation={() => console.log('TODO: DELETE CALCULATION')}
+				setActiveCalculationId={setActiveCalculationId}
+			/>
+
+			<FormControlsTop resetForm={resetCalculator} openImportModal={openImportModal} />
 
 			<form onSubmit={handleCalculation}>
 				<FormGroup>

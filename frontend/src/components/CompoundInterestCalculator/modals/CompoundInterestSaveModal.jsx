@@ -49,7 +49,7 @@ const CompoundInterestSaveModal = ({
 	};
 
 	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'compound-interest-modal-overlay';
+		const modalOverlayClass = 'modal-overlay';
 		if (e.target.classList.contains(modalOverlayClass)) {
 			setModalOpen(false);
 			setCalculationName('');
@@ -57,7 +57,7 @@ const CompoundInterestSaveModal = ({
 	};
 
 	return (
-		<div className={`compound-interest-modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
 			<div className="compound-interest-modal">
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}

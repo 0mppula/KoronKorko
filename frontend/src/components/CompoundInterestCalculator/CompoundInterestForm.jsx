@@ -6,6 +6,9 @@ import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 import {
 	closeCalculation,
 	createCalculation,
+	getCalculations,
+	getCalculation,
+	deleteCalculation,
 	updateCalculation,
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import {
@@ -15,7 +18,6 @@ import {
 } from '../../assets/data';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
 import CompoundInterestSaveModal from './modals/CompoundInterestSaveModal';
-import CompoundInterestImportModal from './modals/CompoundInterestImportModal';
 import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 import BalanceInput from '../FormComponents/BalanceInput';
@@ -26,6 +28,7 @@ import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
+import ImportCalculationModal from '../Modals/ImportCalculationModal';
 
 const CompoundInterestForm = ({
 	user,
@@ -42,10 +45,12 @@ const CompoundInterestForm = ({
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
-	const [renameModalOpen, setRenameModalOpen] = useState(false);
 	const [importModalOpen, setImportModalOpen] = useState(false);
+	const [renameModalOpen, setRenameModalOpen] = useState(false);
 
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+	const { activeCalculation, calculations } = useSelector(
+		(state) => state.compoundInterestCalculations
+	);
 
 	const dispatch = useDispatch();
 
@@ -230,11 +235,17 @@ const CompoundInterestForm = ({
 				setCalculationName={setCalculationName}
 				save={save}
 			/>
-			<CompoundInterestImportModal
+
+			<ImportCalculationModal
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
+				calculations={calculations}
+				getCalculation={getCalculation}
+				getCalculations={getCalculations}
+				deleteCalculation={deleteCalculation}
 				setActiveCalculationId={setActiveCalculationId}
 			/>
+
 			<CompoundInterestRenameModal
 				modalOpen={renameModalOpen}
 				setModalOpen={setRenameModalOpen}
