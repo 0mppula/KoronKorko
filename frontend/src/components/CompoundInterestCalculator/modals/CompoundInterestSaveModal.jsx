@@ -28,7 +28,7 @@ const CompoundInterestSaveModal = ({
 
 	const calculationNameRef = useRef();
 
-	const clearInpur = () => {
+	const clearInput = () => {
 		setCalculationName('');
 		calculationNameRef.current.focus();
 	};
@@ -92,8 +92,8 @@ const CompoundInterestSaveModal = ({
 							<div
 								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
-								onClick={clearInpur}
-								onKeyDown={(e) => checkKeyDown(e, clearInpur())}
+								onClick={clearInput}
+								onKeyDown={(e) => checkKeyDown(e, clearInput())}
 							>
 								<RiCloseLine />
 							</div>
