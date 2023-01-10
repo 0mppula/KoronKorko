@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { FaSyncAlt, FaSave, FaFileImport, FaEdit } from 'react-icons/fa';
 import { RiCloseLine } from 'react-icons/ri';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 
 const FormControlsTop = ({
+	activeCalculation,
 	openRenameModal,
 	closeActiveCalculation,
 	openImportModal,
 	openSaveModal,
 	resetForm,
 }) => {
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
-
 	return (
 		<div className="form-controls-top">
 			<div className="form-controls-name">
@@ -22,23 +20,27 @@ const FormControlsTop = ({
 					<>
 						<p>{activeCalculation.name}</p>
 						<div>
-							<button
-								className="icon success"
-								title="Rename calculation"
-								onClick={openRenameModal}
-								onKeyDown={(e) => checkKeyDown(e, openRenameModal)}
-							>
-								<FaEdit />
-							</button>
+							{openRenameModal && (
+								<button
+									className="icon success"
+									title="Rename calculation"
+									onClick={openRenameModal}
+									onKeyDown={(e) => checkKeyDown(e, openRenameModal)}
+								>
+									<FaEdit />
+								</button>
+							)}
 
-							<button
-								className="icon ri danger"
-								title="Close calculation"
-								onClick={closeActiveCalculation}
-								onKeyDown={(e) => checkKeyDown(e, closeActiveCalculation)}
-							>
-								<RiCloseLine />
-							</button>
+							{closeActiveCalculation && (
+								<button
+									className="icon ri danger"
+									title="Close calculation"
+									onClick={closeActiveCalculation}
+									onKeyDown={(e) => checkKeyDown(e, closeActiveCalculation)}
+								>
+									<RiCloseLine />
+								</button>
+							)}
 						</div>
 					</>
 				)}
@@ -83,6 +85,7 @@ const FormControlsTop = ({
 };
 
 FormControlsTop.propTypes = {
+	activeCalculation: PropTypes.object,
 	openRenameModal: PropTypes.func,
 	closeActiveCalculation: PropTypes.func,
 	openImportModal: PropTypes.func,

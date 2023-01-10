@@ -13,8 +13,32 @@ const getCalculations = async (token) => {
 	return response.data;
 };
 
+const getCalculation = async (calculationId, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	const response = await axios.get(`${API_URL}${calculationId}`, config);
+	return response.data;
+};
+
+const deleteCalculation = async (calculationId, token) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	const response = await axios.delete(`${API_URL}${calculationId}`, config);
+	return response.data;
+};
+
 const annualizedReturnCalculatorService = {
 	getCalculations,
+	getCalculation,
+	deleteCalculation,
 };
 
 export default annualizedReturnCalculatorService;

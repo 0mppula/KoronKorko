@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BalanceInput from '../FormComponents/BalanceInput';
 import DurationInput from '../FormComponents/DurationInput';
@@ -11,7 +11,11 @@ import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
 import ImportCalculationModal from '../Modals/ImportCalculationModal';
-import { getCalculations } from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
+import {
+	deleteCalculation,
+	getCalculation,
+	getCalculations,
+} from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
 
 const AnnualizedReturnForm = ({
 	user,
@@ -32,7 +36,8 @@ const AnnualizedReturnForm = ({
 		(state) => state.annualizedReturnCalculations
 	);
 
-	const { startingBalance, endingBalance, duration, durationMultiplier } = formData;
+	const dispatch = useDispatch();
+	const { startingBalance, endingBalance, duration, durationMultiplier } = formData || {};
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
@@ -114,13 +119,17 @@ const AnnualizedReturnForm = ({
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
 				calculations={calculations}
-				getCalculation={() => console.log('TODO: GET CALCULATION')}
+				getCalculation={getCalculation}
 				getCalculations={getCalculations}
-				deleteCalculation={() => console.log('TODO: DELETE CALCULATION')}
+				deleteCalculation={deleteCalculation}
 				setActiveCalculationId={setActiveCalculationId}
 			/>
 
-			<FormControlsTop resetForm={resetCalculator} openImportModal={openImportModal} />
+			<FormControlsTop
+				activeCalculation={activeCalculation}
+				openImportModal={openImportModal}
+				resetForm={resetCalculator}
+			/>
 
 			<form onSubmit={handleCalculation}>
 				<FormGroup>

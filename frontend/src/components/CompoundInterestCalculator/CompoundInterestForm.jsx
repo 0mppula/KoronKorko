@@ -252,6 +252,7 @@ const CompoundInterestForm = ({
 			/>
 
 			<FormControlsTop
+				activeCalculation={activeCalculation}
 				openRenameModal={openRenameModal}
 				closeActiveCalculation={closeActiveCalculation}
 				openImportModal={openImportModal}
