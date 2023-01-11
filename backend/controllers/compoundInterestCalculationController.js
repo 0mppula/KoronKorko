@@ -8,16 +8,16 @@ const CompoundInterestCalculation = require('../models/compoundInterestCalculati
 const postCalculation = asyncHandler(async (req, res) => {
 	if (!req.body.name) {
 		res.status(400);
-		throw new Error('Please provide a name for your compound interest calculation');
+		throw new Error('Please provide a name for your calculation');
 	}
 
-	const compoundInterestCalculation = await CompoundInterestCalculation.create({
+	const calculation = await CompoundInterestCalculation.create({
 		user: req.user.id,
 		name: req.body.name,
 		formData: req.body.formData,
 	});
 
-	res.status(200).json(compoundInterestCalculation);
+	res.status(200).json(calculation);
 });
 
 // @desc GET Compound Interest Calculations

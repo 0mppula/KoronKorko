@@ -5,11 +5,17 @@ const {
 	getCalculation,
 	getCalculations,
 	deleteCalculation,
+	postCalculation,
+	putCalculation,
 } = require('../controllers/AnnualizedReturnCalculationController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.route('/').get(protect, getCalculations);
+router.route('/').post(protect, postCalculation).get(protect, getCalculations);
 
-router.route('/:id').get(protect, getCalculation).delete(protect, deleteCalculation);
+router
+	.route('/:id')
+	.put(protect, putCalculation)
+	.get(protect, getCalculation)
+	.delete(protect, deleteCalculation);
 
 module.exports = router;
