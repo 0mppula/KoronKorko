@@ -1,9 +1,9 @@
 const asyncHandler = require('express-async-handler');
 
-const CompoundInterestCalculation = require('../models/compoundInterestCalculationModel');
+const AnnualizedReturnCalculation = require('../models/AnnualizedReturnCalculationModel');
 
-// @desc    Post a Compound Interest Calculation
-// @route   POST /api/compound-interest-calculations
+// @desc    Post a Annualized Return Calculation
+// @route   POST /api/annualized-return-calculations
 // @access  Private
 const postCalculation = asyncHandler(async (req, res) => {
 	if (!req.body.name) {
@@ -11,7 +11,7 @@ const postCalculation = asyncHandler(async (req, res) => {
 		throw new Error('Please provide a name for your calculation');
 	}
 
-	const calculation = await CompoundInterestCalculation.create({
+	const calculation = await AnnualizedReturnCalculation.create({
 		user: req.user.id,
 		name: req.body.name,
 		formData: req.body.formData,
@@ -20,20 +20,20 @@ const postCalculation = asyncHandler(async (req, res) => {
 	res.status(200).json(calculation);
 });
 
-// @desc GET Compound Interest Calculations
-// @route GET /api/compound-interest-calculations
+// @desc GET Annualized Return Calculations
+// @route GET /api/annualized-return-calculations
 // @acces Private
 const getCalculations = asyncHandler(async (req, res) => {
-	const calculations = await CompoundInterestCalculation.find({ user: req.user.id });
+	const calculations = await AnnualizedReturnCalculation.find({ user: req.user.id });
 
 	res.status(200).json(calculations);
 });
 
-// @desc GET a Compound Interest Calculation
-// @route GET /api/compound-interest-calculations/:id
+// @desc GET a Annualized Return Calculation
+// @route GET /api/annualized-return-calculations/:id
 // @acces Private
 const getCalculation = asyncHandler(async (req, res) => {
-	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+	const calculation = await AnnualizedReturnCalculation.findById(req.params.id);
 
 	if (!calculation) {
 		res.status(400);
@@ -55,11 +55,11 @@ const getCalculation = asyncHandler(async (req, res) => {
 	res.status(200).json(calculation);
 });
 
-// @desc Update a Compound Interest Calculation
-// @route PUT /api/compound-interest-calculations/:id
+// @desc Update a Annualized Return Calculation
+// @route PUT /api/annualized-return-calculations/:id
 // @acces Private
 const putCalculation = asyncHandler(async (req, res) => {
-	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+	const calculation = await AnnualizedReturnCalculation.findById(req.params.id);
 
 	if (!calculation) {
 		res.status(400);
@@ -80,7 +80,7 @@ const putCalculation = asyncHandler(async (req, res) => {
 
 	// If updating only name
 	if (req.body.name) {
-		const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
+		const updatedCalculation = await AnnualizedReturnCalculation.findByIdAndUpdate(
 			{ _id: req.params.id },
 			{ $set: { name: req.body.name.trim() } },
 			{ new: true }
@@ -90,7 +90,7 @@ const putCalculation = asyncHandler(async (req, res) => {
 		return;
 	}
 
-	const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
+	const updatedCalculation = await AnnualizedReturnCalculation.findByIdAndUpdate(
 		{ _id: req.params.id },
 		{ $set: { formData: req.body.formData } },
 		{ new: true }
@@ -99,11 +99,11 @@ const putCalculation = asyncHandler(async (req, res) => {
 	res.status(200).json(updatedCalculation);
 });
 
-// @desc Delete a Compound Interest Calculation
-// @route DELETE /api/compound-interest-calculations/:id
+// @desc Delete a Annualized Return Calculation
+// @route DELETE /api/annualized-return-calculations/:id
 // @acces Private
 const deleteCalculation = asyncHandler(async (req, res) => {
-	const calculation = await CompoundInterestCalculation.findById(req.params.id);
+	const calculation = await AnnualizedReturnCalculation.findById(req.params.id);
 
 	if (!calculation) {
 		res.status(400);

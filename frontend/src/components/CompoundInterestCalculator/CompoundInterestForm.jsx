@@ -6,7 +6,11 @@ import { FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 import {
 	closeCalculation,
 	createCalculation,
+	getCalculations,
+	getCalculation,
+	deleteCalculation,
 	updateCalculation,
+	renameCalculation,
 } from '../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import {
 	durationMultipliers,
@@ -14,9 +18,6 @@ import {
 	compoundFrequencies,
 } from '../../assets/data';
 import calculateCompoundInterest from '../../helpers/calculateCompoundInterest';
-import CompoundInterestSaveModal from './modals/CompoundInterestSaveModal';
-import CompoundInterestImportModal from './modals/CompoundInterestImportModal';
-import CompoundInterestRenameModal from './modals/CompoundInterestRenameModal';
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 import BalanceInput from '../FormComponents/BalanceInput';
 import CalculateButton from '../FormComponents/CalculateButton';
@@ -26,6 +27,9 @@ import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
+import ImportCalculationModal from '../Modals/ImportCalculationModal';
+import SaveCalculationModal from '../Modals/SaveCalculationModal';
+import RenameCalculationModal from '../Modals/RenameCalculationModal';
 
 const CompoundInterestForm = ({
 	user,
@@ -42,10 +46,12 @@ const CompoundInterestForm = ({
 }) => {
 	const [calculationName, setCalculationName] = useState('');
 	const [saveModalOpen, setSaveModalOpen] = useState(false);
-	const [renameModalOpen, setRenameModalOpen] = useState(false);
 	const [importModalOpen, setImportModalOpen] = useState(false);
+	const [renameModalOpen, setRenameModalOpen] = useState(false);
 
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
+	const { activeCalculation, calculations } = useSelector(
+		(state) => state.compoundInterestCalculations
+	);
 
 	const dispatch = useDispatch();
 
@@ -154,6 +160,7 @@ const CompoundInterestForm = ({
 
 		setReport(null);
 		setActiveCalculationId(null);
+		setCalculationName('');
 	};
 
 	const openSaveModal = () => {
@@ -185,18 +192,6 @@ const CompoundInterestForm = ({
 		setRenameModalOpen(true);
 	};
 
-	const save = () => {
-		const data = {
-			name: calculationName,
-			formData,
-		};
-
-		// Create a new calculation and set it as active
-		dispatch(createCalculation(data));
-
-		setCalculationName('');
-	};
-
 	const openImportModal = () => {
 		if (user) {
 			setImportModalOpen(true);
@@ -223,24 +218,36 @@ const CompoundInterestForm = ({
 
 	return (
 		<div className="form">
-			<CompoundInterestSaveModal
+			<SaveCalculationModal
 				modalOpen={saveModalOpen}
 				setModalOpen={setSaveModalOpen}
 				calculationName={calculationName}
+				formData={formData}
 				setCalculationName={setCalculationName}
-				save={save}
+				createCalculation={createCalculation}
 			/>
-			<CompoundInterestImportModal
+
+			<ImportCalculationModal
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
+				calculations={calculations}
+				getCalculation={getCalculation}
+				getCalculations={getCalculations}
+				deleteCalculation={deleteCalculation}
 				setActiveCalculationId={setActiveCalculationId}
 			/>
-			<CompoundInterestRenameModal
+
+			<RenameCalculationModal
 				modalOpen={renameModalOpen}
 				setModalOpen={setRenameModalOpen}
+				activeCalculation={activeCalculation}
+				renameCalculation={renameCalculation}
+				calculationName={calculationName}
+				setCalculationName={setCalculationName}
 			/>
 
 			<FormControlsTop
+				activeCalculation={activeCalculation}
 				openRenameModal={openRenameModal}
 				closeActiveCalculation={closeActiveCalculation}
 				openImportModal={openImportModal}

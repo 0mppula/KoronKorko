@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const {
-	postCalculation,
-	getCalculations,
 	getCalculation,
-	putCalculation,
+	getCalculations,
 	deleteCalculation,
-} = require('../controllers/compoundInterestCalculationController');
+	postCalculation,
+	putCalculation,
+} = require('../controllers/AnnualizedReturnCalculationController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.route('/').post(protect, postCalculation).get(protect, getCalculations);
@@ -15,7 +15,7 @@ router.route('/').post(protect, postCalculation).get(protect, getCalculations);
 router
 	.route('/:id')
 	.put(protect, putCalculation)
-	.delete(protect, deleteCalculation)
-	.get(protect, getCalculation);
+	.get(protect, getCalculation)
+	.delete(protect, deleteCalculation);
 
 module.exports = router;

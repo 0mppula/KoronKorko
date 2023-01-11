@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 
-import checkKeyDown from '../../../helpers/checkKeyDown';
+import checkKeyDown from '../../helpers/checkKeyDown';
+import { useDispatch } from 'react-redux';
 
-import {
+const ImportCalculationModal = ({
+	modalOpen,
+	setModalOpen,
+	calculations,
 	getCalculations,
 	getCalculation,
 	deleteCalculation,
-} from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-
-const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalculationId }) => {
-	const { calculations } = useSelector((state) => state.compoundInterestCalculations);
+	setActiveCalculationId,
+}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -43,7 +44,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 	};
 
 	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'compound-interest-modal-overlay';
+		const modalOverlayClass = 'modal-overlay';
 		if (e.target.classList.contains(modalOverlayClass)) {
 			setModalOpen(false);
 		}
@@ -60,9 +61,8 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 	};
 
 	return (
-		<div className={`compound-interest-modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
 			<div className="compound-interest-modal">
-
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
@@ -77,7 +77,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 				</div>
 
 				<div className="modal-mody">
-					{calculations.length > 0 ? (
+					{calculations?.length > 0 ? (
 						<ul>
 							{calculations.map((calculation) => (
 								<li key={calculation._id} className="calculation-item">
@@ -96,7 +96,7 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 										>
 											<FaFileImport />
 										</button>
-										
+
 										<button
 											tabIndex={`${modalOpen ? 0 : -1}`}
 											className="icon danger"
@@ -123,4 +123,4 @@ const CompoundInterestImportModal = ({ modalOpen, setModalOpen, setActiveCalcula
 	);
 };
 
-export default CompoundInterestImportModal;
+export default ImportCalculationModal;

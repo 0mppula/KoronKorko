@@ -1,22 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
-import { renameCalculation } from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import checkKeyDown from '../../../helpers/checkKeyDown';
+import checkKeyDown from '../../helpers/checkKeyDown';
 
-const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
-	const [calculationName, setCalculationName] = useState('');
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
-
+const SaveCalculationModal = ({
+	modalOpen,
+	setModalOpen,
+	calculationName,
+	formData,
+	setCalculationName,
+	createCalculation,
+}) => {
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (activeCalculation) {
-			setCalculationName(activeCalculation?.name);
-		}
-	}, [activeCalculation, modalOpen]);
+	const calculationNameRef = useRef();
 
 	useEffect(() => {
 		document.addEventListener('click', closeOnOutsideClick);
@@ -34,9 +31,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 		}
 	}, [modalOpen]);
 
-	const calculationNameRef = useRef();
-
-	const clearInpur = () => {
+	const clearInput = () => {
 		setCalculationName('');
 		calculationNameRef.current.focus();
 	};
@@ -48,19 +43,14 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 
 	const handleSave = () => {
 		const data = {
-			_id: activeCalculation._id,
 			name: calculationName,
+			formData,
 		};
 
-		// Check for empty names
-		if (calculationName.trim().length === 0) {
-			toast.error('Please provide a name for your calculation');
-			return;
-		}
-		// Update existing active calculation only if name has changed
-		if (calculationName.trim() !== activeCalculation.name) {
-			dispatch(renameCalculation(data));
-		}
+		// Create a new calculation and set it as active
+		dispatch(createCalculation(data));
+
+		setCalculationName('');
 		setModalOpen(false);
 	};
 
@@ -70,7 +60,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	};
 
 	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'compound-interest-modal-overlay';
+		const modalOverlayClass = 'modal-overlay';
 		if (e.target.classList.contains(modalOverlayClass)) {
 			setModalOpen(false);
 			setCalculationName('');
@@ -78,7 +68,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	};
 
 	return (
-		<div className={`compound-interest-modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
 			<div className="compound-interest-modal">
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
@@ -90,7 +80,7 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 				</button>
 
 				<div className="modal-header">
-					<h2>Rename Your Calculation</h2>
+					<h2>Save Your Calculation</h2>
 				</div>
 
 				<div className="modal-body">
@@ -101,9 +91,9 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 							id="calculation-name"
 							className="form-control icon-input"
 							placeholder="Calculation name"
-							maxLength="30"
 							autoComplete="false"
 							type="text"
+							maxLength="30"
 							name="calculation-name"
 							value={calculationName}
 							ref={calculationNameRef}
@@ -113,8 +103,8 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 							<div
 								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
-								onClick={clearInpur}
-								onKeyDown={(e) => checkKeyDown(e, clearInpur())}
+								onClick={clearInput}
+								onKeyDown={(e) => checkKeyDown(e, clearInput())}
 							>
 								<RiCloseLine />
 							</div>
@@ -144,4 +134,4 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	);
 };
 
-export default CompoundInterestRenameModal;
+export default SaveCalculationModal;

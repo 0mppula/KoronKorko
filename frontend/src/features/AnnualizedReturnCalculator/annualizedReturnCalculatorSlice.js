@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import compoundInterestCalculatorService from './compoundInterestCalculatorService';
+import annualizedReturnCalculatorService from './annualizedReturnCalculatorService';
 
 const initialState = {
 	calculations: [],
@@ -13,11 +13,11 @@ const initialState = {
 
 // Create new calculation
 export const createCalculation = createAsyncThunk(
-	'compound-interest-calculations/create',
+	'annualized-return-calculations/create',
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.createCalculation(
+			return await annualizedReturnCalculatorService.createCalculation(
 				calculationData,
 				token
 			);
@@ -34,28 +34,11 @@ export const createCalculation = createAsyncThunk(
 
 // Get users calculations
 export const getCalculations = createAsyncThunk(
-	'compound-interest-calculations/getAll',
+	'annualized-return-calculations/get-all',
 	async (_, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.getCalculations(token);
-		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
-			return thunkAPI.rejectWithValue(message);
-		}
-	}
-);
-
-// Get a users calculation
-export const getCalculation = createAsyncThunk(
-	'compound-interest-calculations/get-one',
-	async (calculationId, thunkAPI) => {
-		try {
-			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.getCalculation(calculationId, token);
+			return await annualizedReturnCalculatorService.getCalculations(token);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -68,11 +51,11 @@ export const getCalculation = createAsyncThunk(
 
 // Update a users calculation
 export const updateCalculation = createAsyncThunk(
-	'compound-interest-calculations/update',
+	'annualized-return-calculations/update',
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.updateCalculation(
+			return await annualizedReturnCalculatorService.updateCalculation(
 				calculationData._id,
 				calculationData,
 				token
@@ -89,11 +72,11 @@ export const updateCalculation = createAsyncThunk(
 
 // Update a users calculation name
 export const renameCalculation = createAsyncThunk(
-	'compound-interest-calculations/rename',
+	'annualized-return-calculations/rename',
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.renameCalculation(
+			return await annualizedReturnCalculatorService.renameCalculation(
 				calculationData._id,
 				calculationData,
 				token
@@ -108,13 +91,13 @@ export const renameCalculation = createAsyncThunk(
 	}
 );
 
-// Delete a users calculation
-export const deleteCalculation = createAsyncThunk(
-	'compound-interest-calculations/delete-one',
+// Get a users calculation
+export const getCalculation = createAsyncThunk(
+	'annualized-return-calculations/get-one',
 	async (calculationId, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.deleteCalculation(calculationId, token);
+			return await annualizedReturnCalculatorService.getCalculation(calculationId, token);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -125,8 +108,25 @@ export const deleteCalculation = createAsyncThunk(
 	}
 );
 
-export const compoundInterestCalculatorSlice = createSlice({
-	name: 'compoundInterestCalculator',
+// Delete a users calculation
+export const deleteCalculation = createAsyncThunk(
+	'annualized-return-calculations/delete-one',
+	async (calculationId, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await annualizedReturnCalculatorService.deleteCalculation(calculationId, token);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.mesage ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+export const annualizedReturnCalculatorSlice = createSlice({
+	name: 'annualizedReturnCalculator',
 	initialState,
 	reducers: {
 		reset: () => initialState,
@@ -140,6 +140,7 @@ export const compoundInterestCalculatorSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
+		// Get users calculations
 		builder
 			// Create calculation
 			.addCase(createCalculation.pending, (state) => {
@@ -159,8 +160,6 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			})
-			// End Create calculation
-			// Get users calculations
 			.addCase(getCalculations.pending, (state) => {
 				state.message = '';
 				state.isLoading = true;
@@ -176,9 +175,8 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			})
-			// End Get users calculations
 			// Get a users calculation
-			.addCase(getCalculation.pending, (state) => {
+			.addCase(getCalculation.pending, (state, action) => {
 				state.message = '';
 				state.isLoading = true;
 			})
@@ -194,7 +192,6 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			})
-			// End Get a users calculation
 			// Update users calculations
 			.addCase(updateCalculation.pending, (state) => {
 				state.message = '';
@@ -212,7 +209,6 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			})
-			// End Update users calculations
 			// Update a users calculation name
 			.addCase(renameCalculation.pending, (state) => {
 				state.message = '';
@@ -230,9 +226,8 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			})
-			// End Update a users calculation name
 			// Delete a users calculation
-			.addCase(deleteCalculation.pending, (state) => {
+			.addCase(deleteCalculation.pending, (state, action) => {
 				state.message = '';
 				state.isLoading = true;
 			})
@@ -254,9 +249,8 @@ export const compoundInterestCalculatorSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 			});
-		// End Delete a users calculation
 	},
 });
 
-export const { reset, closeCalculation } = compoundInterestCalculatorSlice.actions;
-export default compoundInterestCalculatorSlice.reducer;
+export const { reset, closeCalculation } = annualizedReturnCalculatorSlice.actions;
+export default annualizedReturnCalculatorSlice.reducer;
