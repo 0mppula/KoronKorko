@@ -1,19 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { RiCloseLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-import { renameCalculation } from '../../../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import checkKeyDown from '../../../helpers/checkKeyDown';
+import checkKeyDown from '../../helpers/checkKeyDown';
 
-const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
-	const [calculationName, setCalculationName] = useState('');
-	const { activeCalculation } = useSelector((state) => state.compoundInterestCalculations);
-
+const RenameCalculationModal = ({
+	modalOpen,
+	setModalOpen,
+	activeCalculation,
+	renameCalculation,
+	calculationName,
+	setCalculationName,
+}) => {
 	const dispatch = useDispatch();
+	const calculationNameRef = useRef();
 
 	useEffect(() => {
-		if (activeCalculation) {
+		if (activeCalculation && modalOpen) {
 			setCalculationName(activeCalculation?.name);
 		}
 	}, [activeCalculation, modalOpen]);
@@ -34,8 +38,6 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 		}
 	}, [modalOpen]);
 
-	const calculationNameRef = useRef();
-
 	const clearInput = () => {
 		setCalculationName('');
 		calculationNameRef.current.focus();
@@ -44,6 +46,11 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	const closeModal = () => {
 		setModalOpen(false);
 		setCalculationName('');
+	};
+
+	const closeWithEsc = (e) => {
+		const key = e.key;
+		key === 'Escape' && closeModal();
 	};
 
 	const handleSave = () => {
@@ -62,11 +69,6 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 			dispatch(renameCalculation(data));
 		}
 		setModalOpen(false);
-	};
-
-	const closeWithEsc = (e) => {
-		const key = e.key;
-		key === 'Escape' && closeModal();
 	};
 
 	const closeOnOutsideClick = (e) => {
@@ -144,4 +146,4 @@ const CompoundInterestRenameModal = ({ modalOpen, setModalOpen }) => {
 	);
 };
 
-export default CompoundInterestRenameModal;
+export default RenameCalculationModal;

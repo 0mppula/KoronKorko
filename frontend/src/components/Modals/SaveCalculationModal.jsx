@@ -1,15 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
+import { useDispatch } from 'react-redux';
 
-import checkKeyDown from '../../../helpers/checkKeyDown';
+import checkKeyDown from '../../helpers/checkKeyDown';
 
-const CompoundInterestSaveModal = ({
+const SaveCalculationModal = ({
 	modalOpen,
 	setModalOpen,
 	calculationName,
+	formData,
 	setCalculationName,
-	save,
+	createCalculation,
 }) => {
+	const dispatch = useDispatch();
+	const calculationNameRef = useRef();
+
 	useEffect(() => {
 		document.addEventListener('click', closeOnOutsideClick);
 		document.addEventListener('keydown', closeWithEsc);
@@ -26,8 +31,6 @@ const CompoundInterestSaveModal = ({
 		}
 	}, [modalOpen]);
 
-	const calculationNameRef = useRef();
-
 	const clearInput = () => {
 		setCalculationName('');
 		calculationNameRef.current.focus();
@@ -39,8 +42,16 @@ const CompoundInterestSaveModal = ({
 	};
 
 	const handleSave = () => {
+		const data = {
+			name: calculationName,
+			formData,
+		};
+
+		// Create a new calculation and set it as active
+		dispatch(createCalculation(data));
+
+		setCalculationName('');
 		setModalOpen(false);
-		save();
 	};
 
 	const closeWithEsc = (e) => {
@@ -123,4 +134,4 @@ const CompoundInterestSaveModal = ({
 	);
 };
 
-export default CompoundInterestSaveModal;
+export default SaveCalculationModal;

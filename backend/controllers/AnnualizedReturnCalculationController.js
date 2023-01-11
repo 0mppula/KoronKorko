@@ -80,7 +80,7 @@ const putCalculation = asyncHandler(async (req, res) => {
 
 	// If updating only name
 	if (req.body.name) {
-		const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
+		const updatedCalculation = await AnnualizedReturnCalculation.findByIdAndUpdate(
 			{ _id: req.params.id },
 			{ $set: { name: req.body.name.trim() } },
 			{ new: true }
@@ -90,7 +90,7 @@ const putCalculation = asyncHandler(async (req, res) => {
 		return;
 	}
 
-	const updatedCalculation = await CompoundInterestCalculation.findByIdAndUpdate(
+	const updatedCalculation = await AnnualizedReturnCalculation.findByIdAndUpdate(
 		{ _id: req.params.id },
 		{ $set: { formData: req.body.formData } },
 		{ new: true }

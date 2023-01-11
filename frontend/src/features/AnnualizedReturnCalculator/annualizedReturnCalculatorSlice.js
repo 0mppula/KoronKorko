@@ -11,6 +11,27 @@ const initialState = {
 	message: '',
 };
 
+// Create new calculation
+export const createCalculation = createAsyncThunk(
+	'annualized-return-calculations/create',
+	async (calculationData, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await annualizedReturnCalculatorService.createCalculation(
+				calculationData,
+				token
+			);
+		} catch (error) {
+			console.log(error);
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.mesage ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
 // Get users calculations
 export const getCalculations = createAsyncThunk(
 	'annualized-return-calculations/get-all',
@@ -18,6 +39,48 @@ export const getCalculations = createAsyncThunk(
 		try {
 			const token = thunkAPI.getState().auth.user.token;
 			return await annualizedReturnCalculatorService.getCalculations(token);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.mesage ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// Update a users calculation
+export const updateCalculation = createAsyncThunk(
+	'annualized-return-calculations/update',
+	async (calculationData, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await annualizedReturnCalculatorService.updateCalculation(
+				calculationData._id,
+				calculationData,
+				token
+			);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.mesage ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// Update a users calculation name
+export const renameCalculation = createAsyncThunk(
+	'annualized-return-calculations/rename',
+	async (calculationData, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await annualizedReturnCalculatorService.renameCalculation(
+				calculationData._id,
+				calculationData,
+				token
+			);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -79,6 +142,24 @@ export const annualizedReturnCalculatorSlice = createSlice({
 	extraReducers: (builder) => {
 		// Get users calculations
 		builder
+			// Create calculation
+			.addCase(createCalculation.pending, (state) => {
+				state.message = '';
+				state.isLoading = true;
+			})
+			.addCase(createCalculation.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.calculations.push(action.payload);
+				state.activeCalculation = action.payload;
+				state.message = 'New calculation created';
+				state.isError = false;
+			})
+			.addCase(createCalculation.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
+			})
 			.addCase(getCalculations.pending, (state) => {
 				state.message = '';
 				state.isLoading = true;
@@ -107,6 +188,40 @@ export const annualizedReturnCalculatorSlice = createSlice({
 				state.isError = false;
 			})
 			.addCase(getCalculation.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
+			})
+			// Update users calculations
+			.addCase(updateCalculation.pending, (state) => {
+				state.message = '';
+				state.isLoading = true;
+			})
+			.addCase(updateCalculation.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.activeCalculation = action.payload;
+				state.message = 'Calculation Saved';
+				state.isError = false;
+			})
+			.addCase(updateCalculation.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
+			})
+			// Update a users calculation name
+			.addCase(renameCalculation.pending, (state) => {
+				state.message = '';
+				state.isLoading = true;
+			})
+			.addCase(renameCalculation.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.activeCalculation = action.payload;
+				state.message = 'Calculation Renamed';
+				state.isError = false;
+			})
+			.addCase(renameCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
 				state.message = action.payload;

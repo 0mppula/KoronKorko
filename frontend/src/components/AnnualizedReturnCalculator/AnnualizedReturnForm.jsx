@@ -12,10 +12,16 @@ import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
 import ImportCalculationModal from '../Modals/ImportCalculationModal';
 import {
+	closeCalculation,
 	deleteCalculation,
 	getCalculation,
 	getCalculations,
+	updateCalculation,
+	createCalculation,
+	renameCalculation,
 } from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
+import SaveCalculationModal from '../Modals/SaveCalculationModal';
+import RenameCalculationModal from '../Modals/RenameCalculationModal';
 
 const AnnualizedReturnForm = ({
 	user,
@@ -30,7 +36,9 @@ const AnnualizedReturnForm = ({
 	setActiveCalculationId,
 }) => {
 	const [calculationName, setCalculationName] = useState('');
+	const [saveModalOpen, setSaveModalOpen] = useState(false);
 	const [importModalOpen, setImportModalOpen] = useState(false);
+	const [renameModalOpen, setRenameModalOpen] = useState(false);
 
 	const { activeCalculation, calculations } = useSelector(
 		(state) => state.annualizedReturnCalculations
@@ -105,6 +113,48 @@ const AnnualizedReturnForm = ({
 		toast.success('Form cleared');
 	};
 
+	const closeAndResetCalculation = () => {
+		setFormData({
+			startingBalance: '',
+			endingBalance: '',
+			duration: '',
+			durationMultiplier: durationMultipliers[0],
+		});
+
+		setReport(null);
+		setActiveCalculationId(null);
+		setCalculationName('');
+	};
+
+	const openSaveModal = () => {
+		if (user) {
+			if (formValidated()) {
+				if (!activeCalculation) {
+					// Prompt user to name the calculation
+					setSaveModalOpen(true);
+				} else {
+					const data = {
+						_id: activeCalculation._id,
+						name: calculationName,
+						formData,
+					};
+
+					// Update excisting active calculation
+					dispatch(updateCalculation(data));
+					setCalculationName('');
+				}
+			} else {
+				toast.error('Incorrect field values');
+			}
+		} else {
+			toast.error('Please login to save calculation');
+		}
+	};
+
+	const openRenameModal = () => {
+		setRenameModalOpen(true);
+	};
+
 	const openImportModal = () => {
 		if (user) {
 			setImportModalOpen(true);
@@ -113,8 +163,22 @@ const AnnualizedReturnForm = ({
 		}
 	};
 
+	const closeActiveCalculation = () => {
+		dispatch(closeCalculation());
+		closeAndResetCalculation();
+	};
+
 	return (
 		<div className="form">
+			<SaveCalculationModal
+				modalOpen={saveModalOpen}
+				setModalOpen={setSaveModalOpen}
+				calculationName={calculationName}
+				formData={formData}
+				setCalculationName={setCalculationName}
+				createCalculation={createCalculation}
+			/>
+
 			<ImportCalculationModal
 				modalOpen={importModalOpen}
 				setModalOpen={setImportModalOpen}
@@ -125,9 +189,21 @@ const AnnualizedReturnForm = ({
 				setActiveCalculationId={setActiveCalculationId}
 			/>
 
+			<RenameCalculationModal
+				modalOpen={renameModalOpen}
+				setModalOpen={setRenameModalOpen}
+				activeCalculation={activeCalculation}
+				renameCalculation={renameCalculation}
+				calculationName={calculationName}
+				setCalculationName={setCalculationName}
+			/>
+
 			<FormControlsTop
 				activeCalculation={activeCalculation}
+				openRenameModal={openRenameModal}
+				closeActiveCalculation={closeActiveCalculation}
 				openImportModal={openImportModal}
+				openSaveModal={openSaveModal}
 				resetForm={resetCalculator}
 			/>
 
