@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useTitle } from '../../hooks/useTitle';
@@ -11,6 +10,8 @@ import PageHeading from '../../components/PageHeading/PageHeading';
 import AnnualizedReturnForm from '../../components/AnnualizedReturnCalculator/AnnualizedReturnForm';
 import AnnualizedReturnReport from '../../components/AnnualizedReturnCalculator/AnnualizedReturnReport';
 import BackButton from '../../components/BackButton/BackButton';
+import useErrorSuccessAlerts from '../../hooks/useErrorSuccessAlerts';
+import useInitializeActiveCalculation from '../../hooks/useInitializeActiveCalculation';
 
 const AnnualizedReturnCalculator = () => {
 	useTitle('Annualized Return Calculator');
@@ -42,18 +43,13 @@ const AnnualizedReturnCalculator = () => {
 	);
 
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (isError && message) {
-			toast.error(message);
-		}
-	}, [isError, message]);
-
-	useEffect(() => {
-		if (isSuccess && !isError && message) {
-			toast.success(message);
-		}
-	}, [isSuccess, message, isError]);
+	useErrorSuccessAlerts(isError, isSuccess, message);
+	useInitializeActiveCalculation(
+		activeCalculation,
+		activeCalculationId,
+		setFormData,
+		setActiveCalculationId
+	);
 
 	useEffect(() => {
 		if (user) {
@@ -61,15 +57,6 @@ const AnnualizedReturnCalculator = () => {
 			setCurrency(user?.preferences.currency);
 		}
 	}, [user]);
-
-	useEffect(() => {
-		// Dont reload active calculation on currency change
-		if (user && activeCalculation && activeCalculationId !== activeCalculation?._id) {
-			// If active calculation is present set it to state
-			setActiveCalculationId(activeCalculation._id);
-			setFormData({ ...activeCalculation.formData });
-		}
-	}, [activeCalculation, user]);
 
 	useEffect(() => {
 		// Close active calculation when navigating out of page

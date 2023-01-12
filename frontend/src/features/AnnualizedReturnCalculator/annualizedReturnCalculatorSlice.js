@@ -158,6 +158,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(createCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
 			.addCase(getCalculations.pending, (state) => {
@@ -173,6 +174,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(getCalculations.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
 			// Get a users calculation
@@ -190,6 +192,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(getCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
 			// Update users calculations
@@ -207,6 +210,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(updateCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
 			// Update a users calculation name
@@ -224,6 +228,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(renameCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
 			// Delete a users calculation
@@ -247,6 +252,7 @@ export const annualizedReturnCalculatorSlice = createSlice({
 			.addCase(deleteCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			});
 	},

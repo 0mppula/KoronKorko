@@ -157,9 +157,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(createCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
-			// End Create calculation
 			// Get users calculations
 			.addCase(getCalculations.pending, (state) => {
 				state.message = '';
@@ -174,9 +174,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(getCalculations.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
-			// End Get users calculations
 			// Get a users calculation
 			.addCase(getCalculation.pending, (state) => {
 				state.message = '';
@@ -192,9 +192,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(getCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
-			// End Get a users calculation
 			// Update users calculations
 			.addCase(updateCalculation.pending, (state) => {
 				state.message = '';
@@ -210,9 +210,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(updateCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
-			// End Update users calculations
 			// Update a users calculation name
 			.addCase(renameCalculation.pending, (state) => {
 				state.message = '';
@@ -228,9 +228,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(renameCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			})
-			// End Update a users calculation name
 			// Delete a users calculation
 			.addCase(deleteCalculation.pending, (state) => {
 				state.message = '';
@@ -252,9 +252,9 @@ export const compoundInterestCalculatorSlice = createSlice({
 			.addCase(deleteCalculation.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
 				state.message = action.payload;
 			});
-		// End Delete a users calculation
 	},
 });
 
