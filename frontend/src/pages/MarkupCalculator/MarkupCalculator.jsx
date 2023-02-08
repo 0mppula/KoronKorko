@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useTitle } from '../../hooks/useTitle';
 import BackButton from '../../components/BackButton/BackButton';
 import Spinner from '../../components/Loading/Loading';
-import { currencies } from '../../assets/data';
 import PageHeading from '../../components/PageHeading/PageHeading';
 import MarkupCalculatorForm from '../../components/MarkupCalculator/MarkupCalculatorForm';
 import MarkupCalculatorReport from '../../components/MarkupCalculator/MarkupCalculatorReport';
@@ -22,16 +21,7 @@ const MarkupCalculator = () => {
 		cost: false,
 		salesPrice: false,
 	});
-	const [currency, setCurrency] = useState(
-		JSON.parse(localStorage.getItem('currency')) || currencies[0]
-	);
 
-	useEffect(() => {
-		if (user) {
-			// Update the currency if user is logged in
-			setCurrency(user?.preferences.currency);
-		}
-	}, [user]);
 	return (
 		<>
 			{isLoading && <Spinner />}
@@ -44,8 +34,6 @@ const MarkupCalculator = () => {
 				setFormData={setFormData}
 				formErrors={formErrors}
 				setFormErrors={setFormErrors}
-				currency={currency}
-				setCurrency={setCurrency}
 				setReport={setReport}
 				setCalculationCount={setCalculationCount}
 			/>

@@ -38,8 +38,6 @@ const CompoundInterestForm = ({
 	formErrors,
 	setFormErrors,
 	setReport,
-	currency,
-	setCurrency,
 	setCalculationCount,
 	setLoadingCalculation,
 	setActiveCalculationId,
@@ -52,6 +50,7 @@ const CompoundInterestForm = ({
 	const { activeCalculation, calculations } = useSelector(
 		(state) => state.compoundInterestCalculations
 	);
+	const { currency } = useSelector((state) => state.currency);
 
 	const dispatch = useDispatch();
 
@@ -261,11 +260,9 @@ const CompoundInterestForm = ({
 						balance={startingBalance}
 						error={formErrors.startingBalance}
 						handleChange={handleChange}
-						currency={currency}
-						setCurrency={setCurrency}
 					/>
 
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<FormGroup>

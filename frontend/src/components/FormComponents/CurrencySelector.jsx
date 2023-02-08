@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
 import { updateUserPreferences } from '../../features/auth/authSlice';
+import { setCurrency } from '../../features/currency/currencySlice';
 import { currencies } from '../../assets/data';
 
-const CurrencySelector = ({ currency, setCurrency }) => {
+const CurrencySelector = () => {
 	const { user } = useSelector((state) => state.auth);
+	const { currency } = useSelector((state) => state.currency);
+	
 	const dispatch = useDispatch();
 	const currencyRef = useRef();
 
 	const handleCurrencySelect = (e) => {
-		setCurrency(e);
+		dispatch(setCurrency(e));
+
 		!user && localStorage.setItem('currency', JSON.stringify(e));
 		user && dispatch(updateUserPreferences({ ...user.preferences, currency: { ...e } }));
 	};

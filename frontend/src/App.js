@@ -20,6 +20,7 @@ import PresentValueCalculator from './pages/PresentValueCalculator/PresentValueC
 import InvestmentTimeCalculator from './pages/InvestmentTimeCalculator/InvestmentTimeCalculator';
 import BreakEvenPointCalculator from './pages/BreakEvenPointCalculator/BreakEvenPointCalculator';
 import MarkupCalculator from './pages/MarkupCalculator/MarkupCalculator';
+import { setCurrency } from './features/currency/currencySlice';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -38,11 +39,15 @@ function App() {
 
 	useEffect(() => {
 		if (user) {
-			// When user is logged in set darkmode to value from user preferences
+			// When a user is logged in set the darkmode and currency states to the corresponding values
+			// from "user.preferences".
 			dispatch(setDarkMode(user?.preferences.darkMode));
+			dispatch(setCurrency(user?.preferences.currency));
 		} else {
-			// When user is not logged in set darkmode to value from local storage
+			// When a user is not logged in set the darkmode and currency states to the corresponding
+			// values from "localStorage".
 			dispatch(setDarkMode(JSON.parse(localStorage.getItem('darkMode'))));
+			dispatch(setCurrency(JSON.parse(localStorage.getItem('currency'))));
 		}
 	}, [user]);
 
@@ -97,7 +102,7 @@ function App() {
 				</div>
 				<Footer />
 			</Router>
-			
+
 			<ToTop />
 			<ToastContainer
 				limit={5}

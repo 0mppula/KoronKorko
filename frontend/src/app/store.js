@@ -4,6 +4,7 @@ import authReducer from '../features/auth/authSlice';
 import compoundInterestCalculatorReducer from '../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
 import annualizedReturnCalculatorReducer from '../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
 import themeReducer from '../features/theme/themeSlice';
+import currencyReducer from '../features/currency/currencySlice';
 
 export const store = configureStore({
 	reducer: {
@@ -11,5 +12,6 @@ export const store = configureStore({
 		compoundInterestCalculations: compoundInterestCalculatorReducer,
 		annualizedReturnCalculations: annualizedReturnCalculatorReducer,
 		theme: themeReducer,
+		currency: currencyReducer,
 	},
 });

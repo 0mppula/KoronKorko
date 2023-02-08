@@ -15,8 +15,6 @@ const InvestmentTimeForm = ({
 	setFormErrors,
 	setReport,
 	setCalculationCount,
-	currency,
-	setCurrency,
 }) => {
 	const { startingBalance, endingBalance, interestRate } = formData;
 
@@ -98,28 +96,24 @@ const InvestmentTimeForm = ({
 					<BalanceInput
 						name="startingBalance"
 						balance={startingBalance}
-						currency={currency}
 						error={formErrors.startingBalance}
 						handleChange={handleChange}
 						label="Starting Value"
 						placeholder="Starting value"
-						showCurrency={false}
 					/>
 
 					<BalanceInput
 						name="endingBalance"
 						balance={endingBalance}
-						currency={currency}
 						error={formErrors.endingBalance}
 						handleChange={handleChange}
 						label="Future Value"
 						placeholder="Future value"
-						showCurrency={false}
 					/>
 				</FormGroup>
 
 				<FormGroup>
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<FormGroup>

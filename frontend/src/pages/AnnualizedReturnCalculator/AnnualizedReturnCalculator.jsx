@@ -5,7 +5,6 @@ import { useTitle } from '../../hooks/useTitle';
 import { reset } from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
 import { durationMultipliers } from '../../assets/data';
 import Spinner from '../../components/Loading/Loading';
-import { currencies } from '../../assets/data';
 import PageHeading from '../../components/PageHeading/PageHeading';
 import AnnualizedReturnForm from '../../components/AnnualizedReturnCalculator/AnnualizedReturnForm';
 import AnnualizedReturnReport from '../../components/AnnualizedReturnCalculator/AnnualizedReturnReport';
@@ -38,9 +37,6 @@ const AnnualizedReturnCalculator = () => {
 		endingBalance: false,
 		duration: false,
 	});
-	const [currency, setCurrency] = useState(
-		JSON.parse(localStorage.getItem('currency')) || currencies[0]
-	);
 
 	const dispatch = useDispatch();
 	useErrorSuccessAlerts(isError, isSuccess, message);
@@ -50,13 +46,6 @@ const AnnualizedReturnCalculator = () => {
 		setFormData,
 		setActiveCalculationId
 	);
-
-	useEffect(() => {
-		if (user) {
-			// Update the currency if user is logged in
-			setCurrency(user?.preferences.currency);
-		}
-	}, [user]);
 
 	useEffect(() => {
 		// Close active calculation when navigating out of page
@@ -76,8 +65,6 @@ const AnnualizedReturnCalculator = () => {
 				setFormData={setFormData}
 				formErrors={formErrors}
 				setFormErrors={setFormErrors}
-				currency={currency}
-				setCurrency={setCurrency}
 				setReport={setReport}
 				setCalculationCount={setCalculationCount}
 				setActiveCalculationId={setActiveCalculationId}

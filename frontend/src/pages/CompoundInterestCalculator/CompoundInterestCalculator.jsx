@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import CompoundInterestReport from '../../components/CompoundInterestCalculator/CompoundInterestReport';
 import {
 	durationMultipliers,
-	currencies,
 	contributionFrequencies,
 	compoundFrequencies,
 } from '../../assets/data';
@@ -44,9 +43,6 @@ const CompoundInterestCalculator = () => {
 		interestRate: false,
 		duration: false,
 	});
-	const [currency, setCurrency] = useState(
-		JSON.parse(localStorage.getItem('currency')) || currencies[0]
-	);
 	const [report, setReport] = useState(null);
 	const [activeCalculationId, setActiveCalculationId] = useState(null);
 	const [calculationCount, setCalculationCount] = useState(0);
@@ -60,13 +56,6 @@ const CompoundInterestCalculator = () => {
 		setFormData,
 		setActiveCalculationId
 	);
-
-	useEffect(() => {
-		if (user) {
-			// Update the currency if user is logged in
-			setCurrency(user?.preferences.currency);
-		}
-	}, [user]);
 
 	useEffect(() => {
 		// Close active calculation when navigating out of page
@@ -86,8 +75,6 @@ const CompoundInterestCalculator = () => {
 				formErrors={formErrors}
 				setFormErrors={setFormErrors}
 				setReport={setReport}
-				currency={currency}
-				setCurrency={setCurrency}
 				setCalculationCount={setCalculationCount}
 				setLoadingCalculation={setLoadingCalculation}
 				setActiveCalculationId={setActiveCalculationId}

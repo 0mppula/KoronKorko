@@ -1,9 +1,12 @@
 import React from 'react';
 import { FaEuroSign, FaDollarSign, FaYenSign, FaPoundSign, FaRupeeSign } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 import disableArrowKeys from '../../helpers/disableArrowKeys';
 
-const BalanceInput = ({ balance, currency, handleChange, label, name, placeholder, error }) => {
+const BalanceInput = ({ balance, handleChange, label, name, placeholder, error }) => {
+	const { currency } = useSelector((state) => state.currency);
+
 	const printCurrencySign = () => {
 		const expr = currency?.value;
 		let icon;
@@ -46,9 +49,7 @@ const BalanceInput = ({ balance, currency, handleChange, label, name, placeholde
 				onChange={(e) => handleChange(e)}
 			/>
 
-			<div className="input-icon-wrapper currency">
-				{printCurrencySign()}
-			</div>
+			<div className="input-icon-wrapper currency">{printCurrencySign()}</div>
 		</div>
 	);
 };

@@ -12,8 +12,6 @@ const MarkupCalculatorForm = ({
 	setFormData,
 	formErrors,
 	setFormErrors,
-	currency,
-	setCurrency,
 	setReport,
 	setCalculationCount,
 }) => {
@@ -85,7 +83,6 @@ const MarkupCalculatorForm = ({
 					{/* Cost */}
 					<BalanceInput
 						balance={cost}
-						currency={currency}
 						error={formErrors.cost}
 						handleChange={handleChange}
 						label="Cost"
@@ -96,7 +93,6 @@ const MarkupCalculatorForm = ({
 					{/* Sales prices */}
 					<BalanceInput
 						balance={salesPrice}
-						currency={currency}
 						error={formErrors.salesPrice}
 						handleChange={handleChange}
 						label="Sales Price"
@@ -106,7 +102,7 @@ const MarkupCalculatorForm = ({
 				</FormGroup>
 
 				<FormGroup>
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<CalculateButton />

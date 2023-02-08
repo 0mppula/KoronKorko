@@ -29,8 +29,6 @@ const AnnualizedReturnForm = ({
 	setFormData,
 	formErrors,
 	setFormErrors,
-	currency,
-	setCurrency,
 	setReport,
 	setCalculationCount,
 	setActiveCalculationId,
@@ -43,6 +41,7 @@ const AnnualizedReturnForm = ({
 	const { activeCalculation, calculations } = useSelector(
 		(state) => state.annualizedReturnCalculations
 	);
+	const { currency } = useSelector((state) => state.currency);
 
 	const dispatch = useDispatch();
 	const { startingBalance, endingBalance, duration, durationMultiplier } = formData || {};
@@ -212,7 +211,6 @@ const AnnualizedReturnForm = ({
 					{/* Starting */}
 					<BalanceInput
 						balance={startingBalance}
-						currency={currency}
 						error={formErrors.startingBalance}
 						handleChange={handleChange}
 					/>
@@ -220,7 +218,6 @@ const AnnualizedReturnForm = ({
 					{/* Ending */}
 					<BalanceInput
 						balance={endingBalance}
-						currency={currency}
 						error={formErrors.endingBalance}
 						placeholder="Your Ending Balance"
 						handleChange={handleChange}
@@ -230,7 +227,7 @@ const AnnualizedReturnForm = ({
 				</FormGroup>
 
 				<FormGroup>
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<FormGroup>

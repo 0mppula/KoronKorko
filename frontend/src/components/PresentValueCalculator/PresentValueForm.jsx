@@ -1,5 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import BalanceInput from '../FormComponents/BalanceInput';
 import PercentInput from '../FormComponents/PercentInput';
@@ -16,11 +17,10 @@ const PresentValueCalculator = ({
 	setFormData,
 	formErrors,
 	setFormErrors,
-	currency,
-	setCurrency,
 	setReport,
 	setCalculationCount,
 }) => {
+	const { currency } = useSelector((state) => state.currency);
 	const { startingBalance, duration, discountRate, durationMultiplier } = formData;
 
 	const handleCalculation = (e) => {
@@ -96,14 +96,13 @@ const PresentValueCalculator = ({
 					{/* Starting */}
 					<BalanceInput
 						balance={startingBalance}
-						currency={currency}
 						error={formErrors.startingBalance}
 						handleChange={handleChange}
 						label="Future Value"
 						placeholder="Your Future Value"
 					/>
 
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<FormGroup>

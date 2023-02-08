@@ -1,5 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import FormGroup from '../FormComponents/FormGroup';
 import BalanceInput from '../FormComponents/BalanceInput';
@@ -12,11 +13,10 @@ const BreakEvenPointForm = ({
 	setFormData,
 	formErrors,
 	setFormErrors,
-	currency,
-	setCurrency,
 	setReport,
 	setCalculationCount,
 }) => {
+	const { currency } = useSelector((state) => state.currency);
 	const { fixedCosts, pricePerUnit, variableCostsPerUnit } = formData;
 
 	const handleCalculation = (e) => {
@@ -97,7 +97,6 @@ const BreakEvenPointForm = ({
 					{/* Fixed costs */}
 					<BalanceInput
 						balance={fixedCosts}
-						currency={currency}
 						error={formErrors.fixedCosts}
 						handleChange={handleChange}
 						label="Fixed Costs"
@@ -105,13 +104,12 @@ const BreakEvenPointForm = ({
 						placeholder="Your fixed costs"
 					/>
 
-					<CurrencySelector currency={currency} setCurrency={setCurrency} />
+					<CurrencySelector />
 				</FormGroup>
 
 				<FormGroup>
 					<BalanceInput
 						balance={pricePerUnit}
-						currency={currency}
 						error={formErrors.pricePerUnit}
 						handleChange={handleChange}
 						label="Price Per Unit"
@@ -121,7 +119,6 @@ const BreakEvenPointForm = ({
 
 					<BalanceInput
 						balance={variableCostsPerUnit}
-						currency={currency}
 						error={formErrors.variableCostsPerUnit}
 						handleChange={handleChange}
 						label="Variable Costs Per Unit"
