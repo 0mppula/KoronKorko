@@ -25,6 +25,7 @@ import { setCurrency } from './features/currency/currencySlice';
 function App() {
 	const { user } = useSelector((state) => state.auth);
 	const { darkMode } = useSelector((state) => state.theme);
+	const { currency } = useSelector((state) => state.currency);
 	const dispatch = useDispatch();
 	const [updates, setUpdates] = useState(0);
 	const [userLoaded, setUserLoaded] = useState(false);
@@ -44,10 +45,18 @@ function App() {
 			dispatch(setDarkMode(user?.preferences.darkMode));
 			dispatch(setCurrency(user?.preferences.currency));
 		} else {
+			const localDarkMode = JSON.parse(localStorage.getItem('darkMode'));
+			const localCurrency = JSON.parse(localStorage.getItem('currency'));
+
 			// When a user is not logged in set the darkmode and currency states to the corresponding
 			// values from "localStorage".
-			dispatch(setDarkMode(JSON.parse(localStorage.getItem('darkMode'))));
-			dispatch(setCurrency(JSON.parse(localStorage.getItem('currency'))));
+			if (localDarkMode) {
+				dispatch(setDarkMode(JSON.parse(localStorage.getItem('darkMode'))));
+			}
+
+			if (localCurrency) {
+				dispatch(setCurrency(JSON.parse(localStorage.getItem('currency'))));
+			}
 		}
 	}, [user]);
 
@@ -55,7 +64,8 @@ function App() {
 		let body = document.body;
 		if (!user) {
 			// When user is not logged update the local storage value for darkmode
-			localStorage.setItem('darkMode', darkMode);
+			localStorage.setItem('darkMode', JSON.stringify(darkMode));
+			localStorage.setItem('currency', JSON.stringify(currency));
 		}
 		darkMode === true ? body.classList.add('darkmode') : body.classList.remove('darkmode');
 		setUpdates(updates + 1);
