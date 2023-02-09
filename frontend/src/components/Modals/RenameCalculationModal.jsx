@@ -80,7 +80,10 @@ const RenameCalculationModal = ({
 	};
 
 	return (
-		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div
+			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
+			aria-modal={modalOpen ? true : false}
+		>
 			<div className="compound-interest-modal">
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
@@ -116,7 +119,7 @@ const RenameCalculationModal = ({
 								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
 								onClick={clearInput}
-								onKeyDown={(e) => checkKeyDown(e, clearInput())}
+								onKeyDown={(e) => checkKeyDown(e, clearInput)}
 							>
 								<RiCloseLine />
 							</div>
@@ -128,7 +131,7 @@ const RenameCalculationModal = ({
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block btn-secondary"
 						onClick={closeModal}
-						onKeyDown={(e) => checkKeyDown(e, closeModal())}
+						onKeyDown={(e) => checkKeyDown(e, closeModal)}
 					>
 						Cancel
 					</button>
@@ -136,7 +139,7 @@ const RenameCalculationModal = ({
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block"
 						onClick={handleSave}
-						onKeyDown={(e) => checkKeyDown(e, handleSave())}
+						onKeyDown={(e) => checkKeyDown(e, handleSave)}
 					>
 						Save
 					</button>

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 
@@ -42,6 +43,12 @@ const SaveCalculationModal = ({
 	};
 
 	const handleSave = () => {
+		// Check for empty names
+		if (calculationName.trim().length === 0) {
+			toast.error('Please provide a name for your calculation');
+			return;
+		}
+
 		const data = {
 			name: calculationName,
 			formData,
@@ -68,7 +75,10 @@ const SaveCalculationModal = ({
 	};
 
 	return (
-		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div
+			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
+			aria-modal={modalOpen ? true : false}
+		>
 			<div className="compound-interest-modal">
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
@@ -104,7 +114,7 @@ const SaveCalculationModal = ({
 								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
 								onClick={clearInput}
-								onKeyDown={(e) => checkKeyDown(e, clearInput())}
+								onKeyDown={(e) => checkKeyDown(e, clearInput)}
 							>
 								<RiCloseLine />
 							</div>
@@ -116,7 +126,7 @@ const SaveCalculationModal = ({
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block btn-secondary"
 						onClick={closeModal}
-						onKeyDown={(e) => checkKeyDown(e, closeModal())}
+						onKeyDown={(e) => checkKeyDown(e, closeModal)}
 					>
 						Cancel
 					</button>
@@ -124,7 +134,7 @@ const SaveCalculationModal = ({
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block"
 						onClick={handleSave}
-						onKeyDown={(e) => checkKeyDown(e, handleSave())}
+						onKeyDown={(e) => checkKeyDown(e, handleSave)}
 					>
 						Save
 					</button>

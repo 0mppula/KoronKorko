@@ -61,7 +61,10 @@ const ImportCalculationModal = ({
 	};
 
 	return (
-		<div className={`modal-overlay ${modalOpen ? 'show' : ''}`}>
+		<div
+			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
+			aria-modal={modalOpen ? true : false}
+		>
 			<div className="compound-interest-modal">
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
