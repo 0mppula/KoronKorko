@@ -4,6 +4,7 @@ import { RiCloseLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
+import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
 
 const RenameCalculationModal = ({
 	modalOpen,
@@ -15,22 +16,15 @@ const RenameCalculationModal = ({
 }) => {
 	const dispatch = useDispatch();
 	const calculationNameRef = useRef();
+	const innerModalRef = useRef();
+
+	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
 
 	useEffect(() => {
 		if (activeCalculation && modalOpen) {
 			setCalculationName(activeCalculation?.name);
 		}
 	}, [activeCalculation, modalOpen]);
-
-	useEffect(() => {
-		document.addEventListener('click', closeOnOutsideClick);
-		document.addEventListener('keydown', closeWithEsc);
-
-		return () => {
-			document.removeEventListener('click', closeOnOutsideClick);
-			document.removeEventListener('keydown', closeWithEsc);
-		};
-	}, []);
 
 	useEffect(() => {
 		if (modalOpen) {
@@ -46,11 +40,6 @@ const RenameCalculationModal = ({
 	const closeModal = () => {
 		setModalOpen(false);
 		setCalculationName('');
-	};
-
-	const closeWithEsc = (e) => {
-		const key = e.key;
-		key === 'Escape' && closeModal();
 	};
 
 	const handleSave = () => {
@@ -71,20 +60,12 @@ const RenameCalculationModal = ({
 		setModalOpen(false);
 	};
 
-	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'modal-overlay';
-		if (e.target.classList.contains(modalOverlayClass)) {
-			setModalOpen(false);
-			setCalculationName('');
-		}
-	};
-
 	return (
 		<div
 			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
 			aria-modal={modalOpen ? true : false}
 		>
-			<div className="compound-interest-modal">
+			<div className="compound-interest-modal" ref={innerModalRef}>
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"

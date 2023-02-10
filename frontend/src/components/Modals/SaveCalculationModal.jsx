@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
+import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
 
 const SaveCalculationModal = ({
 	modalOpen,
@@ -15,16 +16,9 @@ const SaveCalculationModal = ({
 }) => {
 	const dispatch = useDispatch();
 	const calculationNameRef = useRef();
+	const innerModalRef = useRef();
 
-	useEffect(() => {
-		document.addEventListener('click', closeOnOutsideClick);
-		document.addEventListener('keydown', closeWithEsc);
-
-		return () => {
-			document.removeEventListener('click', closeOnOutsideClick);
-			document.removeEventListener('keydown', closeWithEsc);
-		};
-	}, []);
+	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
 
 	useEffect(() => {
 		if (modalOpen) {
@@ -61,25 +55,12 @@ const SaveCalculationModal = ({
 		setModalOpen(false);
 	};
 
-	const closeWithEsc = (e) => {
-		const key = e.key;
-		key === 'Escape' && closeModal();
-	};
-
-	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'modal-overlay';
-		if (e.target.classList.contains(modalOverlayClass)) {
-			setModalOpen(false);
-			setCalculationName('');
-		}
-	};
-
 	return (
 		<div
 			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
 			aria-modal={modalOpen ? true : false}
 		>
-			<div className="compound-interest-modal">
+			<div className="compound-interest-modal" ref={innerModalRef}>
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 import { useDispatch } from 'react-redux';
+import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
 
 const ImportCalculationModal = ({
 	modalOpen,
@@ -15,17 +16,9 @@ const ImportCalculationModal = ({
 	setActiveCalculationId,
 }) => {
 	const dispatch = useDispatch();
+	const innerModalRef = useRef();
 
-	useEffect(() => {
-		document.addEventListener('click', closeOnOutsideClick);
-		document.addEventListener('keydown', closeWithEsc);
-
-		return () => {
-			document.removeEventListener('click', closeOnOutsideClick);
-			document.removeEventListener('keydown', closeWithEsc);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
 
 	useEffect(() => {
 		if (modalOpen) {
@@ -36,18 +29,6 @@ const ImportCalculationModal = ({
 
 	const closeModal = () => {
 		setModalOpen(false);
-	};
-
-	const closeWithEsc = (e) => {
-		const key = e.key;
-		key === 'Escape' && closeModal();
-	};
-
-	const closeOnOutsideClick = (e) => {
-		const modalOverlayClass = 'modal-overlay';
-		if (e.target.classList.contains(modalOverlayClass)) {
-			setModalOpen(false);
-		}
 	};
 
 	const importCalculation = (calculationId) => {
@@ -65,7 +46,7 @@ const ImportCalculationModal = ({
 			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
 			aria-modal={modalOpen ? true : false}
 		>
-			<div className="compound-interest-modal">
+			<div className="compound-interest-modal" ref={innerModalRef}>
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
