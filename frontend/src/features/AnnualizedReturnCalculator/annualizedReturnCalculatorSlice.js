@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+import getErrorMessage from '../utils/getErrorMessage';
 import annualizedReturnCalculatorService from './annualizedReturnCalculatorService';
 
 const initialState = {
@@ -22,11 +23,7 @@ export const createCalculation = createAsyncThunk(
 				token
 			);
 		} catch (error) {
-			console.log(error);
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}
@@ -40,10 +37,7 @@ export const getCalculations = createAsyncThunk(
 			const token = thunkAPI.getState().auth.user.token;
 			return await annualizedReturnCalculatorService.getCalculations(token);
 		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}
@@ -61,10 +55,7 @@ export const updateCalculation = createAsyncThunk(
 				token
 			);
 		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}
@@ -82,10 +73,7 @@ export const renameCalculation = createAsyncThunk(
 				token
 			);
 		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}
@@ -99,10 +87,7 @@ export const getCalculation = createAsyncThunk(
 			const token = thunkAPI.getState().auth.user.token;
 			return await annualizedReturnCalculatorService.getCalculation(calculationId, token);
 		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}
@@ -116,10 +101,7 @@ export const deleteCalculation = createAsyncThunk(
 			const token = thunkAPI.getState().auth.user.token;
 			return await annualizedReturnCalculatorService.deleteCalculation(calculationId, token);
 		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.mesage ||
-				error.toString();
+			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
 		}
 	}

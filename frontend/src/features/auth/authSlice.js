@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+import getErrorMessage from '../utils/getErrorMessage';
 import authService from './authService';
 
 // Get user from localstorage
@@ -23,10 +25,7 @@ export const getUserData = createAsyncThunk('auth/me', async (_, thunkAPI) => {
 		const user = thunkAPI.getState().auth.user;
 		return await authService.getUserData(user);
 	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
+		const message = getErrorMessage(error);
 		return thunkAPI.rejectWithValue(message);
 	}
 });
@@ -36,10 +35,7 @@ export const register = createAsyncThunk('auth/register', async (userData, thunk
 	try {
 		return await authService.register(userData);
 	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
+		const message = getErrorMessage(error);
 		return thunkAPI.rejectWithValue(message);
 	}
 });
@@ -49,10 +45,7 @@ export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) =
 	try {
 		return await authService.login(userData);
 	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
+		const message = getErrorMessage(error);
 		return thunkAPI.rejectWithValue(message);
 	}
 });
