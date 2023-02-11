@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import getErrorMessage from '../utils/getErrorMessage';
-import compoundInterestCalculatorService from './compoundInterestCalculatorService';
+import calculatorService from '../utils/calculatorService';
 import {
 	addCreateCalculationCase,
 	addDeleteCalculationCase,
@@ -20,16 +20,16 @@ const initialState = {
 	message: '',
 };
 
+const API_URL = '/api/compound-interest-calculations/';
+const API_URL_NAME = 'compound-interest-calculations';
+
 // Create new calculation
 export const createCalculation = createAsyncThunk(
-	'compound-interest-calculations/create',
+	`${API_URL_NAME}/create`,
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.createCalculation(
-				calculationData,
-				token
-			);
+			return await calculatorService.createCalculation(API_URL, calculationData, token);
 		} catch (error) {
 			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
@@ -38,40 +38,24 @@ export const createCalculation = createAsyncThunk(
 );
 
 // Get users calculations
-export const getCalculations = createAsyncThunk(
-	'compound-interest-calculations/getAll',
-	async (_, thunkAPI) => {
-		try {
-			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.getCalculations(token);
-		} catch (error) {
-			const message = getErrorMessage(error);
-			return thunkAPI.rejectWithValue(message);
-		}
+export const getCalculations = createAsyncThunk(`${API_URL_NAME}/get-all`, async (_, thunkAPI) => {
+	try {
+		const token = thunkAPI.getState().auth.user.token;
+		return await calculatorService.getCalculations(API_URL, token);
+	} catch (error) {
+		const message = getErrorMessage(error);
+		return thunkAPI.rejectWithValue(message);
 	}
-);
-
-// Get a users calculation
-export const getCalculation = createAsyncThunk(
-	'compound-interest-calculations/get-one',
-	async (calculationId, thunkAPI) => {
-		try {
-			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.getCalculation(calculationId, token);
-		} catch (error) {
-			const message = getErrorMessage(error);
-			return thunkAPI.rejectWithValue(message);
-		}
-	}
-);
+});
 
 // Update a users calculation
 export const updateCalculation = createAsyncThunk(
-	'compound-interest-calculations/update',
+	`${API_URL_NAME}/update`,
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.updateCalculation(
+			return await calculatorService.updateCalculation(
+				API_URL,
 				calculationData._id,
 				calculationData,
 				token
@@ -85,11 +69,12 @@ export const updateCalculation = createAsyncThunk(
 
 // Update a users calculation name
 export const renameCalculation = createAsyncThunk(
-	'compound-interest-calculations/rename',
+	`${API_URL_NAME}/rename`,
 	async (calculationData, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.renameCalculation(
+			return await calculatorService.renameCalculation(
+				API_URL,
 				calculationData._id,
 				calculationData,
 				token
@@ -101,13 +86,27 @@ export const renameCalculation = createAsyncThunk(
 	}
 );
 
-// Delete a users calculation
-export const deleteCalculation = createAsyncThunk(
-	'compound-interest-calculations/delete-one',
+// Get a users calculation
+export const getCalculation = createAsyncThunk(
+	`${API_URL_NAME}/get-one`,
 	async (calculationId, thunkAPI) => {
 		try {
 			const token = thunkAPI.getState().auth.user.token;
-			return await compoundInterestCalculatorService.deleteCalculation(calculationId, token);
+			return await calculatorService.getCalculation(API_URL, calculationId, token);
+		} catch (error) {
+			const message = getErrorMessage(error);
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// Delete a users calculation
+export const deleteCalculation = createAsyncThunk(
+	`${API_URL_NAME}/delete-one`,
+	async (calculationId, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await calculatorService.deleteCalculation(API_URL, calculationId, token);
 		} catch (error) {
 			const message = getErrorMessage(error);
 			return thunkAPI.rejectWithValue(message);
