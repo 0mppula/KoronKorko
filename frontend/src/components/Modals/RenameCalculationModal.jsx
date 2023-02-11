@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
 import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
+import useFocusTrap from '../../hooks/useFocusTrap';
 
 const RenameCalculationModal = ({
 	modalOpen,
@@ -16,9 +17,11 @@ const RenameCalculationModal = ({
 }) => {
 	const dispatch = useDispatch();
 	const calculationNameRef = useRef();
+	const outerModalRef = useRef();
 	const innerModalRef = useRef();
 
 	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
+	useFocusTrap(outerModalRef, modalOpen);
 
 	useEffect(() => {
 		if (activeCalculation && modalOpen) {
@@ -64,6 +67,7 @@ const RenameCalculationModal = ({
 		<div
 			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
 			aria-modal={modalOpen ? true : false}
+			ref={outerModalRef}
 		>
 			<div className="compound-interest-modal" ref={innerModalRef}>
 				<button

@@ -38,7 +38,7 @@ const AnnualizedReturnForm = ({
 	const [importModalOpen, setImportModalOpen] = useState(false);
 	const [renameModalOpen, setRenameModalOpen] = useState(false);
 
-	const { activeCalculation, calculations } = useSelector(
+	const { activeCalculation, calculations, isLoading } = useSelector(
 		(state) => state.annualizedReturnCalculations
 	);
 	const { currency } = useSelector((state) => state.currency);
@@ -186,6 +186,7 @@ const AnnualizedReturnForm = ({
 				getCalculations={getCalculations}
 				deleteCalculation={deleteCalculation}
 				setActiveCalculationId={setActiveCalculationId}
+				isLoading={isLoading}
 			/>
 
 			<RenameCalculationModal

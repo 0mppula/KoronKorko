@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 
 import checkKeyDown from '../../helpers/checkKeyDown';
-import { useDispatch } from 'react-redux';
 import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
+import useFocusTrap from '../../hooks/useFocusTrap';
 
 const ImportCalculationModal = ({
 	modalOpen,
@@ -14,15 +15,21 @@ const ImportCalculationModal = ({
 	getCalculation,
 	deleteCalculation,
 	setActiveCalculationId,
+	isLoading,
 }) => {
+	const [fetched, setFetched] = useState(false);
+
 	const dispatch = useDispatch();
+	const outerModalRef = useRef();
 	const innerModalRef = useRef();
 
 	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
+	useFocusTrap(outerModalRef, modalOpen, !isLoading && fetched);
 
 	useEffect(() => {
 		if (modalOpen) {
 			dispatch(getCalculations());
+			setFetched(true);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalOpen]);
@@ -45,6 +52,7 @@ const ImportCalculationModal = ({
 		<div
 			className={`modal-overlay ${modalOpen ? 'show' : ''}`}
 			aria-modal={modalOpen ? true : false}
+			ref={outerModalRef}
 		>
 			<div className="compound-interest-modal" ref={innerModalRef}>
 				<button

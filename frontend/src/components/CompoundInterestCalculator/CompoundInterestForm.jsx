@@ -47,7 +47,7 @@ const CompoundInterestForm = ({
 	const [importModalOpen, setImportModalOpen] = useState(false);
 	const [renameModalOpen, setRenameModalOpen] = useState(false);
 
-	const { activeCalculation, calculations } = useSelector(
+	const { activeCalculation, calculations, isLoading } = useSelector(
 		(state) => state.compoundInterestCalculations
 	);
 	const { currency } = useSelector((state) => state.currency);
@@ -234,6 +234,7 @@ const CompoundInterestForm = ({
 				getCalculations={getCalculations}
 				deleteCalculation={deleteCalculation}
 				setActiveCalculationId={setActiveCalculationId}
+				isLoading={isLoading}
 			/>
 
 			<RenameCalculationModal
