@@ -2,6 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import getErrorMessage from '../utils/getErrorMessage';
 import annualizedReturnCalculatorService from './annualizedReturnCalculatorService';
+import {
+	addCreateCalculationCase,
+	addDeleteCalculationCase,
+	addGetCalculationCase,
+	addGetCalculationsCase,
+	addRenameCalculationCase,
+	addUpdateCalculationCase,
+} from '../utils/calculatorExtraReducerCases';
 
 const initialState = {
 	calculations: [],
@@ -122,121 +130,12 @@ export const annualizedReturnCalculatorSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		// Get users calculations
-		builder
-			// Create calculation
-			.addCase(createCalculation.pending, (state) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(createCalculation.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.calculations.push(action.payload);
-				state.activeCalculation = action.payload;
-				state.message = 'New calculation created';
-				state.isError = false;
-			})
-			.addCase(createCalculation.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			})
-			.addCase(getCalculations.pending, (state) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(getCalculations.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.calculations = action.payload;
-				state.isError = false;
-			})
-			.addCase(getCalculations.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			})
-			// Get a users calculation
-			.addCase(getCalculation.pending, (state, action) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(getCalculation.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.activeCalculation = action.payload;
-				state.message = `${action.payload.name} imported`;
-				state.isError = false;
-			})
-			.addCase(getCalculation.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			})
-			// Update users calculations
-			.addCase(updateCalculation.pending, (state) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(updateCalculation.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.activeCalculation = action.payload;
-				state.message = 'Calculation Saved';
-				state.isError = false;
-			})
-			.addCase(updateCalculation.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			})
-			// Update a users calculation name
-			.addCase(renameCalculation.pending, (state) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(renameCalculation.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.activeCalculation = action.payload;
-				state.message = 'Calculation Renamed';
-				state.isError = false;
-			})
-			.addCase(renameCalculation.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			})
-			// Delete a users calculation
-			.addCase(deleteCalculation.pending, (state, action) => {
-				state.message = '';
-				state.isLoading = true;
-			})
-			.addCase(deleteCalculation.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSuccess = true;
-				state.calculations = state.calculations.filter(
-					(calculation) => calculation._id !== action.payload.id
-				);
-				state.activeCalculation =
-					action.payload.id === state.activeCalculation?._id
-						? null
-						: state.activeCalculation;
-				state.message = `${action.payload.name} deleted`;
-				state.isError = false;
-			})
-			.addCase(deleteCalculation.rejected, (state, action) => {
-				state.isLoading = false;
-				state.isError = true;
-				state.isSuccess = false;
-				state.message = action.payload;
-			});
+		addCreateCalculationCase(builder, createCalculation);
+		addGetCalculationsCase(builder, getCalculations);
+		addGetCalculationCase(builder, getCalculation);
+		addUpdateCalculationCase(builder, updateCalculation);
+		addRenameCalculationCase(builder, renameCalculation);
+		addDeleteCalculationCase(builder, deleteCalculation);
 	},
 });
 
