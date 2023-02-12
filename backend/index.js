@@ -16,10 +16,12 @@ app.use(express.urlencoded({ extended: false }));
 const userRoutes = require('./routes/userRoutes');
 const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalculationRoutes');
 const annualizedReturnCalculationRoutes = require('./routes/AnnualizedReturnCalculationRoutes');
+const presentValueCanculationRoutes = require('./routes/PresentValueCalculationRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
 app.use('/api/annualized-return-calculations', annualizedReturnCalculationRoutes);
+app.use('/api/present-value-calculations', presentValueCanculationRoutes);
 
 // Serve client
 if (process.env.NODE_ENV === 'production') {
