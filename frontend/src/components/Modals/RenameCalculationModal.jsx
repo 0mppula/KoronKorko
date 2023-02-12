@@ -69,8 +69,13 @@ const RenameCalculationModal = ({
 			aria-modal={modalOpen ? true : false}
 			ref={outerModalRef}
 		>
-			<div className="compound-interest-modal" ref={innerModalRef}>
+			<form
+				className="compound-interest-modal"
+				ref={innerModalRef}
+				onSubmit={(e) => e.preventDefault()}
+			>
 				<button
+					type="button"
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
@@ -117,6 +122,7 @@ const RenameCalculationModal = ({
 						className="btn btn-block btn-secondary"
 						onClick={closeModal}
 						onKeyDown={(e) => checkKeyDown(e, closeModal)}
+						type="button"
 					>
 						Cancel
 					</button>
@@ -129,7 +135,7 @@ const RenameCalculationModal = ({
 						Save
 					</button>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 };

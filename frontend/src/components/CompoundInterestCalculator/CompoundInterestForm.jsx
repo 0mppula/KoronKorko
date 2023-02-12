@@ -318,6 +318,7 @@ const CompoundInterestForm = ({
 							onWheel={() => document.activeElement.blur()}
 						/>
 						<button
+							type="button"
 							className={`contribution-multiplier-icon-container 
 								${depositting() ? 'deposit' : 'withdraw'} `}
 							onClick={(e) => toggleContributionMultiplier(e)}

@@ -22,7 +22,7 @@ const SaveCalculationModal = ({
 
 	useCloseOnClickOutsideOrEsc(innerModalRef, modalOpen, setModalOpen);
 	useFocusTrap(outerModalRef, modalOpen);
-	
+
 	useEffect(() => {
 		if (modalOpen) {
 			calculationNameRef.current.focus();
@@ -64,8 +64,13 @@ const SaveCalculationModal = ({
 			aria-modal={modalOpen ? true : false}
 			ref={outerModalRef}
 		>
-			<div className="compound-interest-modal" ref={innerModalRef}>
+			<form
+				className="compound-interest-modal"
+				ref={innerModalRef}
+				onSubmit={(e) => e.preventDefault()}
+			>
 				<button
+					type="button"
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
 					onClick={() => setModalOpen(false)}
@@ -108,6 +113,7 @@ const SaveCalculationModal = ({
 				</div>
 				<div className="modal-footer">
 					<button
+						type="button"
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block btn-secondary"
 						onClick={closeModal}
@@ -124,7 +130,7 @@ const SaveCalculationModal = ({
 						Save
 					</button>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 };
