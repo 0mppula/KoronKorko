@@ -19,7 +19,7 @@ import {
 	updateCalculation,
 	createCalculation,
 	renameCalculation,
-} from '../../features/annualizedReturnCalculator/annualizedReturnCalculatorSlice';
+} from '../../features/ARC/annualizedReturnCalculatorSlice';
 import SaveCalculationModal from '../Modals/SaveCalculationModal';
 import RenameCalculationModal from '../Modals/RenameCalculationModal';
 
