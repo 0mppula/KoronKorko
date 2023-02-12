@@ -88,7 +88,6 @@ const CompoundInterestCalculator = () => {
 			)}
 			{report && (
 				<CompoundInterestBreakdown
-					user={user}
 					formData={formData}
 					report={report}
 					setReport={setReport}

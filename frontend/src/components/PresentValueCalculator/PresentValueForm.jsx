@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import BalanceInput from '../FormComponents/BalanceInput';
 import PercentInput from '../FormComponents/PercentInput';
@@ -11,17 +11,42 @@ import FormGroup from '../FormComponents/FormGroup';
 import CurrencySelector from '../FormComponents/CurrencySelector';
 import FormSelector from '../FormComponents/FormSelector';
 import FormControlsTop from '../FormComponents/FormControlsTop';
+import ImportCalculationModal from '../Modals/ImportCalculationModal';
+import SaveCalculationModal from '../Modals/SaveCalculationModal';
+import RenameCalculationModal from '../Modals/RenameCalculationModal';
+import {
+	closeCalculation,
+	deleteCalculation,
+	getCalculation,
+	getCalculations,
+	updateCalculation,
+	createCalculation,
+	renameCalculation,
+} from '../../features/presentValueCalculator/presentValueCalculatorSlice';
 
 const PresentValueCalculator = ({
+	user,
 	formData,
 	setFormData,
 	formErrors,
 	setFormErrors,
 	setReport,
 	setCalculationCount,
+	setActiveCalculationId,
 }) => {
+	const [calculationName, setCalculationName] = useState('');
+	const [saveModalOpen, setSaveModalOpen] = useState(false);
+	const [importModalOpen, setImportModalOpen] = useState(false);
+	const [renameModalOpen, setRenameModalOpen] = useState(false);
+
+	const { activeCalculation, calculations, isLoading } = useSelector(
+		(state) => state.presentValueCalculations
+	);
+
 	const { currency } = useSelector((state) => state.currency);
-	const { startingBalance, duration, discountRate, durationMultiplier } = formData;
+
+	const dispatch = useDispatch();
+	const { startingBalance, duration, discountRate, durationMultiplier } = formData || {};
 
 	const handleCalculation = (e) => {
 		e.preventDefault();
@@ -87,9 +112,100 @@ const PresentValueCalculator = ({
 		toast.success('Form cleared');
 	};
 
+	const closeAndResetCalculation = () => {
+		setFormData({
+			startingBalance: '',
+			duration: '',
+			durationMultiplier: durationMultipliers[0],
+			discountRate: '',
+		});
+
+		setReport(null);
+		setActiveCalculationId(null);
+		setCalculationName('');
+	};
+
+	const openSaveModal = () => {
+		if (user) {
+			if (formValidated()) {
+				if (!activeCalculation) {
+					// Prompt user to name the calculation
+					setSaveModalOpen(true);
+				} else {
+					const data = {
+						_id: activeCalculation._id,
+						name: calculationName,
+						formData,
+					};
+
+					// Update excisting active calculation
+					dispatch(updateCalculation(data));
+					setCalculationName('');
+				}
+			} else {
+				toast.error('Incorrect field values');
+			}
+		} else {
+			toast.error('Please login to save calculation');
+		}
+	};
+
+	const openRenameModal = () => {
+		setRenameModalOpen(true);
+	};
+
+	const openImportModal = () => {
+		if (user) {
+			setImportModalOpen(true);
+		} else {
+			toast.error('Please login to load a calculation');
+		}
+	};
+
+	const closeActiveCalculation = () => {
+		dispatch(closeCalculation());
+		closeAndResetCalculation();
+	};
+
 	return (
 		<div className="form">
-			<FormControlsTop resetForm={resetCalculator} />
+			<SaveCalculationModal
+				modalOpen={saveModalOpen}
+				setModalOpen={setSaveModalOpen}
+				calculationName={calculationName}
+				formData={formData}
+				setCalculationName={setCalculationName}
+				createCalculation={createCalculation}
+			/>
+
+			<ImportCalculationModal
+				modalOpen={importModalOpen}
+				setModalOpen={setImportModalOpen}
+				calculations={calculations}
+				getCalculation={getCalculation}
+				getCalculations={getCalculations}
+				deleteCalculation={deleteCalculation}
+				setActiveCalculationId={setActiveCalculationId}
+				isLoading={isLoading}
+			/>
+
+			<RenameCalculationModal
+				modalOpen={renameModalOpen}
+				setModalOpen={setRenameModalOpen}
+				activeCalculation={activeCalculation}
+				renameCalculation={renameCalculation}
+				calculationName={calculationName}
+				setCalculationName={setCalculationName}
+			/>
+
+			<FormControlsTop
+				activeCalculation={activeCalculation}
+				openRenameModal={openRenameModal}
+				closeActiveCalculation={closeActiveCalculation}
+				openImportModal={openImportModal}
+				openSaveModal={openSaveModal}
+				resetForm={resetCalculator}
+			/>
 
 			<form onSubmit={handleCalculation}>
 				<FormGroup>
