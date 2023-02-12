@@ -1,4 +1,4 @@
-const mongoose = require('module');
+const mongoose = require('mongoose');
 
 const presentValueCalculationSchema = mongoose.Schema(
 	{

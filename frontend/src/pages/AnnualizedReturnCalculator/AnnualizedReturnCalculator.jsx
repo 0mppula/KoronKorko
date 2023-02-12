@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useTitle } from '../../hooks/useTitle';
-import { reset } from '../../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
+import { reset } from '../../features/annualizedReturnCalculator/annualizedReturnCalculatorSlice';
 import { durationMultipliers } from '../../assets/data';
 import Spinner from '../../components/Loading/Loading';
 import PageHeading from '../../components/PageHeading/PageHeading';

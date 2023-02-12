@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from '../features/auth/authSlice';
 import compoundInterestCalculatorReducer from '../features/compoundInterestCalculator/compoundInterestCalculatorSlice';
-import annualizedReturnCalculatorReducer from '../features/AnnualizedReturnCalculator/annualizedReturnCalculatorSlice';
+import annualizedReturnCalculatorReducer from '../features/annualizedReturnCalculator/annualizedReturnCalculatorSlice';
 import themeReducer from '../features/theme/themeSlice';
 import currencyReducer from '../features/currency/currencySlice';
 
