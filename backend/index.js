@@ -17,11 +17,13 @@ const userRoutes = require('./routes/userRoutes');
 const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalculationRoutes');
 const annualizedReturnCalculationRoutes = require('./routes/AnnualizedReturnCalculationRoutes');
 const presentValueCanculationRoutes = require('./routes/PresentValueCalculationRoutes');
+const investmentTimeCalculationRoutes = require('./routes/InvestmentTimeCalculationRouotes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
 app.use('/api/annualized-return-calculations', annualizedReturnCalculationRoutes);
 app.use('/api/present-value-calculations', presentValueCanculationRoutes);
+app.use('/api/investment-time-calculations', investmentTimeCalculationRoutes);
 
 // Serve client
 if (process.env.NODE_ENV === 'production') {
