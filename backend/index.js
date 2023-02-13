@@ -18,12 +18,14 @@ const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalc
 const annualizedReturnCalculationRoutes = require('./routes/AnnualizedReturnCalculationRoutes');
 const presentValueCanculationRoutes = require('./routes/PresentValueCalculationRoutes');
 const investmentTimeCalculationRoutes = require('./routes/InvestmentTimeCalculationRouotes');
+const breakEvenPointCalculationRoutes = require('./routes/BreakEvenPointCalculationRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
 app.use('/api/annualized-return-calculations', annualizedReturnCalculationRoutes);
 app.use('/api/present-value-calculations', presentValueCanculationRoutes);
 app.use('/api/investment-time-calculations', investmentTimeCalculationRoutes);
+app.use('/api/break-even-point-calculations', breakEvenPointCalculationRoutes);
 
 // Serve client
 if (process.env.NODE_ENV === 'production') {
