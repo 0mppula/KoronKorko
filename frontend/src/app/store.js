@@ -5,6 +5,7 @@ import compoundInterestCalculatorReducer from '../features/compoundInterestCalcu
 import annualizedReturnCalculatorReducer from '../features/annualizedReturnCalculator/annualizedReturnCalculatorSlice';
 import presentValueCalculatorReducer from '../features/presentValueCalculator/presentValueCalculatorSlice';
 import investmentTimeCalculatorReducer from '../features/investmentTimeCalculator/investmentTimeCalculatorSlice';
+import breakEvenPointCalculatorReducer from '../features/breakEvenPointCalculator/breakEvenPointCalculatorSlice';
 import themeReducer from '../features/theme/themeSlice';
 import currencyReducer from '../features/currency/currencySlice';
 
@@ -15,6 +16,7 @@ export const store = configureStore({
 		annualizedReturnCalculations: annualizedReturnCalculatorReducer,
 		presentValueCalculations: presentValueCalculatorReducer,
 		investmentTimeCalculations: investmentTimeCalculatorReducer,
+		breakEvenPointCalculations: breakEvenPointCalculatorReducer,
 		theme: themeReducer,
 		currency: currencyReducer,
 	},
