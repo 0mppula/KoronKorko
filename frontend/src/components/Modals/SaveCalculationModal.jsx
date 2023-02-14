@@ -65,7 +65,7 @@ const SaveCalculationModal = ({
 			ref={outerModalRef}
 		>
 			<form
-				className="compound-interest-modal"
+				className="calculator-modal"
 				ref={innerModalRef}
 				onSubmit={(e) => e.preventDefault()}
 			>

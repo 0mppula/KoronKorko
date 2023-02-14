@@ -54,7 +54,7 @@ const ImportCalculationModal = ({
 			aria-modal={modalOpen ? true : false}
 			ref={outerModalRef}
 		>
-			<div className="compound-interest-modal" ref={innerModalRef}>
+			<div className="calculator-modal" ref={innerModalRef}>
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
