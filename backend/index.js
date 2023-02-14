@@ -16,16 +16,18 @@ app.use(express.urlencoded({ extended: false }));
 const userRoutes = require('./routes/userRoutes');
 const compoundInterestCalculationRoutes = require('./routes/compoundInterestCalculationRoutes');
 const annualizedReturnCalculationRoutes = require('./routes/AnnualizedReturnCalculationRoutes');
-const presentValueCanculationRoutes = require('./routes/PresentValueCalculationRoutes');
-const investmentTimeCalculationRoutes = require('./routes/InvestmentTimeCalculationRouotes');
+const presentValueCalculationRoutes = require('./routes/PresentValueCalculationRoutes');
+const investmentTimeCalculationRoutes = require('./routes/InvestmentTimeCalculationRoutes');
 const breakEvenPointCalculationRoutes = require('./routes/BreakEvenPointCalculationRoutes');
+const markupCalculationRoutes = require('./routes/MarkupCalculationRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/compound-interest-calculations', compoundInterestCalculationRoutes);
 app.use('/api/annualized-return-calculations', annualizedReturnCalculationRoutes);
-app.use('/api/present-value-calculations', presentValueCanculationRoutes);
+app.use('/api/present-value-calculations', presentValueCalculationRoutes);
 app.use('/api/investment-time-calculations', investmentTimeCalculationRoutes);
 app.use('/api/break-even-point-calculations', breakEvenPointCalculationRoutes);
+app.use('/api/markup-calculations', markupCalculationRoutes);
 
 // Serve client
 if (process.env.NODE_ENV === 'production') {
