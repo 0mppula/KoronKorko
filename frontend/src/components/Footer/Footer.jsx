@@ -38,7 +38,7 @@ const Footer = () => {
 							<Link url="https://expressjs.com/" text="Express.js" />
 							<Link url="https://reactjs.org/" text="React.js" />
 							<Link url="https://nodejs.org/" text="Node.js" />
-							<Link url="https://redux.js.org/" text="Redux.js" />
+							<Link url="https://redux-toolkit.js.org/" text="Redux-Toolkit.js" />
 						</ul>
 					</div>
 					<div className="footer-link-section">
@@ -48,7 +48,7 @@ const Footer = () => {
 						<ul>
 							<Link url="https://www.chartjs.org/" text="Chart.js" />
 							<Link
-								url="https://react-icons.github.io/react-icons/icons?name=fa"
+								url="https://github.com/reactchartjs/react-chartjs-2"
 								text="React Chartjs 2"
 							/>
 							<Link
