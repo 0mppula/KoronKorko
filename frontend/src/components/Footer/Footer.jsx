@@ -46,7 +46,6 @@ const Footer = () => {
 							<h2>Resources</h2>
 						</div>
 						<ul>
-							<Link url="https://www.chartjs.org/" text="Chart.js" />
 							<Link
 								url="https://github.com/reactchartjs/react-chartjs-2"
 								text="React Chartjs 2"
