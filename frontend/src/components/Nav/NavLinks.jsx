@@ -42,7 +42,7 @@ const NavLinks = ({
 		<ul className={`nav-links ${burgerActive ? 'active' : ''}`} ref={navLinksRef}>
 			<li>
 				<button
-					className="nav-icon"
+					className={`nav-icon ${burgerActive ? 'active' : ''}`}
 					onClick={() => handleDarkModeChange()}
 					onKeyDown={(e) => checkKeyDown(e, handleDarkModeChange)}
 					title={`${darkMode ? 'Switch to light mode' : 'Switch to dark mode'}`}
@@ -90,7 +90,7 @@ const NavLinks = ({
 						onKeyDown={(e) => checkKeyDown(e, () => setListOpen(!listOpen))}
 						aria-expanded={listOpen}
 					>
-						<button className='btn-block'>
+						<button className="btn-block">
 							{user.username} <FaCaretDown />
 						</button>
 					</li>

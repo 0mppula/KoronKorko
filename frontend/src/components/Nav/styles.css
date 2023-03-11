@@ -81,6 +81,13 @@ nav img {
 	font-size: 1.125rem;
 }
 
+.nav-links.active .nav-icon.active,
+.nav-links.active .user-options-toggler button {
+	width: 100%;
+    text-align: left;
+    justify-content: flex-end;
+}
+
 .user-options-toggler {
 	min-width: 110px;
 	position: relative;
