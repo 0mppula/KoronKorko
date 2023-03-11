@@ -48,6 +48,8 @@ const CompoundInterestBreakdown = ({
 	}, [report, darkMode]);
 
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+	ChartJS.defaults.font.family = cssVar('--font-main');
+	ChartJS.defaults.font.size = 13;
 
 	const { currency } = report;
 
