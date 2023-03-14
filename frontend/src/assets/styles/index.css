@@ -11,6 +11,7 @@
 	/* Text */
 	--clr-text-primary: #1b1b1b;
 	--clr-text-secondary: #5f5f5f;
+	--clr-button-text: #fafafa;
 	/* Primary Colors */
 	--clr-primary: #68498d;
 	--clr-primary-opacity-low: #68498d99;
@@ -47,6 +48,7 @@
 	/* Text */
 	--clr-text-primary: #fafafa;
 	--clr-text-secondary: #aeaeae;
+	--clr-button-text: #1b1b1b;
 	--clr-hover: #353535;
 	/* Primary Colors */
 	--clr-primary: #b69ed3;
@@ -133,9 +135,13 @@ input.custom-radio-input {
 	display: none;
 }
 
+input.custom-radio-input + label {
+	font-weight: 500;
+}
+
 input.custom-radio-input:checked + label {
 	background-color: var(--clr-primary);
-	color: var(--clr-white);
+	color: var(--clr-button-text);
 }
 
 a {
@@ -225,9 +231,10 @@ hr {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 1rem;
-	color: var(--clr-white);
+	color: var(--clr-button-text);
 	background-color: var(--clr-primary);
 	transition: var(--fast-transition);
+	font-weight: 500;
 }
 
 .btn:hover:not(.btn-static) {
