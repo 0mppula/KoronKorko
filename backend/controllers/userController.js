@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
 	// Check fields
 	if (!username || !email || !password) {
 		res.status(400);
-		throw new Error('Please fill in all fields');
+		throw new Error('Please fill in all fields.');
 	}
 
 	// Check if the user exists
@@ -21,7 +21,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	if (userExists) {
 		res.status(400);
-		throw new Error('User already exists');
+		throw new Error('User already exists.');
 	}
 
 	// Hash password
@@ -49,7 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		});
 	} else {
 		res.status(400);
-		throw new Error('Invalid user data');
+		throw new Error('Invalid user data.');
 	}
 });
 
@@ -71,7 +71,7 @@ const loginUser = asyncHandler(async (req, res) => {
 		});
 	} else {
 		res.status(400);
-		throw new Error('Invalid credentials');
+		throw new Error('Invalid credentials.');
 	}
 });
 
@@ -82,7 +82,7 @@ const updateUserPreferences = asyncHandler(async (req, res) => {
 	// Check if user exists
 	if (!req.user) {
 		res.status(401);
-		throw new Error('User not found');
+		throw new Error('User not found.');
 	}
 	const updatedUser = await User.findByIdAndUpdate(
 		req.user.id,

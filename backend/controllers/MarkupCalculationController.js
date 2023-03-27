@@ -8,7 +8,7 @@ const calculatorModel = require('../models/MarkupCalculationModel');
 const postCalculation = asyncHandler(async (req, res) => {
 	if (!req.body.name) {
 		res.status(400);
-		throw new Error('Please provide a name for your calculation');
+		throw new Error('Please provide a name for your calculation.');
 	}
 
 	const calculation = await calculatorModel.create({
@@ -37,19 +37,19 @@ const getCalculation = asyncHandler(async (req, res) => {
 
 	if (!calculation) {
 		res.status(400);
-		throw new Error('Calculation does not exist');
+		throw new Error('Calculation does not exist.');
 	}
 
 	// Check for user
 	if (!req.user) {
 		res.status(401);
-		throw new Error('User not found');
+		throw new Error('User not found.');
 	}
 
 	// Make sure the logged in user matches the calculation owner
 	if (calculation.user.toString() !== req.user.id) {
 		res.status(401);
-		throw new Error('User not authorized');
+		throw new Error('User not authorized.');
 	}
 
 	res.status(200).json(calculation);
@@ -63,19 +63,19 @@ const putCalculation = asyncHandler(async (req, res) => {
 
 	if (!calculation) {
 		res.status(400);
-		throw new Error('Calculation does not exist');
+		throw new Error('Calculation does not exist.');
 	}
 
 	// Check for user
 	if (!req.user) {
 		res.status(401);
-		throw new Error('User not found');
+		throw new Error('User not found.');
 	}
 
 	// Make sure the logged in user matches the calculation owner
 	if (calculation.user.toString() !== req.user.id) {
 		res.status(401);
-		throw new Error('User not authorized');
+		throw new Error('User not authorized.');
 	}
 
 	// If updating only name
@@ -107,19 +107,19 @@ const deleteCalculation = asyncHandler(async (req, res) => {
 
 	if (!calculation) {
 		res.status(400);
-		throw new Error('Calculation does not exist');
+		throw new Error('Calculation does not exist.');
 	}
 
 	// Check for user
 	if (!req.user) {
 		res.status(401);
-		throw new Error('User not found');
+		throw new Error('User not found.');
 	}
 
 	// Make sure the logged in user matches the calculation owner
 	if (calculation.user.toString() !== req.user.id) {
 		res.status(401);
-		throw new Error('User not authorized');
+		throw new Error('User not authorized.');
 	}
 
 	await calculation.remove();

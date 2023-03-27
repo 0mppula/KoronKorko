@@ -10,7 +10,7 @@ const addCreateCalculationCase = (builder, createCalculation) => {
 			state.isSuccess = true;
 			state.calculations.push(action.payload);
 			state.activeCalculation = action.payload;
-			state.message = 'New calculation created';
+			state.message = 'New calculation created.';
 			state.isError = false;
 		})
 		.addCase(createCalculation.rejected, (state, action) => {
@@ -53,7 +53,7 @@ const addGetCalculationCase = (builder, getCalculation) => {
 			state.isLoading = false;
 			state.isSuccess = true;
 			state.activeCalculation = action.payload;
-			state.message = `${action.payload.name} imported`;
+			state.message = `${action.payload.name} imported.`;
 			state.isError = false;
 		})
 		.addCase(getCalculation.rejected, (state, action) => {
@@ -75,7 +75,7 @@ const addUpdateCalculationCase = (builder, updateCalculation) => {
 			state.isLoading = false;
 			state.isSuccess = true;
 			state.activeCalculation = action.payload;
-			state.message = 'Calculation Saved';
+			state.message = 'Calculation Saved.';
 			state.isError = false;
 		})
 		.addCase(updateCalculation.rejected, (state, action) => {
@@ -97,7 +97,7 @@ const addRenameCalculationCase = (builder, renameCalculation) => {
 			state.isLoading = false;
 			state.isSuccess = true;
 			state.activeCalculation = action.payload;
-			state.message = 'Calculation Renamed';
+			state.message = 'Calculation Renamed.';
 			state.isError = false;
 		})
 		.addCase(renameCalculation.rejected, (state, action) => {
@@ -123,7 +123,7 @@ const addDeleteCalculationCase = (builder, deleteCalculation) => {
 			);
 			state.activeCalculation =
 				action.payload.id === state.activeCalculation?._id ? null : state.activeCalculation;
-			state.message = `${action.payload.name} deleted`;
+			state.message = `${action.payload.name} deleted.`;
 			state.isError = false;
 		})
 		.addCase(deleteCalculation.rejected, (state, action) => {
