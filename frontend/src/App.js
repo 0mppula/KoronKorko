@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { setDarkMode } from './features/theme/themeSlice';
@@ -23,7 +23,7 @@ import MarkupCalculator from './pages/MarkupCalculator/MarkupCalculator';
 import { setCurrency } from './features/currency/currencySlice';
 
 function App() {
-	const { user } = useSelector((state) => state.auth);
+	const { user, message } = useSelector((state) => state.auth);
 	const { darkMode } = useSelector((state) => state.theme);
 	const { currency } = useSelector((state) => state.currency);
 	const dispatch = useDispatch();
@@ -37,6 +37,13 @@ function App() {
 			setUserLoaded(true);
 		}
 	}, [user, userLoaded, dispatch]);
+
+	useEffect(() => {
+		if (message) {
+			// Show login and register greeting messages in toasts.
+			toast.success(message);
+		}
+	}, [message]);
 
 	useEffect(() => {
 		if (user) {

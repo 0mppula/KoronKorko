@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUserPreferences } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
 
 import { reset, logout } from '../../features/auth/authSlice';
 import { setDarkMode } from '../../features/theme/themeSlice';
@@ -31,6 +32,7 @@ const Nav = () => {
 		dispatch(reset());
 		dispatch(resetCompoundInterestCalculations());
 		navigate('/login');
+		toast.success('Logged out.');
 	};
 
 	const handleDarkModeChange = () => {
