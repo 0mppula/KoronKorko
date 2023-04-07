@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { formatCurrency, formatPercentage } from '../../helpers/format';
 import LoadingSmall from '../Loading/LoadingSmall';
@@ -7,20 +7,10 @@ import './styles.css';
 import ReportContainer from '../CalculatorReportComponents/ReportContainer';
 import ReportGroupContainer from '../CalculatorReportComponents/ReportGroupContainer';
 import ReportSummaryContainer from '../CalculatorReportComponents/ReportSummaryContainer';
+import { useScrollToReportContainer } from '../../hooks/useScrollToReportContainer';
 
 const CompoundInterestReport = ({ report, loadingCalculation, calculationCount }) => {
-	useEffect(() => {
-		// Scroll to the report container of the calculator when its "calculate" button is clicked.
-		const reportSummary = document.querySelector('.report-container');
-
-		if (loadingCalculation && reportSummary) {
-			window.scrollTo({
-				top: reportSummary.offsetTop - 60,
-				left: 0,
-				behavior: 'smooth',
-			});
-		}
-	}, [calculationCount]);
+	useScrollToReportContainer(calculationCount);
 
 	const {
 		futureValue,
