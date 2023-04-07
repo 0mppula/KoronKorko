@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './styles.css'
+import './styles.css';
 
 const Spinner = () => {
 	return (
 		<div className="loadingSpinnerContainer">
-			<div className="loadingSpinner"></div>
+			<div className="loadingSpinner" />
 		</div>
 	);
 };

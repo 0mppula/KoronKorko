@@ -32,6 +32,9 @@ const RenameCalculationModal = ({
 	useEffect(() => {
 		if (modalOpen) {
 			calculationNameRef.current.focus();
+		} else {
+			// Blur modals last focused element before closing.
+			document.activeElement.blur();
 		}
 	}, [modalOpen]);
 
@@ -78,8 +81,7 @@ const RenameCalculationModal = ({
 					type="button"
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
-					onClick={() => setModalOpen(false)}
-					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
+					onClick={closeModal}
 				>
 					<RiCloseLine />
 				</button>
@@ -106,6 +108,7 @@ const RenameCalculationModal = ({
 						/>
 						{calculationName && (
 							<div
+								role="button"
 								tabIndex={`${modalOpen ? 0 : -1}`}
 								className="input-icon-wrapper clear"
 								onClick={clearInput}
@@ -121,16 +124,15 @@ const RenameCalculationModal = ({
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block btn-secondary"
 						onClick={closeModal}
-						onKeyDown={(e) => checkKeyDown(e, closeModal)}
 						type="button"
 					>
 						Cancel
 					</button>
+
 					<button
 						tabIndex={`${modalOpen ? 0 : -1}`}
 						className="btn btn-block"
 						onClick={handleSave}
-						onKeyDown={(e) => checkKeyDown(e, handleSave)}
 					>
 						Save
 					</button>

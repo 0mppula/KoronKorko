@@ -3,7 +3,6 @@ import { RiCloseLine } from 'react-icons/ri';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 
-import checkKeyDown from '../../helpers/checkKeyDown';
 import useCloseOnClickOutsideOrEsc from '../../hooks/useCloseOnClickOutsideOrEsc';
 import useFocusTrap from '../../hooks/useFocusTrap';
 
@@ -30,6 +29,9 @@ const ImportCalculationModal = ({
 		if (modalOpen) {
 			dispatch(getCalculations());
 			setFetched(true);
+		} else {
+			// Blur modals last focused element before closing.
+			document.activeElement.blur();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalOpen]);
@@ -58,8 +60,7 @@ const ImportCalculationModal = ({
 				<button
 					tabIndex={`${modalOpen ? 0 : -1}`}
 					className="close-container"
-					onClick={() => setModalOpen(false)}
-					onKeyDown={(e) => checkKeyDown(e, () => setModalOpen(false))}
+					onClick={closeModal}
 				>
 					<RiCloseLine />
 				</button>
@@ -80,11 +81,6 @@ const ImportCalculationModal = ({
 											className="icon success"
 											title="Import calculation"
 											onClick={() => importCalculation(calculation._id)}
-											onKeyDown={(e) =>
-												checkKeyDown(e, () =>
-													importCalculation(calculation._id)
-												)
-											}
 										>
 											<FaFileImport />
 										</button>
@@ -94,11 +90,6 @@ const ImportCalculationModal = ({
 											className="icon danger"
 											title="Delete calculation"
 											onClick={() => removeCalculation(calculation._id)}
-											onKeyDown={(e) =>
-												checkKeyDown(e, () =>
-													removeCalculation(calculation._id)
-												)
-											}
 										>
 											<FaTrash />
 										</button>
