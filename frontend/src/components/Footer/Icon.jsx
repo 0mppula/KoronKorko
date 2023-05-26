@@ -1,6 +1,6 @@
-const Icon = ({ url, icon }) => {
+const Icon = ({ url, ariaLabel, icon }) => {
 	return (
-		<a href={url} target="_blank" rel="noopener noreferrer">
+		<a href={url} aria-label={ariaLabel} target="_blank" rel="noopener noreferrer">
 			{icon}
 		</a>
 	);

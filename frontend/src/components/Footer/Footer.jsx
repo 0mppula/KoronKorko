@@ -97,12 +97,25 @@ const Footer = () => {
 			</div>
 			<div className="footer-bottom">
 				<div className="footer-icons">
-					<Icon url="https://github.com/0mppula" icon={<FaGithub />} />
-					<Icon url="https://www.linkedin.com/in/omarkraidie/" icon={<FaLinkedin />} />
-					<Icon url="https://twitter.com/OmarKraidie" icon={<FaTwitter />} />
+					<Icon
+						url="https://github.com/0mppula"
+						icon={<FaGithub />}
+						ariaLabel="faGithub"
+					/>
+					<Icon
+						url="https://www.linkedin.com/in/omarkraidie/"
+						icon={<FaLinkedin />}
+						ariaLabel="Linkedin"
+					/>
+					<Icon
+						url="https://twitter.com/OmarKraidie"
+						icon={<FaTwitter />}
+						ariaLabel="Twitter"
+					/>
 					<Icon
 						url="https://www.youtube.com/channel/UCdpM1SUen7ZxX2owolyIGyQ"
 						icon={<FaYoutube />}
+						ariaLabel="Youtube"
 					/>
 				</div>
 				<p>Developed by Omar Kraidié.</p>

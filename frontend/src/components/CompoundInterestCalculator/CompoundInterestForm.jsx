@@ -319,6 +319,7 @@ const CompoundInterestForm = ({
 						/>
 						<button
 							type="button"
+							title={depositting() ? 'deposit' : 'withdraw'}
 							className={`contribution-multiplier-icon-container 
 								${depositting() ? 'deposit' : 'withdraw'} `}
 							onClick={(e) => toggleContributionMultiplier(e)}

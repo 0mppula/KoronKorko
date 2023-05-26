@@ -4,7 +4,7 @@ const ReportGroup = ({ header, value }) => {
 	return (
 		<div className="report-group">
 			<h3>{header}</h3>
-			<p>{value}</p>
+			<h4>{value}</h4>
 		</div>
 	);
 };
