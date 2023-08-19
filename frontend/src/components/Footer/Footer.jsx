@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaCode, FaEnvelope } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 import Link from './Link';
@@ -113,9 +113,9 @@ const Footer = () => {
 						ariaLabel="Email"
 					/>
 					<Icon
-						url="https://twitter.com/OmarKraidie"
-						icon={<FaTwitter />}
-						ariaLabel="Twitter"
+						url="https://github.com/0mppula/KoronKorko"
+						icon={<FaCode />}
+						ariaLabel="Source Code"
 					/>
 				</div>
 
