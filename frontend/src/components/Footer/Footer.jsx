@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 import Link from './Link';
@@ -108,17 +108,28 @@ const Footer = () => {
 						ariaLabel="Linkedin"
 					/>
 					<Icon
+						url="mailto:devomarkraidie@gmail.com"
+						icon={<FaEnvelope />}
+						ariaLabel="Email"
+					/>
+					<Icon
 						url="https://twitter.com/OmarKraidie"
 						icon={<FaTwitter />}
 						ariaLabel="Twitter"
 					/>
-					<Icon
-						url="https://www.youtube.com/channel/UCdpM1SUen7ZxX2owolyIGyQ"
-						icon={<FaYoutube />}
-						ariaLabel="Youtube"
-					/>
 				</div>
-				<p>Developed by Omar Kraidié.</p>
+
+				<p>
+					Developed by{' '}
+					<a
+						href="https://www.omarkraidie.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Omar Kraidié
+					</a>
+				</p>
+
 				<p>
 					Copyright <span className="copyright">{year}&copy;</span> Lahti, Finland. All
 					Rights Reserved.
