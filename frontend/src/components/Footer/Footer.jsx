@@ -115,7 +115,7 @@ const Footer = () => {
 					<Icon
 						url="https://github.com/0mppula/KoronKorko"
 						icon={<FaCode />}
-						ariaLabel="Source Code"
+						aria-label="Source code"
 					/>
 				</div>
 
