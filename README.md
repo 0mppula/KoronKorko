@@ -1,6 +1,6 @@
 # KoronKorko Web-Application
 
-KoronKorko is created using the MERN stack with vanilla JavaScript & CSS. And a remastered version has been developed using using Next.js, NextAuth, MondoDB, TypeScript & Tailwind CSS.
+KoronKorko is created using the MERN stack with vanilla JavaScript & CSS. A remastered version has been developed using using Next.js, NextAuth, MondoDB, TypeScript and Tailwind CSS.
 
 Check out the remastered version of [KoronKorko][KoronKorkoNew] or its [source code][KoronKorkoCodeNew].
 
