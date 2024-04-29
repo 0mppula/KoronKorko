@@ -1,19 +1,21 @@
 # KoronKorko Web-Application
 
+KoronKorko is created using the MERN stack with vanilla JavaScript & CSS. And a remastered version has been developed using using Next.js, NextAuth, MondoDB, TypeScript & Tailwind CSS.
+
+Check out the remastered version of [KoronKorko][KoronKorkoNew] or its [source code][KoronKorkoCodeNew].
+
 ## What is KoronKorko?
 
-[KoronKorko][0] is a finance web-application developed by [Omar Kraidié][dev]. KoronKorko has many different types of finance calculators. All the available calculators are listed below in this `README.md` file.
+[KoronKorko][0] is a finance web-application developed by [Omar Kraidié][dev]. KoronKorko has different types of finance calculators. All the available calculators are listed below in this `README.md` file.
 
 The users of KoronKorko can select a currency in which the monetary results of the calculators are printed. The selected currency will be saved either in local storage or in the authenticated users preferences.
 
-In Addition, authenticated users can:
+Authenticated users can:
 
--   create and save new calculations
+-   create new and save new calculations
 -   edit existing calculations
 -   import previously saved calculations
 -   delete previously saved calculations
-
-KoronKorko is created using the the MERN stack.
 
 ## Calculators of KoronKorko
 
@@ -63,3 +65,5 @@ Calculates the difference between the cost and the selling price of your product
 [4]: https://www.koronkorko.com/investment-time-calculator
 [5]: https://www.koronkorko.com/break-even-point-calculator
 [6]: https://www.koronkorko.com/markup-calculator
+[KoronKorkoNew]: https://www.koronkorko.com/
+[KoronKorkoCodeNew]: https://github.com/0mppula/next-koronkorko
