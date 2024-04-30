@@ -11,16 +11,28 @@ import { calculators } from './calculators';
 
 const featuredApps = [
 	{
+		name: 'Money Mapper',
+		url: 'https://moneymapper.vercel.app/',
+		description:
+			'An all-in-one personal finance tracker. Users can track and visualize their money, income, net worth, debts, and everything in between.',
+	},
+	{
 		name: 'CoinCaps',
 		url: 'https://coincaps.netlify.app/',
 		description:
-			'A web-application where the user can view the 1000 most valuable cryptocurrencies by market capitalization.',
+			'A web-application allowing the user to view the 250 most valuable cryptocurrencies by market capitalization.',
+	},
+	{
+		name: 'KoronKorko (Remastered)',
+		url: 'https://www.koronkorko.com/',
+		description:
+			'The remastered version of KoronKorko built with Next.js. It mirrors the current functionality, enabling users to utilize various financial calculators and save their results. However, the remastered version boasts slight improvements.',
 	},
 	{
 		name: 'WSB-Tickers',
 		url: 'https://wsb-tickers.netlify.app/',
 		description:
-			'App that displays the top 50 stocks discussed on reddit.com/r/wallstreetbets/',
+			'View the sentiment of the top 50 stocks mentioned on reddit.com/r/wallstreetbets before the closing of its API on October 14, 2023.',
 	},
 ];
 

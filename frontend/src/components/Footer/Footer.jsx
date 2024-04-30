@@ -74,11 +74,15 @@ const Footer = () => {
 								url="https://www.goodreads.com/review/list/135003326-0mppu?ref=nav_mybooks&shelf=programming"
 								text="Technology Books"
 							/>
-							<Link url="https://coincaps.netlify.app/" text="Project: CoinCaps" />
 							<Link
-								url="https://wsb-tickers.netlify.app/"
-								text="Project: WSB-Tickers"
+								url="https://www.koronkorko.com/"
+								text="Project: KoronKorko (Remastered)"
 							/>
+							<Link
+								url="https://moneymapper.vercel.app/"
+								text="Project: Money Mapper"
+							/>
+							<Link url="https://coincaps.netlify.app/" text="Project: CoinCaps" />
 						</ul>
 					</div>
 					<div className="footer-link-section">
