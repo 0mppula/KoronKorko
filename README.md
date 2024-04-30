@@ -64,4 +64,4 @@ Calculate the difference between the cost and the selling price of your product.
 [5]: https://koronkorko.herokuapp.com/break-even-point-calculator
 [6]: https://koronkorko.herokuapp.com/markup-calculator
 [KoronKorkoNew]: https://www.koronkorko.com/
-[KoronKorkoCodeNew]: https://github.com/0mppula/next-koronkorko
+[KoronKorkoCodeNew]: https://github.com/0mppula/koronkorko-remastered
