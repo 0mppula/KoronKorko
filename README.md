@@ -29,7 +29,7 @@ The compound interest is calculated from various inputs such as starting balance
 
 ### [Annualized Return Calculator][2]
 
-## Calculate the annualized return (CAGR), total percent return, and total profit of an investment.
+Calculate the annualized return (CAGR), total percent return, and total profit of an investment.
 
 ### [Present Value Calculator][3]
 
