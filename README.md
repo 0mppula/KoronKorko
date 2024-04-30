@@ -21,7 +21,7 @@ Authenticated users can:
 
 ### [Compound Interest Calculator][1]
 
-Calculates the compound interest of your investments and can show you how long your investments will last.
+Calculate the compound interest of an investment or determine how long your invested money can last.
 
 The compound interest is calculated from various inputs such as starting balance, interest rate, duration, contribution and more. The calculated interest data can be viewed in both numerical and visual form.
 
@@ -29,41 +29,39 @@ The compound interest is calculated from various inputs such as starting balance
 
 ### [Annualized Return Calculator][2]
 
-Calculates the annualized return (CAGR) and the the total percent return of your investment.
-
----
+## Calculate the annualized return (CAGR), total percent return, and total profit of an investment.
 
 ### [Present Value Calculator][3]
 
-Calculates the present value of your future investment with a specified discount rate.
+Calculate the present value of an investment with a specified discount rate.
 
 ---
 
 ### [Investment Time Calculator][4]
 
-Calculates the amount of time needed to grow an investment to a certain future value given an annual interest rate.
+Calculate the amount of time needed to grow an investment to a certain future value given an annual interest rate.
 
 ---
 
 ### [Break Even Point Calculator][5]
 
-Calculates the point at which total cost and total revenue are equal, meaning there is no loss or gain for your business.
+Calculate the point at which total cost equals total revenue, indicating neither profit nor loss for your business.
 
 ---
 
 ### [Markup Calculator][6]
 
-Calculates the difference between the cost and the selling price of your product.
+Calculate the difference between the cost and the selling price of your product.
 
 ---
 
 [dev]: https://github.com/0mppula
-[0]: https://www.koronkorko.com/
-[1]: https://www.koronkorko.com/compound-interest-calculator
-[2]: https://www.koronkorko.com/annualized-return-calculator
-[3]: https://www.koronkorko.com/present-value-calculator
-[4]: https://www.koronkorko.com/investment-time-calculator
-[5]: https://www.koronkorko.com/break-even-point-calculator
-[6]: https://www.koronkorko.com/markup-calculator
+[0]: https://koronkorko.herokuapp.com/
+[1]: https://koronkorko.herokuapp.com/compound-interest-calculator
+[2]: https://koronkorko.herokuapp.com/annualized-return-calculator
+[3]: https://koronkorko.herokuapp.com/present-value-calculator
+[4]: https://koronkorko.herokuapp.com/investment-time-calculator
+[5]: https://koronkorko.herokuapp.com/break-even-point-calculator
+[6]: https://koronkorko.herokuapp.com/markup-calculator
 [KoronKorkoNew]: https://www.koronkorko.com/
 [KoronKorkoCodeNew]: https://github.com/0mppula/next-koronkorko
